@@ -3,6 +3,7 @@ import SmoothScroll from './components/SmoothScroll';
 import CustomCursor from './components/CustomCursor';
 import ShaderBackground from './components/ShaderBackground';
 import SvgMaskText from './components/SvgMaskText';
+import Projects from './components/Projects';
 
 function App() {
   return (
@@ -26,18 +27,8 @@ function App() {
           </div>
         </section>
 
-        {/* Temporary Spacer to test scrolling and velocity distortion */}
-        <section className="h-[200vh] relative flex items-center justify-center border-t border-gray-800 bg-[#050505] z-10">
-          <div className="max-w-4xl px-8 text-center mix-blend-difference">
-            <h2 className="text-4xl sm:text-6xl font-bold uppercase mb-8" data-cursor="hover">
-              Brutalism & Motion
-            </h2>
-            <p className="text-xl opacity-70 leading-relaxed">
-              When you scroll fast, the WebGL shader in the background distorts based on your scroll velocity. 
-              If you are on mobile, tilt your phone to see the gyroscope parallax affect the massive typography above.
-            </p>
-          </div>
-        </section>
+        {/* The Projects Section */}
+        <Projects />
         
       </main>
     </SmoothScroll>
