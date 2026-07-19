@@ -2,9 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const TEAM = [
-  { name: 'Devansh Ganatra', role: 'CEO', link: 'https://www.linkedin.com/in/devansh-ganatra-254336317?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Dev Kacha', role: 'Technical Lead', link: 'https://www.linkedin.com/in/dev-kacha-6bba66291?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Mitrajsinh Rana', role: 'Creative Director', link: 'https://www.linkedin.com/in/rana-mitrajsinh-b06a45376?utm_source=share_via&utm_content=profile&utm_medium=member_ios' }
+  { name: 'Devansh Ganatra', link: 'https://www.linkedin.com/in/devansh-ganatra-254336317?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Dev Kacha', link: 'https://www.linkedin.com/in/dev-kacha-6bba66291?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Mitrajsinh Rana', link: 'https://www.linkedin.com/in/rana-mitrajsinh-b06a45376?utm_source=share_via&utm_content=profile&utm_medium=member_ios' }
 ];
 
 export default function AgencyFooter() {

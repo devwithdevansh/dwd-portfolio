@@ -7,6 +7,7 @@ import Work from './pages/Work';
 import About from './pages/About';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
+import { TranslationProvider } from './context/TranslationContext';
 
 // Wrapper for AnimatePresence to work with Router
 function AnimatedRoutes() {
@@ -35,11 +36,13 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <Router>
-      <Layout>
-        <AnimatedRoutes />
-      </Layout>
-    </Router>
+    <TranslationProvider>
+      <Router>
+        <Layout>
+          <AnimatedRoutes />
+        </Layout>
+      </Router>
+    </TranslationProvider>
   );
 }
 

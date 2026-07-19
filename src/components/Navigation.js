@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from '../context/TranslationContext';
+import CypherText from './CypherText';
 
 const navLinks = [
   { name: 'HOME', path: '/' },
@@ -13,6 +15,7 @@ const navLinks = [
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { language, setLanguage, languages } = useTranslation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -33,6 +36,20 @@ export default function Navigation() {
 
   return (
     <>
+      {/* Global Language Cypher Bar */}
+      <div className="fixed top-8 left-8 z-[100] flex gap-4 mix-blend-difference">
+        {languages.map(lang => (
+          <button 
+            key={lang}
+            onClick={() => setLanguage(lang)}
+            className={`text-sm font-bold uppercase tracking-widest transition-all ${language === lang ? 'text-[#EAB308]' : 'text-gray-500 hover:text-white'}`}
+            data-cursor="hover"
+          >
+            {lang}
+          </button>
+        ))}
+      </div>
+
       {/* Brutalist Hamburger Button */}
       <button 
         onClick={toggleMenu}
@@ -68,7 +85,7 @@ export default function Navigation() {
                       className="text-[12vw] sm:text-[8vw] font-black uppercase tracking-tighter leading-none hover:text-[#EAB308] transition-colors relative group block w-max"
                       data-cursor="hover"
                     >
-                      {link.name}
+                      <CypherText text={link.name} speed={20} delay={300 + (i * 100)} />
                       {/* Strikethrough effect on hover */}
                       <span className="absolute top-1/2 left-0 w-0 h-2 bg-[#EAB308] group-hover:w-full transition-all duration-500 ease-out" />
                     </Link>

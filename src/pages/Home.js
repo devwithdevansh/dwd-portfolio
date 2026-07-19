@@ -9,30 +9,38 @@ import AgencyFooter from '../components/AgencyFooter';
 
 export default function Home() {
   const { location, industry } = useParams();
+  
+  // Create a memoized, formatted location string
+  const displayLocation = useMemo(() => {
+    if (!location) return "THE INDUSTRY";
+    return location.toUpperCase();
+  }, [location]);
 
-  // Dynamic SEO Copy Logic
-  const displayLocation = location ? location.replace(/-/g, ' ').toUpperCase() : 'THE WORLD';
-  const displayIndustry = industry ? industry.replace(/-/g, ' ').toUpperCase() : 'BUSINESSES';
-
-  // Determine the shader theme based on the industry
-  const theme = useMemo(() => {
-    if (!industry) return 'default';
-    const ind = industry.toLowerCase();
-    if (ind.includes('jewel') || ind.includes('diamond')) return 'luxury';
-    if (ind.includes('hospital') || ind.includes('health')) return 'clinical';
-    if (ind.includes('school') || ind.includes('education')) return 'structured';
-    return 'default';
-  }, [industry]);
+  // Framer Motion for Kinetic Scroll
+  const scrollRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: scrollRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const textX1 = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+  const textX2 = useTransform(scrollYProgress, [0, 1], ["-50%", "0%"]);
 
   return (
-    <>
-      <ShaderBackground theme={theme} />
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      className="relative z-10 min-h-screen"
+    >
+      <ShaderBackground theme={industry || "default"} />
       
       {/* The Dynamic Shader Hero Section */}
       <section className="h-[120vh] relative flex flex-col items-center justify-center">
         
         {/* Interactive 3D Logo */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-48 h-48 z-30">
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-48 h-48 z-30 pointer-events-none">
           <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
             <Logo3D />
           </Canvas>
@@ -41,18 +49,33 @@ export default function Home() {
         {/* Dynamic Location Title */}
         <SvgMaskText textTop="DOMINATE" textBottom={displayLocation} />
         
-        <div className="absolute top-[20%] text-center px-4 mix-blend-difference z-20 pointer-events-none">
-          <p className="text-xl sm:text-2xl font-mono uppercase tracking-widest opacity-80">
-            Stop losing customers to ugly websites.
-          </p>
-          <p className="text-md sm:text-lg mt-4 opacity-50 max-w-2xl mx-auto">
-            We build bespoke digital experiences that make {displayIndustry} ready to work with us before even talking.
+        <div className="absolute bottom-10 left-10 mix-blend-difference z-20 pointer-events-none">
+          <p className="text-sm font-mono opacity-50 max-w-xs uppercase tracking-widest leading-loose">
+            We don't use templates. We engineer bespoke digital assets designed for one metric only: Revenue.
           </p>
         </div>
+      </section>
 
-        <div className="absolute bottom-32 flex flex-col items-center opacity-70 mix-blend-difference z-10 pointer-events-none">
-          <span className="uppercase tracking-[0.3em] text-sm mb-4">Scroll to explore</span>
-          <div className="w-[1px] h-16 bg-white animate-pulse" />
+      {/* Kinetic Typography Scroll Section */}
+      <section ref={scrollRef} className="py-32 overflow-hidden mix-blend-difference z-20 relative">
+        <motion.div style={{ x: textX1 }} className="whitespace-nowrap mb-16">
+          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-transparent [-webkit-text-stroke:2px_#EAB308]">
+            <CypherText text="WE HATE TEMPLATES." speed={10} /> <span className="text-[#F3F4F6]"><CypherText text="WE HATE TEMPLATES." speed={10} /></span>
+          </h2>
+        </motion.div>
+        
+        <motion.div style={{ x: textX2 }} className="whitespace-nowrap">
+          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-[#F3F4F6]">
+            <CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /> <span className="text-transparent [-webkit-text-stroke:2px_#06B6D4]"><CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /></span>
+          </h2>
+        </motion.div>
+      </section>
+
+      {/* Brutalist Tech Stack Ticker */}
+      <section className="py-16 border-t border-b border-gray-800 bg-[#050505] overflow-hidden whitespace-nowrap flex">
+        <div className="animate-[spin_20s_linear_infinite] [animation-direction:reverse] flex w-[200%] gap-8">
+           <span className="text-4xl font-mono opacity-30 tracking-[0.5em]">REACT // THREE.JS // MAKE.COM // NODE.JS // AWS // FRAMER MOTION // SHOPIFY //</span>
+           <span className="text-4xl font-mono opacity-30 tracking-[0.5em]">REACT // THREE.JS // MAKE.COM // NODE.JS // AWS // FRAMER MOTION // SHOPIFY //</span>
         </div>
       </section>
 
@@ -61,6 +84,6 @@ export default function Home() {
         <a href="/services" className="text-xl font-bold uppercase tracking-widest hover:text-[#EAB308] transition-colors" data-cursor="hover">What We Do →</a>
         <a href="/work" className="text-xl font-bold uppercase tracking-widest hover:text-[#EAB308] transition-colors" data-cursor="hover">Our Proof →</a>
       </div>
-    </>
+    </motion.div>
   );
 }

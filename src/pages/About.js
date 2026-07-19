@@ -10,12 +10,12 @@ const pageVariants = {
 };
 
 export default function About() {
-  const [traffic, setTraffic] = useState(5000);
-  const conversionRate = 0.015; // Assuming a 1.5% boost with good design
-  const avgOrderValue = 250;
+  const [dailyCustomers, setDailyCustomers] = useState(20);
+  const conversionBoost = 0.20; // Assume a 20% conversion bump from online presence
+  const avgTicketSize = 1000; // INR
   
-  // Calculate potential lost revenue per month
-  const lostRevenue = Math.floor(traffic * conversionRate * avgOrderValue);
+  // Calculate potential lost revenue per month (30 days)
+  const lostRevenue = Math.floor(dailyCustomers * 30 * conversionBoost * avgTicketSize);
 
   return (
     <motion.div
@@ -36,31 +36,32 @@ export default function About() {
         <div className="border border-gray-800 p-8 sm:p-16 mb-32 mix-blend-difference bg-[#050505]/50 backdrop-blur-md">
           <h2 className="text-3xl font-bold uppercase mb-4">The Cost of Bad Design</h2>
           <p className="font-mono opacity-60 mb-12 max-w-2xl">
-            A bad website doesn't just look ugly. It leaks money every single day. Use the slider below to see how much revenue you are losing by not working with us.
+            A bad website doesn't just look ugly. It leaks money every single day. If you don't have a 24/7 digital storefront, you are missing out on after-hours and online traffic. Use the slider below to see how much revenue you are losing by not working with us.
           </p>
           
           <div className="flex flex-col md:flex-row gap-16 items-center">
             <div className="flex-1 w-full">
               <label className="flex justify-between font-mono mb-4 text-xl">
-                <span>Monthly Traffic:</span>
-                <span className="text-[#06B6D4]">{traffic.toLocaleString()} visitors</span>
+                <span>Daily Shop Walk-ins / WhatsApp Messages:</span>
+                <span className="text-[#06B6D4]">{dailyCustomers.toLocaleString()} customers</span>
               </label>
               <input 
                 type="range" 
-                min="500" 
-                max="50000" 
-                step="500"
-                value={traffic}
-                onChange={(e) => setTraffic(Number(e.target.value))}
+                min="5" 
+                max="500" 
+                step="5"
+                value={dailyCustomers}
+                onChange={(e) => setDailyCustomers(Number(e.target.value))}
                 className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer"
                 data-cursor="hover"
               />
+              <p className="font-mono text-sm opacity-50 mt-4">*Assuming an average ticket size of ₹1,000</p>
             </div>
             
             <div className="flex-1 w-full text-center md:text-right">
               <span className="block font-mono opacity-60 mb-2 uppercase tracking-widest text-sm">Potential Lost Revenue</span>
               <span className="text-5xl sm:text-7xl font-black text-[#F43F5E]">
-                ${lostRevenue.toLocaleString()}
+                ₹{lostRevenue.toLocaleString()}
               </span>
               <span className="block font-mono opacity-60 mt-2">/ month</span>
             </div>

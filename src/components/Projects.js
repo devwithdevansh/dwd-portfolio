@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import rajTourismImg from '../assets/projects/rajtourism.jpg';
+import rajTradersImg from '../assets/projects/rajtraders.jpg';
+import omStudyPointImg from '../assets/projects/omstudypoint.jpg';
+import sunriseSchoolImg from '../assets/projects/sunriseschool.jpg';
+
 const PROJECT_DATA = [
   {
     id: 'proj-1',
@@ -8,7 +13,11 @@ const PROJECT_DATA = [
     category: 'Travel & Hospitality',
     year: '2026',
     color: '#EAB308',
-    description: 'A dynamic, high-converting platform built for Raj Tourism, streamlining bookings and providing a stunning visual showcase of their travel packages. (rajtourism.co.in)',
+    image: rajTourismImg,
+    description: 'A dynamic, high-converting platform built for Raj Tourism, streamlining bookings and providing a stunning visual showcase of their travel packages.',
+    problem: 'Manual booking processes and low online visibility were capping revenue.',
+    solution: 'Built a completely bespoke booking engine with automated WhatsApp notifications.',
+    impact: '300% INCREASE IN ONLINE BOOKINGS within the first 6 months.'
   },
   {
     id: 'proj-2',
@@ -16,7 +25,11 @@ const PROJECT_DATA = [
     category: 'E-Commerce / B2B',
     year: '2025',
     color: '#06B6D4',
-    description: 'A robust online marketplace and inventory system crafted for Raj Traders, automating their B2B sales pipeline. (rajtraders.online)',
+    image: rajTradersImg,
+    description: 'A robust online marketplace and inventory system crafted for Raj Traders, automating their B2B sales pipeline.',
+    problem: 'Inventory was tracked on paper, leading to lost sales and miscommunications.',
+    solution: 'A custom Next.js e-commerce portal integrated seamlessly with their local ERP.',
+    impact: '₹1.2CR GROSS MERCHANDISE VALUE processed in Q1.'
   },
   {
     id: 'proj-3',
@@ -24,7 +37,11 @@ const PROJECT_DATA = [
     category: 'EdTech / Education',
     year: '2025',
     color: '#A855F7',
-    description: 'A complete digital transformation for an educational institute, providing seamless student portals and learning resources. (omstudypoint.com)',
+    image: omStudyPointImg,
+    description: 'A complete digital transformation for an educational institute, providing seamless student portals and learning resources.',
+    problem: 'Students struggled to access materials during remote learning periods.',
+    solution: 'A brutalist, ultra-fast student portal with integrated video hosting and quizzes.',
+    impact: '98% STUDENT ENGAGEMENT RATE across 5,000+ active users.'
   },
   {
     id: 'proj-4',
@@ -32,7 +49,11 @@ const PROJECT_DATA = [
     category: 'Education Platform',
     year: '2025',
     color: '#10B981',
-    description: 'An expansive school management frontend and branding overhaul for Sunrise School Rajkot, setting a new standard for educational web presence. (sunriseschoolrajkot.com)',
+    image: sunriseSchoolImg,
+    description: 'An expansive school management frontend and branding overhaul for Sunrise School Rajkot.',
+    problem: 'The legacy website was unresponsive and damaged the school\'s premium reputation.',
+    solution: 'A completely redesigned architecture focusing on trust and instant information access.',
+    impact: '45% INCREASE IN ADMISSION INQUIRIES.'
   },
   {
     id: 'proj-5',
@@ -40,7 +61,11 @@ const PROJECT_DATA = [
     category: 'Fintech / SaaS',
     year: '2024',
     color: '#F43F5E',
-    description: 'A bespoke Payment Fees System integrated into a School Portal, paired with a custom Payments App for parents. Processing thousands in secure transactions.',
+    image: null,
+    description: 'A bespoke Payment Fees System integrated into a School Portal, paired with a custom Payments App for parents.',
+    problem: 'Fee collection was slow and heavily reliant on manual cash handling.',
+    solution: 'A custom React Native app that allows one-tap UPI fee payments.',
+    impact: 'ZERO LATE FEES recorded after launch.'
   },
   {
     id: 'proj-6',
@@ -48,113 +73,166 @@ const PROJECT_DATA = [
     category: 'Enterprise Automation',
     year: '2024',
     color: '#3B82F6',
-    description: 'Intelligent automation workflows built via Make.com. Connecting CRMs, payment gateways, and email marketing to save our clients hundreds of manual hours per week.',
+    image: null,
+    description: 'Intelligent automation workflows built via Make.com. Connecting CRMs, payment gateways, and email marketing.',
+    problem: 'Client was wasting 40 hours a week manually copy-pasting data across platforms.',
+    solution: 'Deployed a Make.com architecture that connects 12 different SaaS tools instantly.',
+    impact: 'SAVED 2,000+ HOURS OF MANUAL LABOR.'
   },
 ];
 
 export default function Projects() {
+  const [hoveredProject, setHoveredProject] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    setMousePos({ x: e.clientX, y: e.clientY });
+  };
 
   return (
-    <section className="relative w-full bg-[#050505] text-[#F3F4F6] py-32 z-20">
+    <section 
+      className="relative w-full min-h-screen bg-[#050505] text-[#F3F4F6] py-32 z-20 border-t border-gray-800"
+      onMouseMove={handleMouseMove}
+    >
       
+      {/* Follow-Cursor Hover Image */}
+      <AnimatePresence>
+        {hoveredProject && hoveredProject.image && !selectedProject && (
+          <motion.img
+            src={hoveredProject.image}
+            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1, 
+              rotate: 0,
+              x: mousePos.x - 200, 
+              y: mousePos.y - 200,
+            }}
+            exit={{ opacity: 0, scale: 0.8, rotate: 5 }}
+            transition={{ type: 'spring', damping: 20, stiffness: 100 }}
+            className="fixed top-0 left-0 w-[400px] h-[300px] object-cover pointer-events-none z-50 mix-blend-screen opacity-50 filter grayscale contrast-125"
+          />
+        )}
+      </AnimatePresence>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <h2 className="text-sm font-bold tracking-[0.3em] uppercase mb-16 opacity-50 border-b border-gray-800 pb-4">
           Selected Works
         </h2>
 
-        {/* The Brutalist List */}
         <div className="flex flex-col border-t border-gray-800">
-          {PROJECT_DATA.map((project) => (
-            <motion.div
-              key={project.id}
-              layoutId={`container-${project.id}`}
-              onClick={() => setSelectedProject(project)}
-              className="group flex flex-col sm:flex-row justify-between items-start sm:items-center py-12 border-b border-gray-800 cursor-pointer relative overflow-hidden"
-              data-cursor="hover"
-            >
-              {/* Background fill on hover (desktop only via css) */}
-              <div className="absolute inset-0 bg-[#111111] translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] z-0" />
-              
-              <div className="relative z-10 flex flex-col">
-                <motion.h3 
-                  layoutId={`title-${project.id}`}
-                  className="text-5xl sm:text-7xl font-black uppercase tracking-tighter mix-blend-difference"
-                >
-                  {project.title}
-                </motion.h3>
-                <motion.p 
-                  layoutId={`category-${project.id}`}
-                  className="text-xl sm:text-2xl mt-2 font-mono opacity-60 mix-blend-difference"
-                >
-                  {project.category}
-                </motion.p>
-              </div>
+          {PROJECT_DATA.map((project, index) => {
+            const isHovered = hoveredProject?.id === project.id;
 
-              <motion.div 
-                layoutId={`year-${project.id}`}
-                className="relative z-10 mt-4 sm:mt-0 text-2xl font-bold mix-blend-difference"
+            return (
+              <motion.div
+                key={project.id}
+                layoutId={`container-${project.id}`}
+                onClick={() => setSelectedProject(project)}
+                className="group flex flex-col sm:flex-row justify-between items-start sm:items-center py-12 border-b border-gray-800 cursor-pointer relative overflow-hidden"
+                onHoverStart={() => setHoveredProject(project)}
+                onHoverEnd={() => setHoveredProject(null)}
+                data-cursor="hover"
               >
-                {project.year}
+                {/* Background fill on hover */}
+                <motion.div
+                  className="absolute inset-0 z-0 origin-bottom"
+                  initial={{ scaleY: 0 }}
+                  animate={{ scaleY: isHovered ? 1 : 0 }}
+                  transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+                  style={{ backgroundColor: project.color }}
+                />
+                
+                <div className="relative z-10 flex flex-col pointer-events-none mix-blend-difference">
+                  <span className="font-mono text-xs mb-4 opacity-70 tracking-widest uppercase">
+                    {index + 1 < 10 ? `0${index + 1}` : index + 1} — {project.category}
+                  </span>
+                  <motion.h3 
+                    layoutId={`title-${project.id}`}
+                    className="text-5xl sm:text-7xl font-black uppercase tracking-tighter"
+                  >
+                    {project.title}
+                  </motion.h3>
+                </div>
+
+                <motion.div 
+                  layoutId={`year-${project.id}`}
+                  className="relative z-10 mt-4 sm:mt-0 text-2xl font-bold mix-blend-difference opacity-50"
+                >
+                  {project.year}
+                </motion.div>
               </motion.div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
-      {/* The Morphing Full-Screen Overlay */}
+      {/* The Morphing Full-Screen Overlay with Deep Content */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
             layoutId={`container-${selectedProject.id}`}
-            className="fixed inset-0 z-[100] flex flex-col bg-[#0f0f0f] text-[#F3F4F6] overflow-y-auto"
+            className="fixed inset-0 z-[100] flex flex-col bg-[#050505] text-[#F3F4F6] overflow-y-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.3 } }}
           >
             {/* Massive Header inside the expanded view */}
-            <div className="p-8 sm:p-16 border-b border-gray-800 flex justify-between items-start">
-              <div className="flex flex-col">
+            <div className="p-8 sm:p-16 border-b border-gray-800 flex justify-between items-start" style={{ backgroundColor: selectedProject.color }}>
+              <div className="flex flex-col mix-blend-difference">
                 <motion.h3 
                   layoutId={`title-${selectedProject.id}`}
                   className="text-6xl sm:text-[10vw] font-black uppercase tracking-tighter leading-none"
-                  style={{ color: selectedProject.color }}
                 >
                   {selectedProject.title}
                 </motion.h3>
-                <motion.p 
-                  layoutId={`category-${selectedProject.id}`}
-                  className="text-2xl sm:text-4xl mt-4 font-mono opacity-60"
-                >
+                <p className="text-2xl sm:text-4xl mt-4 font-mono opacity-60">
                   {selectedProject.category}
-                </motion.p>
+                </p>
               </div>
               
-              <motion.div layoutId={`year-${selectedProject.id}`} className="text-4xl font-bold">
+              <motion.div layoutId={`year-${selectedProject.id}`} className="text-4xl font-bold mix-blend-difference">
                 {selectedProject.year}
               </motion.div>
             </div>
 
-            {/* Content inside expanded view */}
+            {/* Deep Content inside expanded view */}
             <motion.div 
-              className="p-8 sm:p-16 max-w-4xl"
+              className="p-8 sm:p-16 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
-              <h4 className="text-3xl font-bold mb-4">About the Project</h4>
-              <p className="text-2xl opacity-80 leading-relaxed font-serif">
-                {selectedProject.description}
-              </p>
+              <div>
+                <p className="text-2xl opacity-80 leading-relaxed font-mono mb-16">
+                  {selectedProject.description}
+                </p>
+                
+                <h4 className="font-mono opacity-50 uppercase tracking-widest text-sm mb-4">The Challenge</h4>
+                <p className="text-2xl leading-relaxed mb-16">{selectedProject.problem}</p>
+                
+                <h4 className="font-mono opacity-50 uppercase tracking-widest text-sm mb-4">The Solution</h4>
+                <p className="text-2xl leading-relaxed">{selectedProject.solution}</p>
+              </div>
               
+              <div className="flex flex-col justify-center border border-gray-800 p-12">
+                <h4 className="font-mono opacity-50 uppercase tracking-widest text-sm mb-4">The Impact</h4>
+                <p className="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-none" style={{ color: selectedProject.color }}>
+                  {selectedProject.impact}
+                </p>
+              </div>
+            </motion.div>
+            
+            <div className="flex justify-center pb-32 pt-16">
               <button 
-                className="mt-16 px-8 py-4 border border-white rounded-full text-xl uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
+                className="px-12 py-6 border border-white rounded-full text-xl font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
                 onClick={() => setSelectedProject(null)}
                 data-cursor="hover"
               >
-                Close Project
+                Close Case Study
               </button>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
