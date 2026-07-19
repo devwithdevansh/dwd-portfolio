@@ -56,11 +56,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* The Projects Section */}
-      <Projects />
-
-      {/* Team & Contact Footer */}
-      <AgencyFooter />
+      {/* Teaser Links */}
+      <div className="absolute bottom-10 right-10 flex flex-col gap-4 text-right mix-blend-difference z-20">
+        <a href="/services" className="text-xl font-bold uppercase tracking-widest hover:text-[#EAB308] transition-colors" data-cursor="hover">What We Do →</a>
+        <a href="/work" className="text-xl font-bold uppercase tracking-widest hover:text-[#EAB308] transition-colors" data-cursor="hover">Our Proof →</a>
+      </div>
     </>
   );
 }
