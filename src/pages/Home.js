@@ -1,11 +1,17 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import ShaderBackground from '../components/ShaderBackground';
 import SvgMaskText from '../components/SvgMaskText';
-import Projects from '../components/Projects';
 import Logo3D from '../components/Logo3D';
-import AgencyFooter from '../components/AgencyFooter';
+import CypherText from '../components/CypherText';
+
+const pageVariants = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { duration: 0.8 } },
+  exit: { opacity: 0, transition: { duration: 0.5 } }
+};
 
 export default function Home() {
   const { location, industry } = useParams();
