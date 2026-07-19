@@ -4,27 +4,51 @@ import { motion, AnimatePresence } from 'framer-motion';
 const PROJECT_DATA = [
   {
     id: 'proj-1',
-    title: 'Ethereal Space',
-    category: 'Web Design / WebGL',
+    title: 'Raj Tourism',
+    category: 'Travel & Hospitality',
     year: '2026',
-    color: '#EAB308', // Yellow
-    description: 'A completely immersive 3D experience built with React Three Fiber and GSAP. Pushing the boundaries of browser rendering.',
+    color: '#EAB308',
+    description: 'A dynamic, high-converting platform built for Raj Tourism, streamlining bookings and providing a stunning visual showcase of their travel packages. (rajtourism.co.in)',
   },
   {
     id: 'proj-2',
-    title: 'Neon Brutal',
-    category: 'E-Commerce / Shopify',
+    title: 'Raj Traders',
+    category: 'E-Commerce / B2B',
     year: '2025',
-    color: '#06B6D4', // Cyan
-    description: 'An aggressive, highly-converting e-commerce template featuring stark contrasts and heavy typographic hierarchy.',
+    color: '#06B6D4',
+    description: 'A robust online marketplace and inventory system crafted for Raj Traders, automating their B2B sales pipeline. (rajtraders.online)',
   },
   {
     id: 'proj-3',
-    title: 'Minimalist Void',
-    category: 'Brand Identity',
+    title: 'Om Study Point',
+    category: 'EdTech / Education',
     year: '2025',
-    color: '#A855F7', // Purple
-    description: 'Stripping away everything non-essential to leave only pure, unadulterated aesthetic value.',
+    color: '#A855F7',
+    description: 'A complete digital transformation for an educational institute, providing seamless student portals and learning resources. (omstudypoint.com)',
+  },
+  {
+    id: 'proj-4',
+    title: 'Sunrise School',
+    category: 'Education Platform',
+    year: '2025',
+    color: '#10B981',
+    description: 'An expansive school management frontend and branding overhaul for Sunrise School Rajkot, setting a new standard for educational web presence. (sunriseschoolrajkot.com)',
+  },
+  {
+    id: 'proj-5',
+    title: 'School Pay App',
+    category: 'Fintech / SaaS',
+    year: '2024',
+    color: '#F43F5E',
+    description: 'A bespoke Payment Fees System integrated into a School Portal, paired with a custom Payments App for parents. Processing thousands in secure transactions.',
+  },
+  {
+    id: 'proj-6',
+    title: 'Workflow Engine',
+    category: 'Enterprise Automation',
+    year: '2024',
+    color: '#3B82F6',
+    description: 'Intelligent automation workflows built via Make.com. Connecting CRMs, payment gateways, and email marketing to save our clients hundreds of manual hours per week.',
   },
 ];
 
