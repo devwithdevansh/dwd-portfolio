@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { INDUSTRY_DATA } from '../data/IndustryData';
 import CypherText from './CypherText';
+import { Canvas } from '@react-three/fiber';
+import Hospital3D from './vectors/Hospital3D';
 
 export default function IndustryMatrix() {
   const [hoveredIndustry, setHoveredIndustry] = useState(null);
@@ -67,19 +69,29 @@ export default function IndustryMatrix() {
               </div>
               
               <div className="flex items-center gap-8 z-10">
-                {/* The Static Preview Image */}
-                <div className="relative w-32 h-20 md:w-64 md:h-40 overflow-hidden hidden sm:block opacity-60 group-hover:opacity-100 transition-opacity duration-500 shadow-2xl">
-                  <motion.img 
-                    src={ind.image} 
-                    alt={ind.name}
-                    className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700"
-                    initial={{ scale: 1 }}
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                  />
-                  {/* Subtle brutalist overlay frame */}
-                  <div className="absolute inset-0 border border-white/10 pointer-events-none" />
-                </div>
+                {/* The Static Preview Image or 3D Vector */}
+                {ind.id === 'hospitals' ? (
+                  <div className="relative w-32 h-32 md:w-64 md:h-64 flex items-center justify-center overflow-visible hidden sm:flex z-10 transition-transform duration-700 pointer-events-none group-hover:scale-[1.8] group-hover:-translate-x-12">
+                    <Canvas camera={{ position: [0, 0, 7], fov: 45 }} style={{ background: 'transparent' }}>
+                      <ambientLight intensity={1} />
+                      <directionalLight position={[10, 10, 5]} intensity={2} />
+                      <Hospital3D hovered={hoveredIndustry?.id === 'hospitals'} />
+                    </Canvas>
+                  </div>
+                ) : (
+                  <div className="relative w-32 h-20 md:w-64 md:h-40 overflow-hidden hidden sm:block opacity-60 group-hover:opacity-100 transition-opacity duration-500 shadow-2xl">
+                    <motion.img 
+                      src={ind.image} 
+                      alt={ind.name}
+                      className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700"
+                      initial={{ scale: 1 }}
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                    />
+                    {/* Subtle brutalist overlay frame */}
+                    <div className="absolute inset-0 border border-white/10 pointer-events-none" />
+                  </div>
+                )}
 
                 <span className="text-4xl opacity-0 group-hover:opacity-100 -translate-x-8 group-hover:translate-x-0 transition-all duration-500 mix-blend-difference text-white">
                   →
