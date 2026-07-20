@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import SvgMaskText from '../components/SvgMaskText';
 import CypherText from '../components/CypherText';
 import AgencyFooter from '../components/AgencyFooter';
 import { INDUSTRY_DATA } from '../data/IndustryData';

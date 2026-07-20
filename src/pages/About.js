@@ -23,6 +23,7 @@ export default function About() {
       animate="animate"
       exit="exit"
       className="relative z-10 pt-32 min-h-screen"
+    >
       
       <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-32">
         <h1 className="text-6xl sm:text-[8vw] font-black uppercase tracking-tighter leading-none mix-blend-difference text-[#F3F4F6] mb-8">

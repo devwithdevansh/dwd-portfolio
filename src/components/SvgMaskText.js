@@ -16,7 +16,6 @@ export default function SvgMaskText({ textTop, textBottom }) {
 
   useEffect(() => {
     if (window.matchMedia('(pointer: coarse)').matches) {
-      setIsTouch(true);
       
       // Mobile Device Orientation WOW Factor
       const handleOrientation = (e) => {
