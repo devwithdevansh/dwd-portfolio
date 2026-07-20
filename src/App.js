@@ -7,6 +7,7 @@ import Work from './pages/Work';
 import About from './pages/About';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
+import Industry from './pages/Industry';
 import { TranslationProvider } from './context/TranslationContext';
 
 // Wrapper for AnimatePresence to work with Router
@@ -25,10 +26,10 @@ function AnimatedRoutes() {
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
         
-        {/* Programmatic SEO Routes */}
+        {/* Programmatic SEO & Industry Routes */}
         <Route path="/location/:location" element={<Home />} />
-        <Route path="/industry/:industry" element={<Home />} />
-        <Route path="/location/:location/industry/:industry" element={<Home />} />
+        <Route path="/industry/:industry" element={<Industry />} />
+        <Route path="/location/:location/industry/:industry" element={<Industry />} />
       </Routes>
     </AnimatePresence>
   );

@@ -6,6 +6,7 @@ import ShaderBackground from '../components/ShaderBackground';
 import SvgMaskText from '../components/SvgMaskText';
 import Logo3D from '../components/Logo3D';
 import CypherText from '../components/CypherText';
+import IndustryMatrix from '../components/IndustryMatrix';
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -61,6 +62,9 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      {/* The Industry Selector Matrix */}
+      <IndustryMatrix />
 
       {/* Kinetic Typography Scroll Section */}
       <section ref={scrollRef} className="py-32 overflow-hidden mix-blend-difference z-20 relative">
