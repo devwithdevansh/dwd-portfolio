@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 const TEAM = [
   { name: 'Devansh Ganatra', link: 'https://www.linkedin.com/in/devansh-ganatra-254336317?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },

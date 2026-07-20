@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 export default function SvgMaskText({ textTop, textBottom }) {
-  const [isTouch, setIsTouch] = useState(false);
-
   // Motion values for parallax
   const x = useMotionValue(0);
   const y = useMotionValue(0);

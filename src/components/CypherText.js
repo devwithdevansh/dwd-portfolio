@@ -5,7 +5,7 @@ import { useTranslation } from '../context/TranslationContext';
 const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*+<>|{}[]';
 
 export default function CypherText({ text, speed = 30, delay = 0 }) {
-  const { translate, language } = useTranslation();
+  const { translate } = useTranslation();
   const targetText = translate(text);
   
   const [displayText, setDisplayText] = useState(targetText);

@@ -14,7 +14,7 @@ const pageVariants = {
 };
 
 export default function Home() {
-  const { location, industry } = useParams();
+  const { location } = useParams();
   
   // Create a memoized, formatted location string
   const displayLocation = useMemo(() => {
