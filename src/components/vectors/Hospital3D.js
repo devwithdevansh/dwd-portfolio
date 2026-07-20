@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Float, Edges } from '@react-three/drei';
+import { Float, Edges, Grid } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function Hospital3D({ hovered }) {
@@ -10,7 +10,7 @@ export default function Hospital3D({ hovered }) {
 
   useFrame((state, delta) => {
     if (group.current) {
-      // Smoothly rotate the entire campus (slower for detailed vector art)
+      // Smoothly rotate the entire blueprint campus
       group.current.rotation.y += delta * 0.1;
       
       const targetRotationX = hovered ? 0.15 : 0.1;
@@ -28,19 +28,21 @@ export default function Hospital3D({ hovered }) {
     }
   });
 
-  // Flat vector colors
-  const primaryColor = "#f8f9fa"; // Very light gray/white
-  const secondaryColor = "#e9ecef"; // Light gray for depth
-  const windowColor = "#06B6D4"; // Cyan vector windows
-  const crossColor = "#ef4444"; // Red medical cross
+  // Realistic Blueprint Colors
+  const blueprintGlass = "#020817"; // Very dark blue/black transparent body
+  const cyanGlow = "#00ffff"; // Glowing blueprint lines
+  const subtleGlow = "#0ea5e9"; // Secondary lines (windows)
+  const crossColor = "#ff0055"; // Bright pinkish red for the cross
   
-  // Vector Material: meshBasicMaterial has no lighting/shadows, giving a pure vector look.
-  const primaryMat = <meshBasicMaterial color={primaryColor} />;
-  const secondaryMat = <meshBasicMaterial color={secondaryColor} />;
-  const windowMat = <meshBasicMaterial color={windowColor} />;
-  const crossMat = <meshBasicMaterial color={crossColor} />;
+  // Blueprint Materials: transparent, depthWrite false for that X-Ray CAD look
+  const primaryMat = <meshBasicMaterial color={blueprintGlass} transparent opacity={0.6} depthWrite={false} />;
+  const secondaryMat = <meshBasicMaterial color={blueprintGlass} transparent opacity={0.8} depthWrite={false} />;
+  const windowMat = <meshBasicMaterial color={subtleGlow} transparent opacity={0.2} depthWrite={false} />;
+  const crossMat = <meshBasicMaterial color={crossColor} transparent opacity={0.8} depthWrite={false} />;
 
-  const edgeProps = { scale: 1.01, color: "#111111", threshold: 15 };
+  // Razor sharp cyan outlines
+  const edgeProps = { scale: 1.0, color: cyanGlow, threshold: 15 };
+  const windowEdgeProps = { scale: 1.0, color: subtleGlow, threshold: 15 };
 
   // Helper to generate rows of windows
   const renderWindows = (rows, cols, w, h, spacing, offsetX, offsetY, offsetZ) => {
@@ -58,6 +60,7 @@ export default function Hospital3D({ hovered }) {
           >
             <planeGeometry args={[w, h]} />
             {windowMat}
+            <Edges {...windowEdgeProps} />
           </mesh>
         );
       }
@@ -70,6 +73,19 @@ export default function Hospital3D({ hovered }) {
       {/* Start with an isometric-ish base rotation */}
       <group ref={group} rotation={[0.1, -0.5, 0]} scale={hovered ? 1.1 : 0.9} position={[0, -0.5, 0]}>
         
+        {/* ======================= */}
+        {/* BLUEPRINT GRID          */}
+        {/* ======================= */}
+        <Grid 
+          position={[0, -1.8, 0]} 
+          args={[10, 10]} 
+          cellColor={cyanGlow} 
+          sectionColor={cyanGlow} 
+          sectionThickness={1} 
+          cellThickness={0.3} 
+          fadeDistance={10} 
+        />
+
         {/* ======================= */}
         {/* CORE TOWER (Main Hosp)  */}
         {/* ======================= */}
@@ -107,11 +123,10 @@ export default function Hospital3D({ hovered }) {
             </mesh>
           </group>
 
-          {/* Medical Cross (Vector Red) */}
+          {/* Medical Cross (Hologram Red) */}
           <group position={[0, 1.2, 0.76]}>
-            <mesh><boxGeometry args={[0.2, 0.6, 0.02]} />{crossMat}</mesh>
-            <mesh><boxGeometry args={[0.6, 0.2, 0.02]} />{crossMat}</mesh>
-            <Edges {...edgeProps} scale={1.05} />
+            <mesh><boxGeometry args={[0.2, 0.6, 0.02]} />{crossMat}<Edges color={crossColor} /></mesh>
+            <mesh><boxGeometry args={[0.6, 0.2, 0.02]} />{crossMat}<Edges color={crossColor} /></mesh>
           </group>
 
           {/* Helipad on Roof */}
