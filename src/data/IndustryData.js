@@ -12,7 +12,7 @@ export const INDUSTRY_DATA = {
     avgTicketSize: 2000,
     metricUnit: "patients",
     shaderTheme: "clinical",
-    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop"
+    image: "/assets/industries/hospital.png"
   },
   cardetailing: {
     id: "cardetailing",
@@ -27,7 +27,7 @@ export const INDUSTRY_DATA = {
     avgTicketSize: 5000,
     metricUnit: "bookings",
     shaderTheme: "luxury",
-    image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=800&auto=format&fit=crop"
+    image: "/assets/industries/cardetailing.png"
   },
   factories: {
     id: "factories",
@@ -42,7 +42,7 @@ export const INDUSTRY_DATA = {
     avgTicketSize: 500000,
     metricUnit: "leads",
     shaderTheme: "structured",
-    image: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?q=80&w=800&auto=format&fit=crop"
+    image: "/assets/industries/factory.png"
   },
   jewelers: {
     id: "jewelers",
@@ -57,7 +57,7 @@ export const INDUSTRY_DATA = {
     avgTicketSize: 25000,
     metricUnit: "customers",
     shaderTheme: "luxury",
-    image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800&auto=format&fit=crop"
+    image: "/assets/industries/jeweler.png"
   },
   cafes: {
     id: "cafes",
@@ -72,7 +72,7 @@ export const INDUSTRY_DATA = {
     avgTicketSize: 800,
     metricUnit: "views",
     shaderTheme: "default",
-    image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800&auto=format&fit=crop"
+    image: "/assets/industries/cafe.png"
   },
   hotels: {
     id: "hotels",
@@ -87,7 +87,7 @@ export const INDUSTRY_DATA = {
     avgTicketSize: 3500,
     metricUnit: "searches",
     shaderTheme: "luxury",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop"
+    image: "/assets/industries/hotel.png"
   },
   schools: {
     id: "schools",
@@ -102,7 +102,7 @@ export const INDUSTRY_DATA = {
     avgTicketSize: 40000,
     metricUnit: "inquiries",
     shaderTheme: "structured",
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop"
+    image: "/assets/industries/school.png"
   },
   tuition: {
     id: "tuition",
@@ -117,7 +117,7 @@ export const INDUSTRY_DATA = {
     avgTicketSize: 15000,
     metricUnit: "leads",
     shaderTheme: "default",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800&auto=format&fit=crop"
+    image: "/assets/industries/tuition.png"
   },
   enterprise: {
     id: "enterprise",
@@ -132,6 +132,6 @@ export const INDUSTRY_DATA = {
     avgTicketSize: 200000,
     metricUnit: "leads",
     shaderTheme: "structured",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop"
+    image: "/assets/industries/enterprise.png"
   }
 };
