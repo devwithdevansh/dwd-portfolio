@@ -69,14 +69,17 @@ export default function IndustryMatrix() {
               </div>
               
               <div className="flex items-center gap-8 z-10">
-                {/* The Static Preview Image or 3D Vector */}
                 {ind.id === 'hospitals' ? (
-                  <div className="relative w-32 h-32 md:w-64 md:h-64 flex items-center justify-center overflow-visible hidden sm:flex z-10 transition-transform duration-700 pointer-events-none group-hover:scale-[1.8] group-hover:-translate-x-12">
-                    <Canvas camera={{ position: [0, 0, 7], fov: 45 }} style={{ background: 'transparent' }}>
-                      <ambientLight intensity={1} />
-                      <directionalLight position={[10, 10, 5]} intensity={2} />
-                      <Hospital3D hovered={hoveredIndustry?.id === 'hospitals'} />
-                    </Canvas>
+                  <div className="relative w-48 h-48 md:w-80 md:h-80 flex items-center justify-center overflow-visible hidden sm:flex z-10 transition-transform duration-700 pointer-events-none group-hover:scale-[1.8] group-hover:-translate-x-12">
+                    <motion.img 
+                      src="/assets/industries/hospital_hyperreal.png"
+                      alt="Detailed Hospital"
+                      className="w-full h-full object-contain mix-blend-screen filter drop-shadow-2xl"
+                      initial={{ y: 0 }}
+                      animate={{ y: [ -15, 15, -15 ] }} 
+                      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                      whileHover={{ scale: 1.15, rotate: -4 }}
+                    />
                   </div>
                 ) : (
                   <div className="relative w-32 h-20 md:w-64 md:h-40 overflow-hidden hidden sm:block opacity-60 group-hover:opacity-100 transition-opacity duration-500 shadow-2xl">
