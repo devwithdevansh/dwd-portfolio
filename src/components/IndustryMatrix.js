@@ -52,22 +52,39 @@ export default function IndustryMatrix() {
             <Link
               key={ind.id}
               to={`/industry/${ind.id}`}
-              className="group border-b border-gray-800 py-8 sm:py-12 flex items-center justify-between mix-blend-difference text-white transition-all duration-500"
+              className="group border-b border-gray-800 py-8 sm:py-12 flex items-center justify-between transition-all duration-500 relative"
               onMouseEnter={() => setHoveredIndustry(ind)}
               onMouseLeave={() => setHoveredIndustry(null)}
               data-cursor="hover"
             >
-              <div className="flex items-center gap-8 sm:gap-16">
+              <div className="flex items-center gap-8 sm:gap-16 mix-blend-difference text-white z-20">
                 <span className="font-mono text-xl opacity-30 group-hover:opacity-100 transition-opacity">
                   {index + 1 < 10 ? `0${index + 1}` : index + 1}
                 </span>
-                <h3 className="text-5xl sm:text-7xl md:text-[6vw] font-black uppercase tracking-tighter group-hover:pl-8 transition-all duration-500">
+                <h3 className="text-4xl sm:text-6xl md:text-[5vw] font-black uppercase tracking-tighter group-hover:pl-8 transition-all duration-500">
                   {ind.name}
                 </h3>
               </div>
-              <span className="text-4xl opacity-0 group-hover:opacity-100 -translate-x-8 group-hover:translate-x-0 transition-all duration-500">
-                →
-              </span>
+              
+              <div className="flex items-center gap-8 z-10">
+                {/* The Static Preview Image */}
+                <div className="relative w-32 h-20 md:w-64 md:h-40 overflow-hidden hidden sm:block opacity-60 group-hover:opacity-100 transition-opacity duration-500 shadow-2xl">
+                  <motion.img 
+                    src={ind.image} 
+                    alt={ind.name}
+                    className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700"
+                    initial={{ scale: 1 }}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                  />
+                  {/* Subtle brutalist overlay frame */}
+                  <div className="absolute inset-0 border border-white/10 pointer-events-none" />
+                </div>
+
+                <span className="text-4xl opacity-0 group-hover:opacity-100 -translate-x-8 group-hover:translate-x-0 transition-all duration-500 mix-blend-difference text-white">
+                  →
+                </span>
+              </div>
             </Link>
           ))}
         </div>
