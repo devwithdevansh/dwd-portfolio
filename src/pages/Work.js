@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Projects from '../components/Projects';
-import ShaderBackground from '../components/ShaderBackground';
 
 const pageVariants = {
   initial: { opacity: 0, y: 100 },
@@ -18,7 +17,6 @@ export default function Work() {
       exit="exit"
       className="relative z-10 pt-32 min-h-screen"
     >
-      <ShaderBackground theme="default" />
       <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-16">
         <h1 className="text-6xl sm:text-[8vw] font-black uppercase tracking-tighter leading-none mix-blend-difference text-[#F3F4F6]">
           OUR <span className="text-transparent [-webkit-text-stroke:2px_#EAB308]">WORK</span>

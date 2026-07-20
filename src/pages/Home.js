@@ -2,7 +2,6 @@ import React, { useMemo, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import ShaderBackground from '../components/ShaderBackground';
 import SvgMaskText from '../components/SvgMaskText';
 import Logo3D from '../components/Logo3D';
 import CypherText from '../components/CypherText';
@@ -41,8 +40,6 @@ export default function Home() {
       exit="exit"
       className="relative z-10 min-h-screen"
     >
-      <ShaderBackground theme={industry || "default"} />
-      
       {/* The Dynamic Shader Hero Section */}
       <section className="h-[120vh] relative flex flex-col items-center justify-center">
         

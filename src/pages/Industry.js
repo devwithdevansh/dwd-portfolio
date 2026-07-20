@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import ShaderBackground from '../components/ShaderBackground';
 import SvgMaskText from '../components/SvgMaskText';
 import CypherText from '../components/CypherText';
 import AgencyFooter from '../components/AgencyFooter';
@@ -33,8 +32,6 @@ export default function Industry() {
       exit="exit"
       className="relative z-10 min-h-screen"
     >
-      <ShaderBackground theme={data.shaderTheme} />
-      
       {/* Hero Section */}
       <section className="min-h-screen relative flex flex-col justify-center px-4 sm:px-16 pt-32 pb-16 z-20 mix-blend-difference">
         <h1 className="text-sm font-bold tracking-[0.5em] uppercase mb-16 opacity-50" style={{ color: data.color }}>

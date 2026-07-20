@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import ShaderBackground from '../components/ShaderBackground';
 
 const pageVariants = {
   initial: { opacity: 0, y: -100 },
@@ -17,7 +16,6 @@ export default function Contact() {
       exit="exit"
       className="relative z-10 pt-32 min-h-screen"
     >
-      <ShaderBackground theme="luxury" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <h1 className="text-6xl sm:text-[8vw] font-black uppercase tracking-tighter leading-none mix-blend-difference text-[#F3F4F6] mb-16">
