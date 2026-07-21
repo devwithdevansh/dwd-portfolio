@@ -22,7 +22,7 @@ export default function About() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="relative z-10 min-h-screen bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-[#F3F4F6] transition-colors duration-1000"
+      className="relative z-10 min-h-screen bg-transparent dark:bg-[#050505] text-slate-900 dark:text-[#F3F4F6] transition-colors duration-1000"
     >
       
       <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-32">

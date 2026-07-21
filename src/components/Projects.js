@@ -92,7 +92,7 @@ export default function Projects() {
 
   return (
     <section 
-      className="relative w-full min-h-screen bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-[#F3F4F6] py-32 z-20 border-t border-slate-200 dark:border-gray-800 transition-colors duration-1000"
+      className="relative w-full min-h-screen bg-transparent dark:bg-[#050505] text-slate-900 dark:text-[#F3F4F6] py-32 z-20 border-t border-slate-200/50 dark:border-gray-800 transition-colors duration-1000"
       onMouseMove={handleMouseMove}
     >
       

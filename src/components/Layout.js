@@ -6,6 +6,8 @@ import Navigation from './Navigation';
 import ShaderBackground from './ShaderBackground';
 import { INDUSTRY_DATA } from '../data/IndustryData';
 
+import LightMeshBackground from './LightMeshBackground';
+
 export default function Layout({ children }) {
   const location = useLocation();
 
@@ -31,8 +33,14 @@ export default function Layout({ children }) {
     <SmoothScroll>
       <CustomCursor />
       <Navigation />
-      <ShaderBackground theme={theme} />
-      <main className="min-h-screen bg-transparent text-[#F3F4F6] cursor-none font-sans overflow-hidden">
+      
+      {/* Backgrounds */}
+      <LightMeshBackground />
+      <div className="dark:opacity-100 opacity-0 transition-opacity duration-1000 fixed inset-0 z-0 pointer-events-none">
+        <ShaderBackground theme={theme} />
+      </div>
+
+      <main className="relative min-h-screen bg-transparent text-slate-900 dark:text-[#F3F4F6] cursor-none font-sans overflow-hidden transition-colors duration-1000 z-10">
         {children}
       </main>
     </SmoothScroll>

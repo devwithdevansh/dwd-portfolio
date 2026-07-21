@@ -58,7 +58,7 @@ export default function Industry() {
       </section>
 
       {/* The Industry-Tuned ROI Calculator */}
-      <section className="py-32 px-4 sm:px-16 border-t border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white z-20 relative mix-blend-difference transition-colors duration-1000">
+      <section className="py-32 px-4 sm:px-16 border-t border-slate-200/50 dark:border-gray-800 bg-transparent dark:bg-[#050505] text-slate-900 dark:text-white z-20 relative mix-blend-difference transition-colors duration-1000">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-none mb-8">
             The Cost of <span style={{ color: data.color }}>Bad Design</span>

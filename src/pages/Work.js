@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Projects from '../components/Projects';
+import CypherText from '../components/CypherText';
+import AgencyFooter from '../components/AgencyFooter';
 
 const pageVariants = {
   initial: { opacity: 0, y: 100 },
@@ -15,7 +17,7 @@ export default function Work() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="relative z-10 min-h-screen bg-slate-50 dark:bg-[#050505] transition-colors duration-1000"
+      className="relative z-10 min-h-screen bg-transparent dark:bg-[#050505] transition-colors duration-1000"
     >
       {/* Header Section */}
       <section className="pt-48 pb-32 px-4 sm:px-16 border-b border-slate-200 dark:border-gray-800">
