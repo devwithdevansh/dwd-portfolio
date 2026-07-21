@@ -6,9 +6,7 @@ import CypherText from './CypherText';
 
 const BentoCard = ({ ind, index }) => {
   const [hovered, setHovered] = useState(false);
-  const isHospital = ind.id === 'hospitals';
-  // Use the transparent perfectly extracted PNG for hospitals to showcase the expert integration
-  const imageSrc = isHospital ? '/assets/projects/city-hospital-building/hospital_transparent.png' : ind.image;
+  const imageSrc = ind.image;
 
   return (
     <Link 
@@ -37,12 +35,12 @@ const BentoCard = ({ ind, index }) => {
         <motion.img 
           src={imageSrc} 
           alt={ind.name}
-          className={`absolute ${isHospital ? 'w-[140%] md:w-[120%] h-[140%] md:h-[120%] object-contain object-bottom -right-8 -bottom-8' : 'w-full h-full object-cover'} transition-all duration-700`}
-          initial={{ opacity: 0.3, filter: 'grayscale(100%) brightness(0.8)' }}
+          className="absolute w-[120%] md:w-[100%] h-[120%] md:h-[100%] object-contain object-bottom -right-4 -bottom-4 transition-all duration-700"
+          initial={{ opacity: 0.2, filter: 'grayscale(100%) brightness(0.6)' }}
           animate={{
-            scale: hovered ? (isHospital ? 1.05 : 1.1) : 1,
-            opacity: hovered ? (isHospital ? 0.95 : 0.7) : 0.3,
-            filter: hovered ? 'grayscale(0%) brightness(1.1) contrast(1.1)' : 'grayscale(100%) brightness(0.8)',
+            scale: hovered ? 1.05 : 1,
+            opacity: hovered ? 0.85 : 0.25,
+            filter: hovered ? 'grayscale(0%) brightness(0.95)' : 'grayscale(100%) brightness(0.6)',
           }}
           style={{ mixBlendMode: hovered ? 'normal' : 'luminosity' }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
@@ -60,7 +58,7 @@ const BentoCard = ({ ind, index }) => {
       {/* Dynamic Hover Glow */}
       <motion.div 
          className="absolute inset-0 pointer-events-none mix-blend-screen z-20"
-         animate={{ opacity: hovered ? 0.3 : 0 }}
+         animate={{ opacity: hovered ? 0.15 : 0 }}
          style={{ background: `radial-gradient(circle at 80% 80%, ${ind.color || '#22d3ee'}, transparent 60%)` }}
       />
     </Link>
