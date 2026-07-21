@@ -12,7 +12,7 @@ export const INDUSTRY_DATA = {
     avgTicketSize: 2000,
     metricUnit: "patients",
     shaderTheme: "clinical",
-    image: "/assets/projects/city-hospital-building/7042.jpg"
+    image: "/assets/projects/city-hospital-building/magnific__upload__46338.png"
   },
   cardetailing: {
     id: "cardetailing",
