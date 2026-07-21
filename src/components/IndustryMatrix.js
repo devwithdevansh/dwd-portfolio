@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { INDUSTRY_DATA } from '../data/IndustryData';
 import CypherText from './CypherText';
-import FloatingIllustration from './FloatingIllustration';
+import PopOutIllustration from './PopOutIllustration';
 
 export default function IndustryMatrix() {
   const [hoveredIndustry, setHoveredIndustry] = useState(null);
@@ -70,7 +70,7 @@ export default function IndustryMatrix() {
               <div className="flex items-center gap-8 z-10">
                 {/* The Static Preview Image or 3D Vector */}
                 {ind.id === 'hospitals' ? (
-                  <FloatingIllustration src="/assets/projects/city-hospital-building/hospital_transparent.png" alt="Hospital Parallax" />
+                  <PopOutIllustration src="/assets/projects/city-hospital-building/hospital_transparent.png" hovered={hoveredIndustry?.id === 'hospitals'} />
                 ) : (
                   <div className="relative w-32 h-20 md:w-64 md:h-40 overflow-hidden hidden sm:block opacity-60 group-hover:opacity-100 transition-opacity duration-500 shadow-2xl rounded-xl z-10">
                     <motion.img 

@@ -49,7 +49,7 @@ export default function FloatingIllustration({ src, alt }) {
   return (
     <div 
       ref={containerRef}
-      className="relative w-48 h-48 md:w-80 md:h-80 hidden sm:block pointer-events-auto"
+      className="relative w-64 h-64 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] hidden sm:block pointer-events-auto"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: '1200px' }}
