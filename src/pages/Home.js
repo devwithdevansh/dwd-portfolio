@@ -68,20 +68,20 @@ export default function Home() {
       {/* Kinetic Typography Scroll Section */}
       <section ref={scrollRef} className="py-32 overflow-hidden mix-blend-difference z-20 relative">
         <motion.div style={{ x: textX1 }} className="whitespace-nowrap mb-16">
-          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-slate-900 dark:text-transparent dark:[-webkit-text-stroke:2px_#EAB308] transition-colors duration-1000">
-            <CypherText text="WE HATE TEMPLATES." speed={10} /> <span className="text-[#EAB308] dark:text-white"><CypherText text="WE HATE TEMPLATES." speed={10} /></span>
+          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-transparent [-webkit-text-stroke:2px_#FFF] dark:[-webkit-text-stroke:2px_#EAB308] transition-colors duration-1000">
+            <CypherText text="WE HATE TEMPLATES." speed={10} /> <span className="text-white"><CypherText text="WE HATE TEMPLATES." speed={10} /></span>
           </h2>
         </motion.div>
         
         <motion.div style={{ x: textX2 }} className="whitespace-nowrap">
-          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-slate-900 dark:text-white transition-colors duration-1000">
-            <CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /> <span className="text-[#06B6D4] dark:text-transparent dark:[-webkit-text-stroke:2px_#06B6D4]"><CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /></span>
+          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-white transition-colors duration-1000">
+            <CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /> <span className="text-transparent [-webkit-text-stroke:2px_#FFF] dark:[-webkit-text-stroke:2px_#06B6D4]"><CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /></span>
           </h2>
         </motion.div>
       </section>
 
       {/* Brutalist Tech Stack Ticker */}
-      <section className="py-16 border-t border-b border-white/50 dark:border-gray-800 bg-white/50 dark:bg-[#050505] backdrop-blur-xl overflow-hidden whitespace-nowrap flex transition-colors duration-1000">
+      <section className="py-16 border-t border-b border-slate-200 dark:border-gray-800 bg-white dark:bg-[#050505] overflow-hidden whitespace-nowrap flex transition-colors duration-1000">
         <div className="animate-[spin_20s_linear_infinite] [animation-direction:reverse] flex w-[200%] gap-8">
            <span className="text-4xl font-mono opacity-30 tracking-[0.5em] text-slate-900 dark:text-white">REACT // THREE.JS // MAKE.COM // NODE.JS // AWS // FRAMER MOTION // SHOPIFY //</span>
            <span className="text-4xl font-mono opacity-30 tracking-[0.5em] text-slate-900 dark:text-white">REACT // THREE.JS // MAKE.COM // NODE.JS // AWS // FRAMER MOTION // SHOPIFY //</span>

@@ -28,13 +28,13 @@ const BentoCard = ({ ind, index }) => {
   return (
     <Link 
       to={`/industry/${ind.id}`}
-      className={`group relative w-full rounded-3xl overflow-hidden bg-white/60 dark:bg-[#0a0a0a] backdrop-blur-2xl dark:backdrop-blur-none border border-white/80 dark:border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] dark:shadow-sm dark:hover:shadow-2xl hover:-translate-y-1 transition-all duration-700 block ${isLarge ? 'h-[32rem]' : 'h-[15.5rem]'}`}
+      className={`group relative w-full rounded-3xl overflow-hidden bg-white dark:bg-[#0a0a0a] border border-slate-200 dark:border-gray-800 hover:border-black dark:hover:border-gray-600 hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)] dark:shadow-sm dark:hover:shadow-2xl hover:-translate-y-1 transition-all duration-700 block ${isLarge ? 'h-[32rem]' : 'h-[15.5rem]'}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {/* Background Structural Grid */}
-      <div className="absolute inset-0 opacity-[0.4] dark:opacity-20 pointer-events-none mix-blend-multiply dark:mix-blend-overlay"
-           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23e2e8f0' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")` }}>
+      <div className="absolute inset-0 opacity-[0.2] dark:opacity-20 pointer-events-none mix-blend-multiply dark:mix-blend-overlay"
+           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23cbd5e1' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")` }}>
       </div>
 
       {/* Typography: Deep corporate tones or glowing white */}
@@ -53,11 +53,11 @@ const BentoCard = ({ ind, index }) => {
           src={imageSrc} 
           alt={ind.name}
           className="absolute w-[110%] h-[110%] object-contain object-bottom -right-4 -bottom-4 transition-all duration-700 mix-blend-normal dark:mix-blend-luminosity"
-          initial={{ opacity: 0.8, filter: 'grayscale(100%) contrast(120%) brightness(0.95)' }}
+          initial={{ opacity: 0.8, filter: 'grayscale(100%) contrast(150%) brightness(0.85)' }}
           animate={{
             scale: hovered ? 1.05 : 1,
             opacity: hovered ? 1 : 0.8,
-            filter: hovered ? `grayscale(0%) drop-shadow(0 20px 30px ${ind.color}30) contrast(105%) brightness(1)` : 'grayscale(100%) drop-shadow(0 0px 0px rgba(0,0,0,0)) contrast(120%) brightness(0.95)',
+            filter: hovered ? `grayscale(0%) drop-shadow(0 20px 30px ${ind.color}60) contrast(110%) brightness(1)` : 'grayscale(100%) drop-shadow(0 0px 0px rgba(0,0,0,0)) contrast(150%) brightness(0.85)',
           }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         />
@@ -85,7 +85,7 @@ export default function IndustryMatrix() {
   const industries = Object.values(INDUSTRY_DATA);
 
   return (
-    <section className="relative w-full min-h-screen bg-transparent dark:bg-[#050505] py-32 border-t border-slate-200/50 dark:border-gray-800 z-20 overflow-hidden transition-colors duration-1000">
+    <section className="relative w-full min-h-screen bg-transparent dark:bg-[#050505] py-32 border-t border-slate-200 dark:border-gray-800 z-20 overflow-hidden transition-colors duration-1000">
       
       {/* Soft corporate noise overlay */}
       <div className="absolute inset-0 opacity-[0.3] mix-blend-multiply dark:mix-blend-overlay pointer-events-none" 

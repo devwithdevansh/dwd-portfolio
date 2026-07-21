@@ -5,8 +5,7 @@ import CustomCursor from './CustomCursor';
 import Navigation from './Navigation';
 import ShaderBackground from './ShaderBackground';
 import { INDUSTRY_DATA } from '../data/IndustryData';
-
-import LightMeshBackground from './LightMeshBackground';
+import TechnicalGridBackground from './TechnicalGridBackground';
 
 export default function Layout({ children }) {
   const location = useLocation();
@@ -35,7 +34,7 @@ export default function Layout({ children }) {
       <Navigation />
       
       {/* Backgrounds */}
-      <LightMeshBackground />
+      <TechnicalGridBackground />
       <div className="dark:opacity-100 opacity-0 transition-opacity duration-1000 fixed inset-0 z-0 pointer-events-none">
         <ShaderBackground theme={theme} />
       </div>
