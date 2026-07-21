@@ -58,7 +58,7 @@ export default function Industry() {
       </section>
 
       {/* The Industry-Tuned ROI Calculator */}
-      <section className="py-32 px-4 sm:px-16 border-t border-gray-800 bg-[#050505] z-20 relative mix-blend-difference">
+      <section className="py-32 px-4 sm:px-16 border-t border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white z-20 relative mix-blend-difference transition-colors duration-1000">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-none mb-8">
             The Cost of <span style={{ color: data.color }}>Bad Design</span>
@@ -67,7 +67,7 @@ export default function Industry() {
             A generic website doesn't just look ugly. It actively bleeds trust and revenue every single day. Use the slider below to see how much money you are losing by giving your competitors an edge.
           </p>
           
-          <div className="border border-gray-800 p-8 sm:p-16 bg-[#050505]/50 backdrop-blur-md flex flex-col lg:flex-row gap-16 items-center">
+          <div className="border border-slate-200 dark:border-gray-800 p-8 sm:p-16 bg-white/50 dark:bg-[#050505]/50 backdrop-blur-md flex flex-col lg:flex-row gap-16 items-center">
             <div className="flex-1 w-full">
               <label className="flex flex-col sm:flex-row justify-between font-mono mb-8 text-xl gap-4">
                 <span>{data.metricLabel}</span>

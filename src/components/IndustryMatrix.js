@@ -28,21 +28,21 @@ const BentoCard = ({ ind, index }) => {
   return (
     <Link 
       to={`/industry/${ind.id}`}
-      className={`group relative w-full rounded-3xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-700 block ${isLarge ? 'h-[32rem]' : 'h-[15.5rem]'}`}
+      className={`group relative w-full rounded-3xl overflow-hidden bg-white dark:bg-[#0a0a0a] border border-slate-200 dark:border-gray-800 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-700 block ${isLarge ? 'h-[32rem]' : 'h-[15.5rem]'}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Background Structural Grid (Enterprise Vibe) */}
-      <div className="absolute inset-0 opacity-[0.4] pointer-events-none mix-blend-multiply"
+      {/* Background Structural Grid */}
+      <div className="absolute inset-0 opacity-[0.4] dark:opacity-20 pointer-events-none mix-blend-multiply dark:mix-blend-overlay"
            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23e2e8f0' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")` }}>
       </div>
 
-      {/* Typography: Deep corporate tones */}
-      <div className="absolute top-6 left-6 right-6 z-30 pointer-events-none">
+      {/* Typography: Deep corporate tones or glowing white */}
+      <div className="absolute top-6 left-6 right-6 z-30 pointer-events-none transition-colors duration-1000">
         <div className="text-[10px] font-bold uppercase tracking-[0.3em] mb-2 flex items-center gap-2" style={{ color: ind.color }}>
            <span className="w-4 h-[2px]" style={{ backgroundColor: ind.color }}></span> Sector {index + 1 < 10 ? `0${index + 1}` : index + 1}
         </div>
-        <h3 className="text-3xl lg:text-4xl font-black text-slate-900 uppercase tracking-tighter group-hover:pl-2 transition-all duration-500 break-words leading-none">
+        <h3 className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tighter group-hover:pl-2 transition-all duration-500 break-words leading-none">
           {ind.name}
         </h3>
       </div>
@@ -52,14 +52,13 @@ const BentoCard = ({ ind, index }) => {
         <motion.img 
           src={imageSrc} 
           alt={ind.name}
-          className="absolute w-[110%] h-[110%] object-contain object-bottom -right-4 -bottom-4 transition-all duration-700"
-          initial={{ opacity: 0.6, filter: 'grayscale(100%)' }}
+          className="absolute w-[110%] h-[110%] object-contain object-bottom -right-4 -bottom-4 transition-all duration-700 mix-blend-multiply dark:mix-blend-luminosity"
+          initial={{ opacity: 0.6, filter: 'grayscale(100%) brightness(1)' }}
           animate={{
             scale: hovered ? 1.05 : 1,
             opacity: hovered ? 1 : 0.6,
-            filter: hovered ? 'grayscale(0%) drop-shadow(0 20px 20px rgba(0,0,0,0.1))' : 'grayscale(100%) drop-shadow(0 0px 0px rgba(0,0,0,0))',
+            filter: hovered ? 'grayscale(0%) drop-shadow(0 20px 20px rgba(0,0,0,0.1)) brightness(1)' : 'grayscale(100%) drop-shadow(0 0px 0px rgba(0,0,0,0)) brightness(0.95)',
           }}
-          style={{ mixBlendMode: 'multiply' }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         />
       </div>
@@ -72,10 +71,10 @@ const BentoCard = ({ ind, index }) => {
          </span>
       </div>
 
-      {/* Dynamic Hover Gradient for Light Theme */}
+      {/* Dynamic Hover Gradient for Light/Dark Theme */}
       <motion.div 
-         className="absolute inset-0 pointer-events-none mix-blend-multiply z-20"
-         animate={{ opacity: hovered ? 0.05 : 0 }}
+         className="absolute inset-0 pointer-events-none mix-blend-multiply dark:mix-blend-screen z-20"
+         animate={{ opacity: hovered ? (document.documentElement.classList.contains('dark') ? 0.15 : 0.05) : 0 }}
          style={{ background: `radial-gradient(circle at 80% 80%, ${ind.color}, transparent 70%)` }}
       />
     </Link>
@@ -86,25 +85,25 @@ export default function IndustryMatrix() {
   const industries = Object.values(INDUSTRY_DATA);
 
   return (
-    <section className="relative w-full min-h-screen bg-slate-50 py-32 border-t border-slate-200 z-20 overflow-hidden transition-colors duration-1000">
+    <section className="relative w-full min-h-screen bg-slate-50 dark:bg-[#050505] py-32 border-t border-slate-200 dark:border-gray-800 z-20 overflow-hidden transition-colors duration-1000">
       
       {/* Soft corporate noise overlay */}
-      <div className="absolute inset-0 opacity-[0.3] mix-blend-multiply pointer-events-none" 
+      <div className="absolute inset-0 opacity-[0.3] mix-blend-multiply dark:mix-blend-overlay pointer-events-none" 
            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8">
         
-        {/* Header Section (Dark Text for Trust) */}
-        <div className="mb-24 text-slate-900">
+        {/* Header Section */}
+        <div className="mb-24 text-slate-900 dark:text-white transition-colors duration-1000">
           <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-none mb-8 max-w-4xl">
             <CypherText text="Most agencies sell you generic templates." speed={10} />
           </h2>
-          <p className="text-xl sm:text-2xl font-medium text-slate-600 max-w-3xl leading-relaxed">
+          <p className="text-xl sm:text-2xl font-medium text-slate-600 dark:text-gray-400 max-w-3xl leading-relaxed transition-colors duration-1000">
             Your business is unique, but your website looks identical to your competitors. 
             It is leaking money and bleeding trust every single day. Let's fix that.
           </p>
-          <p className="text-sm font-bold uppercase tracking-[0.5em] mt-16 text-slate-400">
+          <p className="text-sm font-bold uppercase tracking-[0.5em] mt-16 text-slate-400 dark:text-gray-500">
             Select Your Sector ↓
           </p>
         </div>

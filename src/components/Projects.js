@@ -92,7 +92,7 @@ export default function Projects() {
 
   return (
     <section 
-      className="relative w-full min-h-screen bg-[#050505] text-[#F3F4F6] py-32 z-20 border-t border-gray-800"
+      className="relative w-full min-h-screen bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-[#F3F4F6] py-32 z-20 border-t border-slate-200 dark:border-gray-800 transition-colors duration-1000"
       onMouseMove={handleMouseMove}
     >
       
@@ -173,13 +173,13 @@ export default function Projects() {
         {selectedProject && (
           <motion.div
             layoutId={`container-${selectedProject.id}`}
-            className="fixed inset-0 z-[100] flex flex-col bg-[#050505] text-[#F3F4F6] overflow-y-auto"
+            className="fixed inset-0 z-[100] flex flex-col bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-[#F3F4F6] overflow-y-auto transition-colors duration-1000"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.3 } }}
           >
             {/* Massive Header inside the expanded view */}
-            <div className="p-8 sm:p-16 border-b border-gray-800 flex justify-between items-start" style={{ backgroundColor: selectedProject.color }}>
+            <div className="p-8 sm:p-16 border-b border-slate-200 dark:border-gray-800 flex justify-between items-start" style={{ backgroundColor: selectedProject.color }}>
               <div className="flex flex-col mix-blend-difference">
                 <motion.h3 
                   layoutId={`title-${selectedProject.id}`}
@@ -216,7 +216,7 @@ export default function Projects() {
                 <p className="text-2xl leading-relaxed">{selectedProject.solution}</p>
               </div>
               
-              <div className="flex flex-col justify-center border border-gray-800 p-12">
+              <div className="flex flex-col justify-center border border-slate-200 dark:border-gray-800 p-12">
                 <h4 className="font-mono opacity-50 uppercase tracking-widest text-sm mb-4">The Impact</h4>
                 <p className="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-none" style={{ color: selectedProject.color }}>
                   {selectedProject.impact}
@@ -226,7 +226,7 @@ export default function Projects() {
             
             <div className="flex justify-center pb-32 pt-16">
               <button 
-                className="px-12 py-6 border border-white rounded-full text-xl font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
+                className="px-12 py-6 border border-slate-900 dark:border-white rounded-full text-xl font-bold uppercase tracking-widest hover:bg-slate-900 dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors"
                 onClick={() => setSelectedProject(null)}
                 data-cursor="hover"
               >

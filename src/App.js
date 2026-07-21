@@ -9,6 +9,7 @@ import Services from './pages/Services';
 import Contact from './pages/Contact';
 import Industry from './pages/Industry';
 import { TranslationProvider } from './context/TranslationContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 // Wrapper for AnimatePresence to work with Router
 function AnimatedRoutes() {
@@ -40,13 +41,15 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <TranslationProvider>
-      <Router>
-        <Layout>
-          <AnimatedRoutes />
-        </Layout>
-      </Router>
-    </TranslationProvider>
+    <ThemeProvider>
+      <TranslationProvider>
+        <Router>
+          <Layout>
+            <AnimatedRoutes />
+          </Layout>
+        </Router>
+      </TranslationProvider>
+    </ThemeProvider>
   );
 }
 

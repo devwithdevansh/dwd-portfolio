@@ -11,6 +11,13 @@ html, body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fafc; /* slate-50 */
+  color: #0f172a; /* slate-900 */
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Dark mode overrides */
+html.dark body {
   background-color: #050505;
   color: #F3F4F6;
 }

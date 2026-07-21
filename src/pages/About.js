@@ -22,7 +22,7 @@ export default function About() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="relative z-10 pt-32 min-h-screen"
+      className="relative z-10 min-h-screen bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-[#F3F4F6] transition-colors duration-1000"
     >
       
       <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-32">
@@ -31,7 +31,7 @@ export default function About() {
         </h1>
         
         {/* The Calculator */}
-        <div className="border border-gray-800 p-8 sm:p-16 mb-32 mix-blend-difference bg-[#050505]/50 backdrop-blur-md">
+        <div className="border border-slate-200 dark:border-gray-800 p-8 sm:p-16 mb-32 mix-blend-difference bg-white/50 dark:bg-[#050505]/50 backdrop-blur-md">
           <h2 className="text-3xl font-bold uppercase mb-4">The Cost of Bad Design</h2>
           <p className="font-mono opacity-60 mb-12 max-w-2xl">
             A bad website doesn't just look ugly. It leaks money every single day. If you don't have a 24/7 digital storefront, you are missing out on after-hours and online traffic. Use the slider below to see how much revenue you are losing by not working with us.

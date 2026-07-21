@@ -4,6 +4,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from '../context/TranslationContext';
 import CypherText from './CypherText';
 
+import ThemeToggle from './ThemeToggle';
+
 const navLinks = [
   { name: 'HOME', path: '/' },
   { name: 'SERVICES', path: '/services' },
@@ -37,7 +39,7 @@ export default function Navigation() {
   return (
     <>
       {/* Global Language Cypher Bar */}
-      <div className="fixed top-8 left-8 z-[100] flex gap-4 mix-blend-difference">
+      <div className="fixed top-8 left-8 z-[100] flex gap-4 mix-blend-difference pointer-events-auto">
         {languages.map(lang => (
           <button 
             key={lang}
@@ -48,6 +50,11 @@ export default function Navigation() {
             {lang}
           </button>
         ))}
+      </div>
+      
+      {/* Theme Toggle - Removed from mix-blend-difference to preserve colors */}
+      <div className="fixed top-6 left-64 z-[100] pointer-events-auto scale-75 transform-origin-left">
+        <ThemeToggle />
       </div>
 
       {/* Brutalist Hamburger Button */}
@@ -69,7 +76,7 @@ export default function Navigation() {
             animate={{ y: 0 }}
             exit={{ y: '-100%', transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] } }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-50 bg-[#050505] flex flex-col justify-center px-8 sm:px-24 border-b border-gray-800"
+            className="fixed inset-0 z-50 bg-white/95 dark:bg-[#050505] flex flex-col justify-center px-8 sm:px-24 border-b border-slate-200 dark:border-gray-800 transition-colors duration-1000"
           >
             <div className="flex flex-col space-y-4">
               {navLinks.map((link, i) => (
@@ -82,7 +89,7 @@ export default function Navigation() {
                   >
                     <Link 
                       to={link.path}
-                      className="text-[12vw] sm:text-[8vw] font-black uppercase tracking-tighter leading-none hover:text-[#EAB308] transition-colors relative group block w-max"
+                      className="text-[12vw] sm:text-[8vw] font-black uppercase tracking-tighter leading-none text-slate-900 dark:text-white hover:text-[#EAB308] transition-colors relative group block w-max"
                       data-cursor="hover"
                     >
                       <CypherText text={link.name} speed={20} delay={300 + (i * 100)} />
