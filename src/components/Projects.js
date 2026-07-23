@@ -130,7 +130,7 @@ export default function Projects() {
                 key={project.id}
                 layoutId={`container-${project.id}`}
                 onClick={() => setSelectedProject(project)}
-                className="group flex flex-col sm:flex-row justify-between items-start sm:items-center py-12 border-b border-gray-800 cursor-pointer relative overflow-hidden"
+                className="group flex flex-col sm:flex-row justify-between items-start sm:items-center py-12 border-b-2 border-slate-900 dark:border-b dark:border-gray-800 cursor-pointer relative overflow-hidden"
                 onHoverStart={() => setHoveredProject(project)}
                 onHoverEnd={() => setHoveredProject(null)}
                 data-cursor="hover"
@@ -144,7 +144,7 @@ export default function Projects() {
                   style={{ backgroundColor: project.color }}
                 />
                 
-                <div className="relative z-10 flex flex-col pointer-events-none mix-blend-difference">
+                <div className="relative z-10 flex flex-col pointer-events-none text-slate-900 dark:text-white transition-colors duration-1000">
                   <span className="font-mono text-xs mb-4 opacity-70 tracking-widest uppercase">
                     {index + 1 < 10 ? `0${index + 1}` : index + 1} — {project.category}
                   </span>
@@ -158,7 +158,7 @@ export default function Projects() {
 
                 <motion.div 
                   layoutId={`year-${project.id}`}
-                  className="relative z-10 mt-4 sm:mt-0 text-2xl font-bold mix-blend-difference opacity-50"
+                  className="relative z-10 mt-4 sm:mt-0 text-2xl font-bold text-slate-900 dark:text-white opacity-50 transition-colors duration-1000"
                 >
                   {project.year}
                 </motion.div>
@@ -180,7 +180,7 @@ export default function Projects() {
           >
             {/* Massive Header inside the expanded view */}
             <div className="p-8 sm:p-16 border-b border-slate-200 dark:border-gray-800 flex justify-between items-start" style={{ backgroundColor: selectedProject.color }}>
-              <div className="flex flex-col mix-blend-difference">
+              <div className="flex flex-col text-slate-900 dark:text-white transition-colors duration-1000">
                 <motion.h3 
                   layoutId={`title-${selectedProject.id}`}
                   className="text-6xl sm:text-[10vw] font-black uppercase tracking-tighter leading-none"
@@ -192,7 +192,7 @@ export default function Projects() {
                 </p>
               </div>
               
-              <motion.div layoutId={`year-${selectedProject.id}`} className="text-4xl font-bold mix-blend-difference">
+              <motion.div layoutId={`year-${selectedProject.id}`} className="text-4xl font-bold text-slate-900 dark:text-white transition-colors duration-1000">
                 {selectedProject.year}
               </motion.div>
             </div>

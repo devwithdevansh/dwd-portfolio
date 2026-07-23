@@ -91,7 +91,7 @@ const BrutalistMaterial = shaderMaterial(
 
 extend({ BrutalistMaterial });
 
-function ShaderPlane({ theme }) {
+function ShaderPlane({ theme, globalTheme }) {
   const materialRef = useRef();
   const { scrollY } = useScroll();
   const lastScrollY = useRef(0);
@@ -102,26 +102,28 @@ function ShaderPlane({ theme }) {
     if (!materialRef.current) return;
     
     let c1, c2, c3;
+    const isLight = globalTheme === 'light';
+
     switch (theme) {
-      case 'luxury': // Jewelers (Gold / Amber)
-        c1 = '#1a1200';
-        c2 = '#4a3500';
-        c3 = '#8a6500';
+      case 'luxury': // Jewelers
+        c1 = isLight ? '#fcf8e3' : '#1a1200';
+        c2 = isLight ? '#fffdf0' : '#4a3500';
+        c3 = isLight ? '#ffffff' : '#8a6500';
         break;
-      case 'clinical': // Hospitals (Deep Ocean / Teal)
-        c1 = '#001a1f';
-        c2 = '#004a5c';
-        c3 = '#007a99';
+      case 'clinical': // Hospitals
+        c1 = isLight ? '#e0f7fa' : '#001a1f';
+        c2 = isLight ? '#f0fdfa' : '#004a5c';
+        c3 = isLight ? '#ffffff' : '#007a99';
         break;
-      case 'structured': // Schools (Navy / Emerald)
-        c1 = '#001122';
-        c2 = '#003366';
-        c3 = '#006644';
+      case 'structured': // Schools
+        c1 = isLight ? '#e0f2fe' : '#001122';
+        c2 = isLight ? '#f0f9ff' : '#003366';
+        c3 = isLight ? '#ffffff' : '#006644';
         break;
-      default: // Default Agency (Dark Charcoal / Purple)
-        c1 = '#050505';
-        c2 = '#1a1a3a';
-        c3 = '#260d40';
+      default: // Default Agency
+        c1 = isLight ? '#e0e0e0' : '#050505';
+        c2 = isLight ? '#f5f5f5' : '#1a1a3a';
+        c3 = isLight ? '#ffffff' : '#260d40';
         break;
     }
     
@@ -129,7 +131,7 @@ function ShaderPlane({ theme }) {
     materialRef.current.uColor1.set(c1);
     materialRef.current.uColor2.set(c2);
     materialRef.current.uColor3.set(c3);
-  }, [theme]);
+  }, [theme, globalTheme]);
 
   useFrame((state, delta) => {
     if (materialRef.current) {
@@ -152,11 +154,11 @@ function ShaderPlane({ theme }) {
   );
 }
 
-export default function ShaderBackground({ theme = 'default' }) {
+export default function ShaderBackground({ theme = 'default', globalTheme = 'dark' }) {
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none w-full h-full">
+    <div className="fixed inset-0 z-0 pointer-events-none w-full h-full opacity-60">
       <Canvas camera={{ position: [0, 0, 1] }}>
-        <ShaderPlane theme={theme} />
+        <ShaderPlane theme={theme} globalTheme={globalTheme} />
       </Canvas>
     </div>
   );

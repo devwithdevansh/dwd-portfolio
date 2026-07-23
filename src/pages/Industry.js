@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import CypherText from '../components/CypherText';
 import AgencyFooter from '../components/AgencyFooter';
+import ProofMarquee from '../components/ProofMarquee';
 import { INDUSTRY_DATA } from '../data/IndustryData';
 
 const pageVariants = {
@@ -32,7 +33,7 @@ export default function Industry() {
       className="relative z-10 min-h-screen"
     >
       {/* Hero Section */}
-      <section className="min-h-screen relative flex flex-col justify-center px-4 sm:px-16 pt-32 pb-16 z-20 mix-blend-difference">
+      <section className="min-h-screen relative flex flex-col justify-center px-4 sm:px-16 pt-32 pb-16 z-20 text-slate-900 dark:text-white transition-colors duration-1000">
         <h1 className="text-sm font-bold tracking-[0.5em] uppercase mb-16 opacity-50" style={{ color: data.color }}>
           Industry Focus: {data.name}
         </h1>
@@ -57,17 +58,37 @@ export default function Industry() {
         </a>
       </section>
 
+      <ProofMarquee />
+
       {/* The Industry-Tuned ROI Calculator */}
-      <section className="py-32 px-4 sm:px-16 border-t border-slate-200/50 dark:border-gray-800 bg-transparent dark:bg-[#050505] text-slate-900 dark:text-white z-20 relative mix-blend-difference transition-colors duration-1000">
+      <section className="py-32 px-4 sm:px-16 border-t border-slate-200/50 dark:border-gray-800 bg-transparent dark:bg-[#050505] text-slate-900 dark:text-white z-20 relative transition-colors duration-1000">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-none mb-8">
             The Cost of <span style={{ color: data.color }}>Bad Design</span>
           </h2>
-          <p className="font-mono opacity-60 mb-16 max-w-3xl text-xl">
-            A generic website doesn't just look ugly. It actively bleeds trust and revenue every single day. Use the slider below to see how much money you are losing by giving your competitors an edge.
-          </p>
+          <div className="flex flex-col md:flex-row gap-8 mb-16 max-w-5xl">
+            <div className="flex-1">
+              <h4 className="font-bold text-xl uppercase tracking-widest mb-4 opacity-50 text-red-500">The Problem</h4>
+              <p className="font-mono text-xl">{data.painPoint}</p>
+            </div>
+            <div className="flex-1">
+              <h4 className="font-bold text-xl uppercase tracking-widest mb-4 opacity-50 text-green-500">The Solution</h4>
+              <p className="font-mono text-xl">{data.solution}</p>
+            </div>
+          </div>
           
-          <div className="border border-slate-200 dark:border-gray-800 p-8 sm:p-16 bg-white/50 dark:bg-[#050505]/50 backdrop-blur-md flex flex-col lg:flex-row gap-16 items-center">
+          <div className="border border-slate-200 dark:border-gray-800 p-8 sm:p-16 bg-white/50 dark:bg-[#050505]/50 backdrop-blur-md flex flex-col lg:flex-row gap-16 items-center relative overflow-hidden">
+            {/* Gamified Gamified Revenue Orb (Replaces Lottie) */}
+            <motion.div 
+              className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full blur-[100px] pointer-events-none mix-blend-screen opacity-20"
+              style={{ backgroundColor: data.color }}
+              animate={{ 
+                width: 300 + (metricValue / data.metricMax) * 500,
+                height: 300 + (metricValue / data.metricMax) * 500,
+                opacity: 0.1 + (metricValue / data.metricMax) * 0.4
+              }}
+              transition={{ type: "spring", bounce: 0.5 }}
+            />
             <div className="flex-1 w-full">
               <label className="flex flex-col sm:flex-row justify-between font-mono mb-8 text-xl gap-4">
                 <span>{data.metricLabel}</span>
@@ -95,7 +116,7 @@ export default function Industry() {
             
             <div className="flex-1 w-full text-center lg:text-right">
               <span className="block font-mono opacity-60 mb-4 uppercase tracking-widest text-sm">Potential Lost Revenue</span>
-              <span className="text-6xl sm:text-8xl font-black" style={{ color: '#F43F5E' }}>
+              <span className="text-6xl sm:text-8xl font-black text-white dark:text-[#F43F5E]">
                 ₹{lostRevenue.toLocaleString()}
               </span>
               <span className="block font-mono opacity-60 mt-4 text-xl">/ month</span>
@@ -105,11 +126,17 @@ export default function Industry() {
       </section>
 
       {/* Proof / Teaser */}
-      <section className="py-32 px-4 sm:px-16 border-t border-gray-800 z-20 relative flex flex-col items-center mix-blend-difference">
-         <h3 className="text-4xl font-black uppercase tracking-tighter mb-8">We let our work speak.</h3>
-         <Link to="/work" className="text-2xl font-mono opacity-60 hover:opacity-100 transition-opacity border-b border-white pb-2" data-cursor="hover">
-            View Our Case Studies →
-         </Link>
+      <section className="py-32 px-4 sm:px-16 border-t border-gray-800 z-20 relative flex flex-col items-center text-slate-900 dark:text-white transition-colors duration-1000 bg-slate-50 dark:bg-black">
+         <h3 className="text-4xl font-black uppercase tracking-tighter mb-8 text-center">{data.leadMagnet}</h3>
+         <p className="font-mono opacity-60 max-w-xl text-center mb-8">
+           Enter your email to receive our bespoke guide on dominating the {data.name.toLowerCase()} space digitally.
+         </p>
+         <div className="flex w-full max-w-md">
+           <input type="email" placeholder="YOUR EMAIL" className="flex-1 bg-transparent border-b-2 border-slate-900 dark:border-white p-4 outline-none font-mono" />
+           <button className="bg-slate-900 dark:bg-white text-white dark:text-black font-black uppercase px-8 hover:bg-[#EAB308] hover:text-black transition-colors">
+             Send It
+           </button>
+         </div>
       </section>
 
       <AgencyFooter />

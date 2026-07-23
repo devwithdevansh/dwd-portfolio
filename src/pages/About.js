@@ -26,22 +26,34 @@ export default function About() {
     >
       
       <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-32">
-        <h1 className="text-6xl sm:text-[8vw] font-black uppercase tracking-tighter leading-none mix-blend-difference text-[#F3F4F6] mb-8">
-          THE <span className="text-transparent [-webkit-text-stroke:2px_#06B6D4]">BRAINS</span>
+        <h1 className="text-6xl sm:text-[8vw] font-black uppercase tracking-tighter leading-none text-slate-900 dark:text-[#F3F4F6] mb-8 transition-colors duration-1000">
+          THE <span className="text-transparent [-webkit-text-stroke:2px_#0f172a] dark:[-webkit-text-stroke:2px_#06B6D4]">BRAINS</span>
         </h1>
         
         {/* The Calculator */}
-        <div className="border border-slate-200 dark:border-gray-800 p-8 sm:p-16 mb-32 mix-blend-difference bg-white/50 dark:bg-[#050505]/50 backdrop-blur-md">
+        <div className="border-2 border-slate-900 dark:border-gray-800 shadow-[12px_12px_0px_#0f172a] dark:shadow-none p-8 sm:p-16 mb-32 bg-white/80 dark:bg-[#050505]/50 backdrop-blur-md text-slate-900 dark:text-white transition-all duration-1000">
           <h2 className="text-3xl font-bold uppercase mb-4">The Cost of Bad Design</h2>
           <p className="font-mono opacity-60 mb-12 max-w-2xl">
             A bad website doesn't just look ugly. It leaks money every single day. If you don't have a 24/7 digital storefront, you are missing out on after-hours and online traffic. Use the slider below to see how much revenue you are losing by not working with us.
           </p>
           
-          <div className="flex flex-col md:flex-row gap-16 items-center">
-            <div className="flex-1 w-full">
+          <div className="flex flex-col md:flex-row gap-16 items-center relative overflow-hidden">
+            {/* Gamified Revenue Orb */}
+            <motion.div 
+              className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full blur-[80px] pointer-events-none mix-blend-screen opacity-20"
+              style={{ backgroundColor: '#F43F5E' }}
+              animate={{ 
+                width: 200 + (dailyCustomers / 500) * 400,
+                height: 200 + (dailyCustomers / 500) * 400,
+                opacity: 0.1 + (dailyCustomers / 500) * 0.3
+              }}
+              transition={{ type: "spring", bounce: 0.5 }}
+            />
+            
+            <div className="flex-1 w-full relative z-10">
               <label className="flex justify-between font-mono mb-4 text-xl">
                 <span>Daily Shop Walk-ins / WhatsApp Messages:</span>
-                <span className="text-[#06B6D4]">{dailyCustomers.toLocaleString()} customers</span>
+                <span className="text-slate-900 dark:text-[#06B6D4]">{dailyCustomers.toLocaleString()} customers</span>
               </label>
               <input 
                 type="range" 
@@ -58,7 +70,7 @@ export default function About() {
             
             <div className="flex-1 w-full text-center md:text-right">
               <span className="block font-mono opacity-60 mb-2 uppercase tracking-widest text-sm">Potential Lost Revenue</span>
-              <span className="text-5xl sm:text-7xl font-black text-[#F43F5E]">
+              <span className="text-5xl sm:text-7xl font-black text-slate-900 dark:text-[#F43F5E]">
                 ₹{lostRevenue.toLocaleString()}
               </span>
               <span className="block font-mono opacity-60 mt-2">/ month</span>

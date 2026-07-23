@@ -6,6 +6,8 @@ import SvgMaskText from '../components/SvgMaskText';
 import Logo3D from '../components/Logo3D';
 import CypherText from '../components/CypherText';
 import IndustryMatrix from '../components/IndustryMatrix';
+import ProofMarquee from '../components/ProofMarquee';
+import AgencyFooter from '../components/AgencyFooter';
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -51,31 +53,33 @@ export default function Home() {
         </div>
 
         {/* Dynamic Location Title */}
-        <div className="dark:invert-0 invert transition-all duration-1000">
+        <div className="transition-all duration-1000">
           <SvgMaskText textTop="DOMINATE" textBottom={displayLocation} />
         </div>
         
-        <div className="absolute bottom-10 left-10 mix-blend-difference z-20 pointer-events-none">
-          <p className="text-sm font-mono opacity-50 max-w-xs uppercase tracking-widest leading-loose text-white">
+        <div className="absolute bottom-10 left-10 z-20 pointer-events-none">
+          <p className="text-sm font-mono opacity-50 max-w-xs uppercase tracking-widest leading-loose text-slate-900 dark:text-white transition-colors duration-1000">
             We don't use templates. We engineer bespoke digital assets designed for one metric only: Revenue.
           </p>
         </div>
       </section>
 
+      <ProofMarquee />
+
       {/* The Industry Selector Matrix */}
       <IndustryMatrix />
 
       {/* Kinetic Typography Scroll Section */}
-      <section ref={scrollRef} className="py-32 overflow-hidden mix-blend-difference z-20 relative">
+      <section ref={scrollRef} className="py-32 overflow-hidden z-20 relative">
         <motion.div style={{ x: textX1 }} className="whitespace-nowrap mb-16">
-          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-transparent [-webkit-text-stroke:2px_#FFF] dark:[-webkit-text-stroke:2px_#EAB308] transition-colors duration-1000">
-            <CypherText text="WE HATE TEMPLATES." speed={10} /> <span className="text-white"><CypherText text="WE HATE TEMPLATES." speed={10} /></span>
+          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-transparent [-webkit-text-stroke:2px_#0f172a] dark:[-webkit-text-stroke:2px_#EAB308] transition-colors duration-1000">
+            <CypherText text="WE HATE TEMPLATES." speed={10} /> <span className="text-slate-900 dark:text-white"><CypherText text="WE HATE TEMPLATES." speed={10} /></span>
           </h2>
         </motion.div>
         
         <motion.div style={{ x: textX2 }} className="whitespace-nowrap">
-          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-white transition-colors duration-1000">
-            <CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /> <span className="text-transparent [-webkit-text-stroke:2px_#FFF] dark:[-webkit-text-stroke:2px_#06B6D4]"><CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /></span>
+          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-slate-900 dark:text-white transition-colors duration-1000">
+            <CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /> <span className="text-transparent [-webkit-text-stroke:2px_#0f172a] dark:[-webkit-text-stroke:2px_#06B6D4]"><CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /></span>
           </h2>
         </motion.div>
       </section>
@@ -88,11 +92,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Teaser Links */}
-      <div className="absolute bottom-10 right-10 flex flex-col gap-4 text-right mix-blend-difference z-20">
-        <a href="/services" className="text-xl font-bold uppercase tracking-widest text-white hover:text-[#EAB308] transition-colors" data-cursor="hover">What We Do →</a>
-        <a href="/work" className="text-xl font-bold uppercase tracking-widest text-white hover:text-[#EAB308] transition-colors" data-cursor="hover">Our Proof →</a>
-      </div>
+      <AgencyFooter />
     </motion.div>
   );
 }

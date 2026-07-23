@@ -2,13 +2,16 @@ import React, { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import SmoothScroll from './SmoothScroll';
 import CustomCursor from './CustomCursor';
+import WhatsAppChat from './WhatsAppChat';
 import Navigation from './Navigation';
 import ShaderBackground from './ShaderBackground';
 import { INDUSTRY_DATA } from '../data/IndustryData';
 import TechnicalGridBackground from './TechnicalGridBackground';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Layout({ children }) {
   const location = useLocation();
+  const { theme: globalTheme } = useTheme();
 
   const theme = useMemo(() => {
     // If we are on an industry page, pull the theme from the data
@@ -32,14 +35,15 @@ export default function Layout({ children }) {
     <SmoothScroll>
       <CustomCursor />
       <Navigation />
+      <WhatsAppChat />
       
       {/* Backgrounds */}
-      <TechnicalGridBackground />
-      <div className="dark:opacity-100 opacity-0 transition-opacity duration-1000 fixed inset-0 z-0 pointer-events-none">
-        <ShaderBackground theme={theme} />
+      <TechnicalGridBackground globalTheme={globalTheme} />
+      <div className="opacity-100 transition-opacity duration-1000 fixed inset-0 z-0 pointer-events-none">
+        <ShaderBackground theme={theme} globalTheme={globalTheme} />
       </div>
 
-      <main className="relative min-h-screen bg-transparent text-slate-900 dark:text-[#F3F4F6] cursor-none font-sans overflow-hidden transition-colors duration-1000 z-10">
+      <main className="relative min-h-screen bg-transparent text-slate-900 dark:text-[#F3F4F6] cursor-none font-sans overflow-hidden transition-colors duration-1000">
         {children}
       </main>
     </SmoothScroll>

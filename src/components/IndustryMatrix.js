@@ -28,7 +28,7 @@ const BentoCard = ({ ind, index }) => {
   return (
     <Link 
       to={`/industry/${ind.id}`}
-      className={`group relative w-full rounded-3xl overflow-hidden bg-white dark:bg-[#0a0a0a] border border-slate-200 dark:border-gray-800 hover:border-black dark:hover:border-gray-600 hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)] dark:shadow-sm dark:hover:shadow-2xl hover:-translate-y-1 transition-all duration-700 block ${isLarge ? 'h-[32rem]' : 'h-[15.5rem]'}`}
+      className={`group relative w-full rounded-3xl overflow-hidden bg-white dark:bg-[#0a0a0a] border-2 border-slate-200 dark:border-gray-800 hover:border-slate-900 dark:hover:border-gray-600 hover:shadow-[12px_12px_0px_#0f172a] dark:shadow-sm dark:hover:shadow-2xl hover:-translate-y-2 hover:-translate-x-2 transition-all duration-500 block ${isLarge ? 'h-[32rem]' : 'h-[15.5rem]'}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >

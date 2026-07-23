@@ -25,18 +25,18 @@ export default function Services() {
     >
       
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        <h1 className="text-6xl sm:text-[8vw] font-black uppercase tracking-tighter leading-none mix-blend-difference text-[#F3F4F6] mb-24">
-          WHAT WE <span className="text-transparent [-webkit-text-stroke:2px_#10B981]">DO</span>
+        <h1 className="text-6xl sm:text-[8vw] font-black uppercase tracking-tighter leading-none text-slate-900 dark:text-[#F3F4F6] mb-24 transition-colors duration-1000">
+          WHAT WE <span className="text-transparent [-webkit-text-stroke:2px_#FFF] dark:[-webkit-text-stroke:2px_#10B981]">DO</span>
         </h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mix-blend-difference">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-900 dark:text-white transition-colors duration-1000">
           {SERVICES.map((srv, i) => (
             <motion.div 
               key={i}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 + (i * 0.1), duration: 0.8 }}
-              className="border border-gray-800 p-8 sm:p-12 hover:bg-[#111] transition-colors group cursor-pointer"
+              className="border-2 border-slate-900 dark:border-gray-800 p-8 sm:p-12 hover:shadow-[12px_12px_0px_#0f172a] dark:hover:shadow-none hover:-translate-y-2 hover:-translate-x-2 bg-white/80 dark:bg-transparent dark:hover:bg-white/5 transition-all duration-300 group cursor-pointer"
               data-cursor="hover"
             >
               <h2 className="text-4xl font-black uppercase tracking-tighter mb-4 transition-colors" style={{ color: srv.color }}>

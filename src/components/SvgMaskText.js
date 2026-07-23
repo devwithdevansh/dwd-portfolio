@@ -60,12 +60,12 @@ export default function SvgMaskText({ textTop, textBottom }) {
     <div className="relative w-full h-full flex flex-col items-center justify-center z-10 pointer-events-none">
       <motion.div 
         style={{ x: xOffset, y: yOffset }}
-        className="text-center mix-blend-difference"
+        className="text-center"
       >
-        <h1 className="text-[12vw] sm:text-[15vw] font-black tracking-tighter leading-[0.8] uppercase text-[#F3F4F6]">
+        <h1 className="text-[12vw] sm:text-[15vw] font-black tracking-tighter leading-[0.8] uppercase text-slate-900 dark:text-[#F3F4F6] transition-colors duration-1000">
           {textTop}
         </h1>
-        <h1 className="text-[12vw] sm:text-[15vw] font-black tracking-tighter leading-[0.8] uppercase text-transparent [-webkit-text-stroke:2px_#EAB308] sm:[-webkit-text-stroke:4px_#EAB308]">
+        <h1 className="text-[12vw] sm:text-[15vw] font-black tracking-tighter leading-[0.8] uppercase text-transparent [-webkit-text-stroke:2px_#0f172a] dark:[-webkit-text-stroke:2px_#EAB308] sm:[-webkit-text-stroke:4px_#0f172a] dark:sm:[-webkit-text-stroke:4px_#EAB308] transition-colors duration-1000">
           {textBottom}
         </h1>
       </motion.div>

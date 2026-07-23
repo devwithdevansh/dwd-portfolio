@@ -11,7 +11,11 @@ export default function ThemeToggle() {
         type="checkbox" 
         className="theme-switch__checkbox" 
         checked={theme === 'dark'}
-        onChange={toggleTheme} 
+        onChange={() => {}} 
+        onClick={(e) => {
+          e.preventDefault(); // prevent double toggle since we manually set state
+          toggleTheme(e);
+        }}
       />
       <div className="theme-switch__container">
         <div className="theme-switch__clouds"></div>

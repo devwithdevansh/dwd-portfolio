@@ -16,8 +16,47 @@ export function ThemeProvider({ children }) {
     }
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  const toggleTheme = (e) => {
+    // If browser doesn't support View Transitions or we don't have an event, just toggle normally
+    if (!document.startViewTransition || !e) {
+      setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+      return;
+    }
+
+    // Get click position for the center of the circular reveal
+    const x = e.clientX ?? window.innerWidth / 2;
+    const y = e.clientY ?? window.innerHeight / 2;
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    const isDark = theme === 'dark';
+    
+    // We start the view transition
+    const transition = document.startViewTransition(() => {
+      setTheme(isDark ? 'light' : 'dark');
+    });
+
+    transition.ready.then(() => {
+      const clipPath = [
+        `circle(0px at ${x}px ${y}px)`,
+        `circle(${endRadius}px at ${x}px ${y}px)`,
+      ];
+
+      document.documentElement.animate(
+        {
+          clipPath: isDark ? [...clipPath].reverse() : clipPath,
+        },
+        {
+          duration: 800,
+          easing: 'cubic-bezier(0.76, 0, 0.24, 1)',
+          pseudoElement: isDark
+            ? '::view-transition-old(root)'
+            : '::view-transition-new(root)',
+        }
+      );
+    });
   };
 
   return (
