@@ -62,10 +62,10 @@ export default function SvgMaskText({ textTop, textBottom }) {
         style={{ x: xOffset, y: yOffset }}
         className="text-center"
       >
-        <h1 className="text-[12vw] sm:text-[15vw] font-black tracking-tighter leading-[0.8] uppercase text-slate-900 dark:text-[#F3F4F6] transition-colors duration-1000">
+        <h1 className="text-[12vw] sm:text-[15vw] font-black tracking-tighter leading-[0.8] uppercase text-[#2C1E16] dark:text-[#F3F4F6] transition-colors duration-1000 drop-shadow-2xl">
           {textTop}
         </h1>
-        <h1 className="text-[12vw] sm:text-[15vw] font-black tracking-tighter leading-[0.8] uppercase text-transparent [-webkit-text-stroke:2px_#0f172a] dark:[-webkit-text-stroke:2px_#EAB308] sm:[-webkit-text-stroke:4px_#0f172a] dark:sm:[-webkit-text-stroke:4px_#EAB308] transition-colors duration-1000">
+        <h1 className="text-[12vw] sm:text-[15vw] font-black tracking-tighter leading-[0.8] uppercase text-[#2C1E16] dark:text-transparent dark:[-webkit-text-stroke:4px_#EAB308] transition-colors duration-1000 drop-shadow-2xl">
           {textBottom}
         </h1>
       </motion.div>

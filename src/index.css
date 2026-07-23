@@ -19,12 +19,82 @@ html, body {
 /* Dark mode overrides */
 html.dark body {
   background-color: #050505;
+  background-image: none; /* Strip plaster in dark mode */
   color: #F3F4F6;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* --- Architectural "Cream & Wood" Theme Utility Classes --- */
+html:not(.dark) .bg-plaster {
+  background-color: #FAF9F6;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(255, 253, 240, 0.8) 0%, rgba(250, 249, 246, 0) 50%),
+    url('https://www.transparenttextures.com/patterns/stucco.png');
+}
+
+/* --- Hyper-Tactile Skeuomorphic Wood Classes --- */
+html:not(.dark) .wood-walnut {
+  background: 
+    linear-gradient(135deg, rgba(74, 51, 32, 0.9) 0%, rgba(26, 17, 12, 0.95) 100%), 
+    url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+  background-blend-mode: multiply, normal;
+  background-size: cover, auto;
+}
+
+html:not(.dark) .wood-cherry {
+  background: 
+    linear-gradient(135deg, rgba(101, 42, 33, 0.85) 0%, rgba(54, 21, 16, 0.95) 100%), 
+    url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+  background-blend-mode: multiply, normal;
+  background-size: cover, auto;
+}
+
+html:not(.dark) .wood-oak {
+  background: 
+    linear-gradient(135deg, rgba(166, 123, 73, 0.85) 0%, rgba(92, 62, 31, 0.95) 100%), 
+    url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+  background-blend-mode: multiply, normal;
+  background-size: cover, auto;
+}
+
+html:not(.dark) .wood-ash {
+  background: 
+    linear-gradient(135deg, rgba(200, 185, 166, 0.85) 0%, rgba(140, 125, 110, 0.95) 100%), 
+    url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+  background-blend-mode: multiply, normal;
+  background-size: cover, auto;
+}
+
+/* CSS Magic: 4 Brass Nails mapped to the corners */
+html:not(.dark) .nailed {
+  position: relative;
+}
+html:not(.dark) .nailed::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: 
+    radial-gradient(circle at 16px 16px, #b59b5b 1px, #5c4e2b 3px, #1a110c 4px, transparent 5px),
+    radial-gradient(circle at calc(100% - 16px) 16px, #b59b5b 1px, #5c4e2b 3px, #1a110c 4px, transparent 5px),
+    radial-gradient(circle at 16px calc(100% - 16px), #b59b5b 1px, #5c4e2b 3px, #1a110c 4px, transparent 5px),
+    radial-gradient(circle at calc(100% - 16px) calc(100% - 16px), #b59b5b 1px, #5c4e2b 3px, #1a110c 4px, transparent 5px);
+  z-index: 10;
+}
+
+/* Engraved / Burned Typography */
+html:not(.dark) .engraved-text {
+  color: rgba(20, 10, 5, 0.95);
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.15), 0px -1px 2px rgba(0, 0, 0, 0.8);
+}
+html:not(.dark) .burned-text {
+  color: rgba(10, 5, 0, 0.9);
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.9);
 }
 
 /* View Transition API for Wow Factor Theme Toggle */

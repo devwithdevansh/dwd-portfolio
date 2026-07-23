@@ -40,7 +40,7 @@ export default function Home() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="relative z-10 min-h-screen"
+      className="relative z-10 min-h-screen bg-plaster dark:bg-transparent dark:bg-none transition-colors duration-1000"
     >
       {/* The Dynamic Shader Hero Section */}
       <section className="h-[120vh] relative flex flex-col items-center justify-center">
@@ -72,14 +72,14 @@ export default function Home() {
       {/* Kinetic Typography Scroll Section */}
       <section ref={scrollRef} className="py-32 overflow-hidden z-20 relative">
         <motion.div style={{ x: textX1 }} className="whitespace-nowrap mb-16">
-          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-transparent [-webkit-text-stroke:2px_#0f172a] dark:[-webkit-text-stroke:2px_#EAB308] transition-colors duration-1000">
-            <CypherText text="WE HATE TEMPLATES." speed={10} /> <span className="text-slate-900 dark:text-white"><CypherText text="WE HATE TEMPLATES." speed={10} /></span>
+          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-[#2C1E16] dark:text-transparent dark:[-webkit-text-stroke:2px_#EAB308] transition-colors duration-1000">
+            <CypherText text="WE HATE TEMPLATES." speed={10} /> <span className="text-[#2C1E16] dark:text-white"><CypherText text="WE HATE TEMPLATES." speed={10} /></span>
           </h2>
         </motion.div>
         
         <motion.div style={{ x: textX2 }} className="whitespace-nowrap">
-          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-slate-900 dark:text-white transition-colors duration-1000">
-            <CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /> <span className="text-transparent [-webkit-text-stroke:2px_#0f172a] dark:[-webkit-text-stroke:2px_#06B6D4]"><CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /></span>
+          <h2 className="text-[15vw] font-black uppercase tracking-tighter leading-none text-[#2C1E16] dark:text-white transition-colors duration-1000">
+            <CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /> <span className="text-[#2C1E16] dark:text-transparent dark:[-webkit-text-stroke:2px_#06B6D4]"><CypherText text="WE BUILD CUSTOM ASSETS." speed={10} /></span>
           </h2>
         </motion.div>
       </section>

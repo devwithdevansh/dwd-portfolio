@@ -8,7 +8,7 @@ const TEAM = [
 
 export default function AgencyFooter() {
   return (
-    <section className="relative w-full bg-white dark:bg-[#050505] text-slate-900 dark:text-[#F3F4F6] py-32 z-20 border-t border-slate-200 dark:border-gray-800 transition-colors duration-1000">
+    <section className="relative w-full bg-transparent dark:bg-[#050505] text-[#2C1E16] dark:text-[#F3F4F6] py-32 z-20 border-t border-[#2C1E16] dark:border-gray-800 transition-colors duration-1000">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         
         {/* The Brains (Team) */}

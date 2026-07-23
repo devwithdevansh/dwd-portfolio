@@ -20,6 +20,11 @@ const getBentoClasses = (index) => {
   return classes[index] || "col-span-1";
 };
 
+const getWoodClass = (index) => {
+  const woods = ["wood-walnut", "wood-oak", "wood-ash", "wood-cherry"];
+  return woods[index % 4];
+};
+
 const BentoCard = ({ ind, index }) => {
   const [hovered, setHovered] = useState(false);
   const imageSrc = ind.image;
@@ -28,7 +33,7 @@ const BentoCard = ({ ind, index }) => {
   return (
     <Link 
       to={`/industry/${ind.id}`}
-      className={`group relative w-full rounded-3xl overflow-hidden bg-white dark:bg-[#0a0a0a] border-2 border-slate-200 dark:border-gray-800 hover:border-slate-900 dark:hover:border-gray-600 hover:shadow-[12px_12px_0px_#0f172a] dark:shadow-sm dark:hover:shadow-2xl hover:-translate-y-2 hover:-translate-x-2 transition-all duration-500 block ${isLarge ? 'h-[32rem]' : 'h-[15.5rem]'}`}
+      className={`group relative w-full rounded-3xl overflow-hidden ${getWoodClass(index)} nailed dark:bg-[#0a0a0a] border-none dark:border-2 dark:border-gray-800 shadow-xl dark:shadow-none hover:shadow-arch-led dark:hover:shadow-2xl hover:-translate-y-2 hover:-translate-x-2 transition-all duration-500 block ${isLarge ? 'h-[32rem]' : 'h-[15.5rem]'}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -39,10 +44,10 @@ const BentoCard = ({ ind, index }) => {
 
       {/* Typography: Deep corporate tones or glowing white */}
       <div className="absolute top-6 left-6 right-6 z-30 pointer-events-none transition-colors duration-1000">
-        <div className="text-[10px] font-bold uppercase tracking-[0.3em] mb-2 flex items-center gap-2" style={{ color: ind.color }}>
-           <span className="w-4 h-[2px]" style={{ backgroundColor: ind.color }}></span> Sector {index + 1 < 10 ? `0${index + 1}` : index + 1}
+        <div className="text-[10px] font-bold uppercase tracking-[0.3em] mb-2 flex items-center gap-2 engraved-text dark:text-[inherit]" style={{ color: document.documentElement.classList.contains('dark') ? ind.color : undefined }}>
+           <span className="w-4 h-[2px]" style={{ backgroundColor: document.documentElement.classList.contains('dark') ? ind.color : 'rgba(20, 10, 5, 0.95)' }}></span> Sector {index + 1 < 10 ? `0${index + 1}` : index + 1}
         </div>
-        <h3 className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tighter group-hover:pl-2 transition-all duration-500 break-words leading-none">
+        <h3 className="text-3xl lg:text-4xl font-black engraved-text dark:text-white uppercase tracking-tighter group-hover:pl-2 transition-all duration-500 break-words leading-none">
           {ind.name}
         </h3>
       </div>
@@ -57,7 +62,7 @@ const BentoCard = ({ ind, index }) => {
           animate={{
             scale: hovered ? 1.05 : 1,
             opacity: hovered ? 1 : 0.8,
-            filter: hovered ? `grayscale(0%) drop-shadow(0 20px 30px ${ind.color}60) contrast(110%) brightness(1)` : 'grayscale(100%) drop-shadow(0 0px 0px rgba(0,0,0,0)) contrast(150%) brightness(0.85)',
+            filter: hovered ? `grayscale(0%) drop-shadow(0 20px 30px ${ind.color}60) contrast(110%) brightness(1)` : 'grayscale(100%) drop-shadow(0 0px 0px rgba(0,0,0,0)) contrast(150%) brightness(1.2)',
           }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         />
@@ -87,15 +92,15 @@ export default function IndustryMatrix() {
   return (
     <section className="relative w-full min-h-screen bg-transparent dark:bg-[#050505] py-32 border-t border-slate-200 dark:border-gray-800 z-20 overflow-hidden transition-colors duration-1000">
       
-      {/* Soft corporate noise overlay */}
-      <div className="absolute inset-0 opacity-[0.3] mix-blend-multiply dark:mix-blend-overlay pointer-events-none" 
+      {/* Soft corporate noise overlay (Dark Mode Only) */}
+      <div className="absolute inset-0 opacity-0 dark:opacity-30 mix-blend-multiply dark:mix-blend-overlay pointer-events-none" 
            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8">
         
         {/* Header Section */}
-        <div className="mb-24 text-slate-900 dark:text-white transition-colors duration-1000">
+        <div className="mb-24 text-[#2C1E16] dark:text-white transition-colors duration-1000">
           <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-none mb-8 max-w-4xl">
             <CypherText text="Most agencies sell you generic templates." speed={10} />
           </h2>
