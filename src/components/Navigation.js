@@ -4,8 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from '../context/TranslationContext';
 import CypherText from './CypherText';
 
-import ThemeToggle from './ThemeToggle';
-
 const navLinks = [
   { name: 'HOME', path: '/' },
   { name: 'SERVICES', path: '/services' },
@@ -38,23 +36,23 @@ export default function Navigation() {
 
   return (
     <>
-      {/* Global Language Cypher Bar */}
-      <div className="fixed top-8 left-8 z-[100] flex gap-4 mix-blend-difference pointer-events-auto">
-        {languages.map(lang => (
-          <button 
-            key={lang}
-            onClick={() => setLanguage(lang)}
-            className={`text-sm font-bold uppercase tracking-widest transition-all ${language === lang ? 'text-[#EAB308]' : 'text-gray-500 hover:text-white'}`}
-            data-cursor="hover"
-          >
-            {lang}
-          </button>
-        ))}
-      </div>
-      
-      {/* Theme Toggle - Removed from mix-blend-difference to preserve colors */}
-      <div className="fixed top-6 left-64 z-[100] pointer-events-auto scale-75 transform-origin-left">
-        <ThemeToggle />
+      {/* Top Left Controls: Languages and Theme Toggle */}
+      <div className="fixed top-6 sm:top-8 left-6 sm:left-8 z-[100] flex items-center gap-6 sm:gap-8 pointer-events-auto">
+        {/* Global Language Cypher Bar */}
+        <div className="flex gap-4 mix-blend-difference">
+          {languages.map(lang => (
+            <button 
+              key={lang}
+              onClick={() => setLanguage(lang)}
+              className={`text-sm font-bold uppercase tracking-widest transition-all ${language === lang ? 'text-[#EAB308]' : 'text-gray-500 hover:text-white'}`}
+              data-cursor="hover"
+            >
+              {lang}
+            </button>
+          ))}
+        </div>
+        
+        {/* Theme Toggle - Temporarily removed */}
       </div>
 
       {/* Brutalist Hamburger Button */}
