@@ -47,23 +47,23 @@ const BentoCard = ({ ind, index }) => {
   // True Diorama Pop-Out Physics (Internal Layers rising from bottom)
   // Sequence: Background (0-0.2) -> Hospital (0.2-0.4) -> Leaves (0.4-0.6) -> Characters (0.6-0.9)
   const layerPopY = [
-    useTransform(scrollYProgress, [0.0, 0.2], [50, 0]),    // 0: Background
-    useTransform(scrollYProgress, [0.4, 0.6], [80, 0]),    // 1: Leaves A
-    useTransform(scrollYProgress, [0.45, 0.65], [100, 0]), // 2: Leaves B
-    useTransform(scrollYProgress, [0.5, 0.7], [90, 0]),    // 3: Leaves C
-    useTransform(scrollYProgress, [0.2, 0.4], [120, 0]),   // 4: Hospital
-    useTransform(scrollYProgress, [0.6, 0.8], [150, 0]),   // 5: Doctor
-    useTransform(scrollYProgress, [0.7, 0.9], [180, 0]),   // 6: Ambulance
+    useTransform(scrollYProgress, [0.4, 0.6], [80, 0]),    // 0: Leaves A
+    useTransform(scrollYProgress, [0.45, 0.65], [100, 0]), // 1: Leaves B
+    useTransform(scrollYProgress, [0.5, 0.7], [90, 0]),    // 2: Leaves C
+    useTransform(scrollYProgress, [0.2, 0.4], [120, 0]),   // 3: Hospital
+    useTransform(scrollYProgress, [0.6, 0.8], [150, 0]),   // 4: Doctor
+    useTransform(scrollYProgress, [0.7, 0.9], [180, 0]),   // 5: Ambulance
+    useTransform(scrollYProgress, [0.5, 0.7], [160, 0]),   // 6: Sign Board
   ];
 
   const layerOpacity = [
-    useTransform(scrollYProgress, [0.0, 0.15], [0, 1]),    // 0: Background
-    useTransform(scrollYProgress, [0.35, 0.55], [0, 1]),   // 1: Leaves A
-    useTransform(scrollYProgress, [0.4, 0.6], [0, 1]),     // 2: Leaves B
-    useTransform(scrollYProgress, [0.45, 0.65], [0, 1]),   // 3: Leaves C
-    useTransform(scrollYProgress, [0.15, 0.35], [0, 1]),   // 4: Hospital
-    useTransform(scrollYProgress, [0.55, 0.75], [0, 1]),   // 5: Doctor
-    useTransform(scrollYProgress, [0.65, 0.85], [0, 1]),   // 6: Ambulance
+    useTransform(scrollYProgress, [0.35, 0.55], [0, 1]),   // 0: Leaves A
+    useTransform(scrollYProgress, [0.4, 0.6], [0, 1]),     // 1: Leaves B
+    useTransform(scrollYProgress, [0.45, 0.65], [0, 1]),   // 2: Leaves C
+    useTransform(scrollYProgress, [0.15, 0.35], [0, 1]),   // 3: Hospital
+    useTransform(scrollYProgress, [0.55, 0.75], [0, 1]),   // 4: Doctor
+    useTransform(scrollYProgress, [0.65, 0.85], [0, 1]),   // 5: Ambulance
+    useTransform(scrollYProgress, [0.45, 0.65], [0, 1]),   // 6: Sign Board
   ];
   
   // Continuous Parallax (as you keep scrolling past)
@@ -73,43 +73,42 @@ const BentoCard = ({ ind, index }) => {
   });
   
   const layerParallaxY = [
-    useTransform(internalScroll, [0, 1], [0, 15]),
     useTransform(internalScroll, [0, 1], [0, -15]),
     useTransform(internalScroll, [0, 1], [0, -25]),
     useTransform(internalScroll, [0, 1], [0, -20]),
     useTransform(internalScroll, [0, 1], [0, -50]),
     useTransform(internalScroll, [0, 1], [0, -100]),
     useTransform(internalScroll, [0, 1], [0, -80]),
+    useTransform(internalScroll, [0, 1], [0, -60]),
   ];
 
   const layerScales = [
-    useTransform(internalScroll, [0, 1], [1, 1.02]),
     useTransform(internalScroll, [0, 1], [1, 1.05]),
     useTransform(internalScroll, [0, 1], [1, 1.10]),
     useTransform(internalScroll, [0, 1], [1, 1.15]),
     useTransform(internalScroll, [0, 1], [1, 1.20]),
     useTransform(internalScroll, [0, 1], [1, 1.30]),
     useTransform(internalScroll, [0, 1], [1, 1.40]),
+    useTransform(internalScroll, [0, 1], [1, 1.25]),
   ];
 
   const dioramaLayers = isLarge ? [
-    // 1. Background Explosion (Back) - Shifted UP to break top boundary without scaling
-    { src: require('../assets/projects/try/ChatGPT Image Jul 24, 2026, 11_14_03 PM_nobg.png'), classes: 'w-[90%] h-[95%] left-[5%] bottom-[15%] object-contain object-bottom opacity-90 z-0' },
+    // 0. Leaves A (Left burst)
+    { src: require('../assets/projects/objects/hospital/try/leaves_left.png'), classes: 'w-[15%] h-[15%] left-[5%] bottom-[10%] object-contain object-bottom z-5 drop-shadow-xl' },
+    // 1. Leaves B (Center burst)
+    { src: require('../assets/projects/objects/hospital/try/leaves_center.png'), classes: 'w-[18%] h-[18%] left-[20%] bottom-[15%] object-contain object-bottom z-5 drop-shadow-xl' },
+    // 2. Leaves C (Right burst)
+    { src: require('../assets/projects/objects/hospital/try/leaves_right.png'), classes: 'w-[12%] h-[12%] right-[25%] bottom-[10%] object-contain object-bottom z-5 drop-shadow-xl' },
     
-    // 2. Leaves A (Left burst) - Drastically shrunk down
-    { src: require('../assets/projects/try/ChatGPT Image Jul 24, 2026, 11_14_14a PM_nobg.png'), classes: 'w-[15%] h-[15%] left-[5%] bottom-[10%] object-contain object-bottom z-5 drop-shadow-xl' },
-    // 3. Leaves B (Center burst) - Drastically shrunk down
-    { src: require('../assets/projects/try/ChatGPT Image Jul 24, 2026, 11_14_14 PM_nobg.png'), classes: 'w-[18%] h-[18%] left-[20%] bottom-[15%] object-contain object-bottom z-5 drop-shadow-xl' },
-    // 4. Leaves C (Right burst) - Drastically shrunk down
-    { src: require('../assets/projects/try/ChatGPT Image Jul 24, 2026, 11_14_14 PMc_nobg.png'), classes: 'w-[12%] h-[12%] right-[25%] bottom-[10%] object-contain object-bottom z-5 drop-shadow-xl' },
+    // 3. Hospital Main Building (Lowered to sit naturally on its new large base)
+    { src: require('../assets/projects/objects/hospital/try/hospital.png'), classes: 'w-[80%] h-[90%] left-[5%] bottom-[0%] object-contain object-bottom z-10 drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]' },
     
-    // 5. Hospital Building (Center) - Normal scale, but physically elevated to break the ceiling
-    { src: require('../assets/projects/try/ChatGPT Image Jul 24, 2026, 11_15_50 PM_nobg.png'), classes: 'w-[80%] h-[90%] left-[5%] bottom-[15%] object-contain object-bottom z-10 drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]' },
-    
-    // 6. Doctor & Patient (Pushed hard LEFT, stays on the floor)
-    { src: require('../assets/projects/try/ChatGPT Image Jul 24, 2026, 11_04_20 PM_nobg.png'), classes: 'w-[35%] h-[45%] left-[-15%] bottom-[0%] object-contain object-bottom z-20 drop-shadow-2xl' },
-    // 7. Ambulance (Hanging off the bottom right edge)
-    { src: require('../assets/projects/try/ChatGPT Image Jul 24, 2026, 11_06_06 PM_nobg.png'), classes: 'w-[40%] h-[45%] right-[-5%] bottom-[-5%] object-contain object-bottom z-20 drop-shadow-2xl' },
+    // 4. Doctor & Patient (Moved to the center to stand on the actual stairs)
+    { src: require('../assets/projects/objects/hospital/try/doctor.png'), classes: 'w-[25%] h-[35%] left-[34%] bottom-[2%] object-contain object-bottom z-20 drop-shadow-2xl' },
+    // 5. Ambulance
+    { src: require('../assets/projects/objects/hospital/try/ambulance.png'), classes: 'w-[40%] h-[45%] right-[-5%] bottom-[-5%] object-contain object-bottom z-20 drop-shadow-2xl' },
+    // 6. Hospital Sign Board (Lowered and tucked to the left)
+    { src: require('../assets/projects/objects/hospital/try/sign_board.png'), classes: 'w-[22%] h-[30%] left-[0%] bottom-[0%] object-contain object-bottom z-[15] drop-shadow-2xl' },
   ] : [];
 
   const handleMouseMove = (e) => {
