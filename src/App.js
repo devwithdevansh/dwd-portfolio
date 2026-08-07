@@ -21,6 +21,7 @@ const Contact = lazy(() => import('./pages/Contact'));
 const Industry = lazy(() => import('./pages/Industry'));
 const CityLanding = lazy(() => import('./pages/CityLanding'));
 const EducationERP = lazy(() => import('./pages/EducationERP'));
+const JewelryERP = lazy(() => import('./pages/JewelryERP'));
 
 // Wrapper for AnimatePresence to work with Router
 function AnimatedRoutes() {
@@ -51,6 +52,7 @@ function AnimatedRoutes() {
 
         {/* Niche Microsites */}
         <Route path="/education-erp" element={<EducationERP />} />
+        <Route path="/jewelry-erp" element={<JewelryERP />} />
       </Routes>
     </Suspense>
     </AnimatePresence>
