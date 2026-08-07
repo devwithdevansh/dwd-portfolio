@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect, useRef } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useVelocity, useSpring, useTransform } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -42,6 +42,14 @@ const blindVariants = {
 
 export default function EducationERP() {
   const [loading, setLoading] = useState(true);
+  const [contactName, setContactName] = useState("");
+  const [contactInstitution, setContactInstitution] = useState("");
+
+  const handleWhatsApp = () => {
+    const message = `Hello Devansh! My name is ${contactName || "[Your Name]"} and I run ${contactInstitution || "[Your Institution]"}. We are done renting generic software and want to build our tailored engine. Let's talk!`;
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919687629341?text=${encodedMessage}`, "_blank");
+  };
 
   // Prevent scrolling while loading
   useEffect(() => {
@@ -340,17 +348,62 @@ export default function EducationERP() {
         {/* Spacer for Parallax Curtain Reveal */}
         <div className="h-[80vh] w-full pointer-events-none" />
 
-        {/* Cinematic Parallax Footer */}
-        <div className="fixed bottom-0 left-0 w-full h-[80vh] z-[-1] bg-[#020202] text-white flex flex-col items-center justify-center">
-           <section id="contact" className="text-center w-full max-w-4xl px-6 relative">
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
-             <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter">Ready to build an <br />institution?</h2>
-             <p className="text-xl md:text-2xl text-slate-400 mb-12 font-light">Stop renting generic software. Start owning your tailored engine.</p>
-             <a href="#contact" className="group relative inline-flex items-center justify-center px-12 py-5 bg-white text-black font-black uppercase tracking-widest rounded-full text-lg shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:scale-105 transition-all duration-300">
-               <span className="relative z-10">Book a Consultation</span>
-               <div className="absolute inset-0 bg-blue-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-               <span className="absolute z-10 opacity-0 group-hover:opacity-100 text-white transition-opacity duration-300">Book a Consultation</span>
-             </a>
+        {/* Cinematic Parallax Footer with WhatsApp Mad Libs */}
+        <div className="fixed bottom-0 left-0 w-full h-[80vh] z-0 bg-[#050505] text-white flex flex-col items-center justify-center">
+           <section id="contact" className="w-full max-w-5xl px-6 relative z-10">
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
+             
+             <div className="relative z-20">
+               <h2 className="text-3xl md:text-5xl font-black mb-12 tracking-tighter uppercase text-slate-400">
+                 Let's <span className="text-white">Talk.</span>
+               </h2>
+               
+               <p className="text-2xl md:text-4xl lg:text-5xl font-bold leading-relaxed lg:leading-snug text-slate-100">
+                 Hi, my name is <br className="md:hidden" />
+                 <input 
+                   type="text" 
+                   value={contactName}
+                   onChange={(e) => setContactName(e.target.value)}
+                   placeholder="YOUR NAME" 
+                   className="bg-transparent border-b-4 border-slate-700 focus:border-blue-500 outline-none text-blue-400 placeholder-slate-700 w-full md:w-auto md:min-w-[300px] mx-0 md:mx-4 mt-4 md:mt-0 mb-8 md:mb-0 transition-colors duration-500"
+                   data-cursor="hover"
+                 />
+                 <br className="hidden md:block" />
+                 I run <br className="md:hidden" />
+                 <input 
+                   type="text" 
+                   value={contactInstitution}
+                   onChange={(e) => setContactInstitution(e.target.value)}
+                   placeholder="YOUR INSTITUTION" 
+                   className="bg-transparent border-b-4 border-slate-700 focus:border-blue-500 outline-none text-blue-400 placeholder-slate-700 w-full md:w-auto md:min-w-[400px] mx-0 md:mx-4 mt-4 md:mt-0 mb-8 md:mb-0 transition-colors duration-500"
+                   data-cursor="hover"
+                 />
+                 <br />
+                 We are done renting generic software. <br /> Let's build our tailored engine.
+               </p>
+
+               <div className="mt-16 flex flex-col md:flex-row items-start md:items-center gap-8">
+                 <button 
+                   onClick={handleWhatsApp}
+                   className="group relative inline-flex items-center justify-center px-10 py-6 bg-white text-black font-black uppercase tracking-widest text-lg md:text-xl shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:scale-[1.02] transition-transform duration-300 w-full md:w-auto"
+                   data-cursor="hover"
+                 >
+                   <span className="relative z-10 flex items-center gap-3">
+                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12C2 13.76 2.46 15.4 3.25 16.84L2 22L7.3 20.72C8.75 21.53 10.33 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17.47 15.68C17.24 16.32 16.3 16.87 15.65 17.02C15.17 17.13 14.47 17.21 12.18 16.27C9.25 15.06 7.37 12.06 7.22 11.87C7.07 11.68 6 10.26 6 8.78C6 7.29 6.77 6.57 7.08 6.25C7.33 5.99 7.76 5.86 8.16 5.86C8.29 5.86 8.41 5.86 8.52 5.87C8.83 5.89 8.99 5.9 9.2 6.4C9.45 6.99 10.05 8.46 10.12 8.61C10.19 8.76 10.26 8.96 10.16 9.16C10.06 9.35 9.98 9.45 9.83 9.63C9.68 9.8 9.51 10 9.39 10.12C9.25 10.27 9.09 10.43 9.27 10.74C9.45 11.05 10.05 12.03 10.93 12.82C11.96 13.75 12.88 14.04 13.22 14.18C13.56 14.32 13.76 14.3 13.96 14.08C14.16 13.86 14.73 13.19 14.93 12.92C15.13 12.65 15.33 12.69 15.63 12.8C15.93 12.91 17.51 13.69 17.81 13.84C18.11 13.99 18.31 14.06 18.38 14.18C18.45 14.3 18.45 14.94 17.47 15.68Z" /></svg>
+                     Send to WhatsApp
+                   </span>
+                   <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                   <span className="absolute z-10 opacity-0 group-hover:opacity-100 text-white transition-opacity duration-300 flex items-center gap-3">
+                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12C2 13.76 2.46 15.4 3.25 16.84L2 22L7.3 20.72C8.75 21.53 10.33 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17.47 15.68C17.24 16.32 16.3 16.87 15.65 17.02C15.17 17.13 14.47 17.21 12.18 16.27C9.25 15.06 7.37 12.06 7.22 11.87C7.07 11.68 6 10.26 6 8.78C6 7.29 6.77 6.57 7.08 6.25C7.33 5.99 7.76 5.86 8.16 5.86C8.29 5.86 8.41 5.86 8.52 5.87C8.83 5.89 8.99 5.9 9.2 6.4C9.45 6.99 10.05 8.46 10.12 8.61C10.19 8.76 10.26 8.96 10.16 9.16C10.06 9.35 9.98 9.45 9.83 9.63C9.68 9.8 9.51 10 9.39 10.12C9.25 10.27 9.09 10.43 9.27 10.74C9.45 11.05 10.05 12.03 10.93 12.82C11.96 13.75 12.88 14.04 13.22 14.18C13.56 14.32 13.76 14.3 13.96 14.08C14.16 13.86 14.73 13.19 14.93 12.92C15.13 12.65 15.33 12.69 15.63 12.8C15.93 12.91 17.51 13.69 17.81 13.84C18.11 13.99 18.31 14.06 18.38 14.18C18.45 14.3 18.45 14.94 17.47 15.68Z" /></svg>
+                     Send to WhatsApp
+                   </span>
+                 </button>
+                 <div className="text-slate-500 font-mono text-sm">
+                   Direct Line:<br />
+                   <span className="text-slate-300">+91 9687629341</span>
+                 </div>
+               </div>
+             </div>
            </section>
         </div>
 
