@@ -23,6 +23,8 @@ const CityLanding = lazy(() => import('./pages/CityLanding'));
 const EducationERP = lazy(() => import('./pages/EducationERP'));
 const JewelryERP = lazy(() => import('./pages/JewelryERP'));
 const FactoryERP = lazy(() => import('./pages/FactoryERP'));
+const RestaurantERP = lazy(() => import('./pages/RestaurantERP'));
+const CarERP = lazy(() => import('./pages/CarERP'));
 
 // Wrapper for AnimatePresence to work with Router
 function AnimatedRoutes() {
@@ -48,6 +50,10 @@ function AnimatedRoutes() {
         
         {/* Programmatic SEO & Industry Routes */}
         <Route path="/location/:location" element={<CityLanding />} />
+        <Route path="/industry/cafes" element={<RestaurantERP />} />
+        <Route path="/location/:location/industry/cafes" element={<RestaurantERP />} />
+        <Route path="/industry/cardetailing" element={<CarERP />} />
+        <Route path="/location/:location/industry/cardetailing" element={<CarERP />} />
         <Route path="/industry/:industry" element={<Industry />} />
         <Route path="/location/:location/industry/:industry" element={<Industry />} />
 
@@ -55,6 +61,9 @@ function AnimatedRoutes() {
         <Route path="/education-erp" element={<EducationERP />} />
         <Route path="/jewelry-erp" element={<JewelryERP />} />
         <Route path="/factory-erp" element={<FactoryERP />} />
+        <Route path="/restaurant-erp" element={<RestaurantERP />} />
+        <Route path="/restaurant-pos" element={<RestaurantERP />} />
+        <Route path="/car-erp" element={<CarERP />} />
       </Routes>
     </Suspense>
     </AnimatePresence>
