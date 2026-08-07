@@ -3,19 +3,20 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export default function CustomCursor() {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
+  const [cursorState, setCursorState] = useState('default');
+  const [cursorText, setCursorText] = useState('');
 
   // Mouse position values
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   // Spring physics for smooth trailing effect
-  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
+  const springConfig = { damping: 25, stiffness: 400, mass: 0.5 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    // Check if the device has a fine pointer (mouse) vs coarse (touchscreen)
+    // Check if the device has a fine pointer
     if (window.matchMedia('(pointer: coarse)').matches) {
       setIsTouchDevice(true);
       return;
@@ -26,45 +27,99 @@ export default function CustomCursor() {
       mouseY.set(e.clientY);
     };
 
-    // Add global event listeners for mouse move
+    const handleMouseOver = (e) => {
+      const target = e.target.closest('[data-cursor]');
+      if (target) {
+        setCursorState(target.getAttribute('data-cursor'));
+        setCursorText(target.getAttribute('data-cursor-text') || '');
+      } else if (e.target.closest('a') || e.target.closest('button')) {
+        setCursorState('button');
+        setCursorText('');
+      } else {
+        setCursorState('default');
+        setCursorText('');
+      }
+    };
+
     window.addEventListener('mousemove', updateMousePosition);
-
-    // Add listeners to all interactive elements to trigger hover states
-    const interactiveElements = document.querySelectorAll('a, button, [data-cursor="hover"]');
-    
-    const handleMouseOver = () => setIsHovering(true);
-    const handleMouseOut = () => setIsHovering(false);
-
-    interactiveElements.forEach((el) => {
-      el.addEventListener('mouseenter', handleMouseOver);
-      el.addEventListener('mouseleave', handleMouseOut);
-    });
+    document.addEventListener('mouseover', handleMouseOver);
 
     return () => {
       window.removeEventListener('mousemove', updateMousePosition);
-      interactiveElements.forEach((el) => {
-        el.removeEventListener('mouseenter', handleMouseOver);
-        el.removeEventListener('mouseleave', handleMouseOut);
-      });
+      document.removeEventListener('mouseover', handleMouseOver);
     };
   }, [mouseX, mouseY]);
 
-  // If it's a touch device, don't render the custom cursor at all
   if (isTouchDevice) return null;
 
+  const variants = {
+    default: {
+      width: 16,
+      height: 16,
+      backgroundColor: "rgba(255, 255, 255, 1)",
+      mixBlendMode: "difference",
+      scale: 1,
+      border: "0px solid transparent"
+    },
+    button: {
+      width: 60,
+      height: 60,
+      backgroundColor: "rgba(255, 255, 255, 0)",
+      mixBlendMode: "difference",
+      scale: 1,
+      border: "1px solid rgba(255, 255, 255, 1)"
+    },
+    hero: {
+      width: 100,
+      height: 100,
+      backgroundColor: "rgba(255, 255, 255, 1)",
+      mixBlendMode: "difference",
+      scale: 1,
+      border: "0px solid transparent"
+    },
+    trap: {
+      width: 80,
+      height: 80,
+      backgroundColor: "rgba(239, 68, 68, 0.8)", // red-500
+      mixBlendMode: "normal",
+      scale: 1,
+      border: "0px solid transparent"
+    },
+    engine: {
+      width: 80,
+      height: 80,
+      backgroundColor: "rgba(59, 130, 246, 0.8)", // blue-500
+      mixBlendMode: "normal",
+      scale: 1,
+      border: "0px solid transparent"
+    }
+  };
+
   return (
-    <motion.div
-      className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] mix-blend-difference bg-white"
-      style={{
-        x: cursorX,
-        y: cursorY,
-        translateX: '-50%',
-        translateY: '-50%',
-      }}
-      animate={{
-        scale: isHovering ? 2.5 : 1,
-      }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-    />
+    <>
+      <style>{`
+        @media (min-width: 768px) {
+          body, a, button, [data-cursor] {
+            cursor: none !important;
+          }
+        }
+      `}</style>
+      <motion.div
+        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center font-bold text-[12px] uppercase tracking-widest hidden md:flex"
+        style={{
+          x: cursorX,
+          y: cursorY,
+          translateX: '-50%',
+          translateY: '-50%',
+        }}
+        variants={variants}
+        animate={cursorState}
+        transition={{ type: 'spring', stiffness: 300, damping: 25, mass: 0.8 }}
+      >
+        <span className={`transition-opacity duration-300 pointer-events-none ${cursorText ? 'opacity-100' : 'opacity-0'} ${cursorState === 'hero' ? 'text-black mix-blend-normal' : 'text-white'}`}>
+          {cursorText}
+        </span>
+      </motion.div>
+    </>
   );
 }

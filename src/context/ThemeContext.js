@@ -4,10 +4,13 @@ const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
   // Default to dark mode for the cinematic wow factor
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    return saved || 'dark';
+  });
 
   useEffect(() => {
-    // Add or remove 'dark' class on HTML element
+    localStorage.setItem('theme', theme);
     const root = window.document.documentElement;
     if (theme === 'dark') {
       root.classList.add('dark');

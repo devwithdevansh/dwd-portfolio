@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import SplineBackground from '../components/SplineBackground';
 
 const pageVariants = {
   initial: { opacity: 0, x: -100 },
@@ -23,6 +24,7 @@ export default function Services() {
       exit="exit"
       className="relative z-10 pt-32 min-h-screen pb-32"
     >
+      <SplineBackground />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <h1 className="text-6xl sm:text-[8vw] font-black uppercase tracking-tighter leading-none text-slate-900 dark:text-[#F3F4F6] mb-24 transition-colors duration-1000">

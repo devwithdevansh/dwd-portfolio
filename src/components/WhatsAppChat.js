@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function WhatsAppChat() {
-  const phoneNumber = "919687629341"; // Devansh's number from Contact.js
-  const defaultMessage = "Hi Devansh, I need a custom digital asset.";
-  const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(defaultMessage)}`;
+// WhatsApp Configuration
+const PHONE_NUMBER = '919687629341'; // Format: CountryCode + Number (No +)
+const WHATSAPP_URL = `https://wa.me/${PHONE_NUMBER}?text=Hi%20Devansh,%20I'd%20like%20to%20discuss%20a%20project.`;
 
+export default function WhatsAppChat() {
   return (
     <a 
-      href={waUrl}
+      href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-8 right-8 z-[9000] group flex items-center justify-center cursor-pointer"

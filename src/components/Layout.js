@@ -31,19 +31,31 @@ export default function Layout({ children }) {
     return 'default';
   }, [location.pathname]);
 
+  // If it's a niche site, bypass the main layout entirely
+  if (location.pathname.startsWith('/education-erp')) {
+    return (
+      <SmoothScroll>
+        <CustomCursor />
+        {children}
+      </SmoothScroll>
+    );
+  }
+
   return (
     <SmoothScroll>
       <CustomCursor />
-      <Navigation />
+      {!location.pathname.startsWith('/location/') && <Navigation />}
       <WhatsAppChat />
       
       {/* Backgrounds */}
       <TechnicalGridBackground globalTheme={globalTheme} />
-      <div className="opacity-100 transition-opacity duration-1000 fixed inset-0 z-0 pointer-events-none">
-        <ShaderBackground theme={theme} globalTheme={globalTheme} />
-      </div>
+      {globalTheme === 'dark' && (
+        <div className="opacity-100 transition-opacity duration-1000 fixed inset-0 z-0 pointer-events-none">
+          <ShaderBackground theme={theme} globalTheme={globalTheme} />
+        </div>
+      )}
 
-      <main className="relative min-h-screen bg-transparent text-slate-900 dark:text-[#F3F4F6] cursor-none font-sans overflow-hidden transition-colors duration-1000">
+      <main className="relative min-h-screen bg-transparent text-slate-900 dark:text-[#F3F4F6] cursor-none font-sans transition-colors duration-1000">
         {children}
       </main>
     </SmoothScroll>

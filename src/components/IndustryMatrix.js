@@ -1,10 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { INDUSTRY_DATA } from '../data/IndustryData';
 import CypherText from './CypherText';
-
-const MotionLink = motion(Link);
 
 const getBentoClasses = (index) => {
   // Bespoke Masonry Layout for 9 items (3-column grid)
@@ -22,15 +20,14 @@ const getBentoClasses = (index) => {
   return classes[index] || "col-span-1";
 };
 
-const getWoodClass = (index) => {
-  const woods = ["wood-walnut", "wood-oak", "wood-ash", "wood-cherry"];
-  return woods[index % 4];
-};
 
-const BentoCard = ({ ind, index }) => {
+
+const BentoCard = ({ ind, index, baseRoute }) => {
   const [hovered, setHovered] = useState(false);
+  const [clicked, setClicked] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const cardRef = useRef(null);
+  const navigate = useNavigate();
   
   const isLarge = index === 0;
 
@@ -117,17 +114,36 @@ const BentoCard = ({ ind, index }) => {
     setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (clicked) return;
+    setClicked(true);
+    
+    // Pre-calculate route
+    const targetRoute = ind.id === 'schools' || ind.id === 'tuition' ? '/education-erp' : `${baseRoute}/industry/${ind.id}`;
+    
+    // Delay navigation to let the click animation (shrink and glow) run
+    setTimeout(() => {
+      navigate(targetRoute);
+    }, 600); // 600ms is perfectly timed for the animation to peak
+  };
+
   return (
-    <MotionLink 
+    <motion.div 
       ref={cardRef}
-      to={`/industry/${ind.id}`}
+      onClick={handleClick}
       style={isLarge ? { scale: cardScale, y: cardY, opacity: cardOpacity } : {}}
-      className={`group relative w-full rounded-3xl ${isLarge ? 'overflow-visible' : 'overflow-hidden'} ${getWoodClass(index)} nailed dark:bg-[#0a0a0a] border-none dark:border-2 dark:border-gray-800 shadow-xl dark:shadow-none hover:shadow-arch-led dark:hover:shadow-2xl transition-all duration-500 block ${isLarge ? 'h-[24rem] sm:h-[28rem]' : 'h-[15.5rem]'}`}
+      className={`group relative w-full cursor-pointer rounded-[2rem] ${isLarge ? 'overflow-visible' : 'overflow-hidden'} glass-panel brutalist-card dark:bg-[#0a0a0a] dark:border-2 dark:border-gray-800 dark:shadow-none transition-all duration-500 block ${isLarge ? 'h-[24rem] sm:h-[28rem]' : 'h-[15.5rem]'}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseMove={handleMouseMove}
-      whileHover={isLarge ? { y: -2 } : { y: -5, scale: 0.99 }}
-      whileTap={{ scale: 0.97 }}
+      animate={clicked ? { 
+        scale: 0.85, 
+        filter: 'brightness(1.5) contrast(1.2)',
+        boxShadow: `0 0 50px ${ind.color}80` 
+      } : {}}
+      whileHover={!clicked ? (isLarge ? { y: -2 } : { y: -5, scale: 0.99, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }) : undefined}
+      whileTap={!clicked ? { scale: 0.97 } : undefined}
       transition={{ type: "spring", mass: 2.5, stiffness: 200, damping: 25 }}
     >
       {/* Background Structural Grid */}
@@ -220,20 +236,22 @@ const BentoCard = ({ ind, index }) => {
          style={{ background: `radial-gradient(circle at 80% 80%, ${ind.color}, transparent 70%)` }}
       />
       
-      {/* The Craftsman's Touch: Dynamic Ambient Sheen (Light Mode Wood Only) */}
+      {/* The Craftsman's Touch: Dynamic Ambient Sheen (Light Mode Only) */}
       <motion.div
         className="absolute inset-0 pointer-events-none mix-blend-overlay z-40 dark:hidden"
         initial={{ opacity: 0 }}
-        animate={{ opacity: hovered ? 0.4 : 0 }}
+        animate={{ opacity: hovered ? 0.2 : 0 }}
         style={{
-          background: `radial-gradient(circle 300px at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.7), transparent 80%)`
+          background: `radial-gradient(circle 300px at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,1), transparent 80%)`
         }}
       />
-    </MotionLink>
+    </motion.div>
   );
 };
 
-export default function IndustryMatrix() {
+export default function IndustryMatrix({ baseRoute = "" }) {
+  // We use the baseRoute prop to construct local URLs (e.g. /location/mumbai/industry/hospitals).
+  // If baseRoute is empty, it constructs the global URL (e.g. /industry/hospitals).
   const industries = Object.values(INDUSTRY_DATA);
 
   return (
@@ -264,7 +282,7 @@ export default function IndustryMatrix() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-min">
           {industries.map((ind, index) => (
             <div key={ind.id} className={getBentoClasses(index)}>
-              <BentoCard ind={ind} index={index} />
+              <BentoCard ind={ind} index={index} baseRoute={baseRoute} />
             </div>
           ))}
         </div>

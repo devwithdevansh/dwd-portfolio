@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import CypherText from '../components/CypherText';
 import AgencyFooter from '../components/AgencyFooter';
 import ProofMarquee from '../components/ProofMarquee';
 import { INDUSTRY_DATA } from '../data/IndustryData';
+import { formatLocation } from '../data/LocationData';
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -13,10 +15,11 @@ const pageVariants = {
 };
 
 export default function Industry() {
-  const { industry } = useParams();
+  const { industry, location } = useParams();
   
   const data = INDUSTRY_DATA[industry?.toLowerCase()] || INDUSTRY_DATA['enterprise'];
   const [metricValue, setMetricValue] = useState(data.metricDefault);
+  const formattedCity = location ? formatLocation(location) : '';
   
   // Calculate potential lost revenue
   // We multiply by 30 to get a monthly number, except for industries where metric is already monthly.
@@ -32,10 +35,16 @@ export default function Industry() {
       exit="exit"
       className="relative z-10 min-h-screen"
     >
+      {/* Programmatic SEO Metadata */}
+      <Helmet>
+        <title>{formattedCity ? `${data.name} Web Design & Architecture in ${formattedCity} | DWD` : `${data.name} Web Design & Digital Architecture | DWD`}</title>
+        <meta name="description" content={formattedCity ? `We engineer brutalist, high-converting digital assets for ${data.name.toLowerCase()} in ${formattedCity}. Dominate your local market and capture lost revenue today.` : `We engineer brutalist, high-converting digital assets for ${data.name.toLowerCase()}. Stop losing revenue to bad design.`} />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="min-h-screen relative flex flex-col justify-center px-4 sm:px-16 pt-32 pb-16 z-20 text-slate-900 dark:text-white transition-colors duration-1000">
         <h1 className="text-sm font-bold tracking-[0.5em] uppercase mb-16 opacity-50" style={{ color: data.color }}>
-          Industry Focus: {data.name}
+          Industry Focus: {data.name} {formattedCity && `- ${formattedCity}`}
         </h1>
         
         <h2 className="text-5xl sm:text-7xl lg:text-[7vw] font-black uppercase tracking-tighter leading-none mb-12 max-w-7xl">
@@ -46,16 +55,16 @@ export default function Industry() {
           We don't take on every client. We build aggressive, high-converting digital assets specifically engineered for {data.name.toLowerCase()} that want to dominate their local market.
         </p>
 
-        <a 
-          href="/contact" 
-          className="w-max px-12 py-6 border-2 font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:bg-white hover:text-black"
+        <Link 
+          to="/contact" 
+          className="w-max px-12 py-6 border-2 font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:bg-white hover:text-black block"
           style={{ borderColor: data.color, color: data.color }}
           onMouseEnter={(e) => { e.target.style.backgroundColor = data.color; e.target.style.color = '#000'; }}
           onMouseLeave={(e) => { e.target.style.backgroundColor = 'transparent'; e.target.style.color = data.color; }}
           data-cursor="hover"
         >
           Dominate Your Market
-        </a>
+        </Link>
       </section>
 
       <ProofMarquee />
