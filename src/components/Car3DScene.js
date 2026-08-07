@@ -4,15 +4,15 @@ import { Float, Sparkles, Html, ContactShadows, Torus, Cylinder, Environment, Po
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
 
-// High-Octane Speed & Metallic Dust Particles surrounding the 3D Wheel Assembly
-function HighOctaneDust({ count = 160, isFullGloss }) {
+// Chamkila Sparkle Dust Particles surrounding the Car
+function ChamkilaSparkles({ count = 180, isChamkila }) {
   const points = useRef();
 
   const [positions, speeds] = useMemo(() => {
     const positions = new Float32Array(count * 3);
     const speeds = new Float32Array(count);
     for (let i = 0; i < count; i++) {
-      const r = 2.5 + Math.random() * 4;
+      const r = 2.5 + Math.random() * 4.5;
       const theta = 2 * Math.PI * Math.random();
       const phi = Math.acos(2 * Math.random() - 1);
       
@@ -44,124 +44,157 @@ function HighOctaneDust({ count = 160, isFullGloss }) {
     <Points ref={points} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
         transparent
-        color={isFullGloss ? "#f59e0b" : "#f43f5e"}
-        size={0.06}
+        color={isChamkila ? "#f59e0b" : "#f43f5e"}
+        size={isChamkila ? 0.08 : 0.04}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={0.65}
+        opacity={isChamkila ? 0.8 : 0.4}
         blending={THREE.AdditiveBlending}
       />
     </Points>
   );
 }
 
-// Ultra-Realistic Sports Wheel & Brake Rotor Showcase
-function PhotorealisticWheelShowcase({ progress }) {
-  const wheelGroupRef = useRef();
-  const rotorRef = useRef();
+// Sleek 3D Sports Car Body (Dynamic Dull to Chamkila Shiny Material Transformation)
+function ChamkilaSportsCar({ progress }) {
+  const carRef = useRef();
 
-  // Dynamic PBR material properties based on coating progress (0.0 Dull -> 1.0 9H Hyper-Gloss)
-  const currentRoughness = THREE.MathUtils.lerp(0.85, 0.01, progress);
-  const currentMetalness = THREE.MathUtils.lerp(0.1, 0.98, progress);
+  // Lerp material properties smoothly from Dull/Gandi (progress = 0) to 100% Chamkila Gloss (progress = 1)
+  const currentRoughness = THREE.MathUtils.lerp(0.95, 0.005, progress);
+  const currentMetalness = THREE.MathUtils.lerp(0.05, 0.98, progress);
   const currentClearcoat = THREE.MathUtils.lerp(0, 1.0, progress);
-  const currentEnvIntensity = THREE.MathUtils.lerp(0.2, 3.5, progress);
+  const currentEnvIntensity = THREE.MathUtils.lerp(0.1, 4.5, progress);
 
-  // Lerp rim color from Dull Slate (#334155) to 9H Liquid Crimson Ruby (#e11d48)
-  const dullColor = new THREE.Color("#334155");
-  const glossColor = new THREE.Color("#e11d48");
-  const currentRimColor = dullColor.clone().lerp(glossColor, progress);
+  // Lerp color from Dull Dusty Slate (#3b4252) to High-Gloss Chamkila Crimson (#ef4444)
+  const dullColor = new THREE.Color("#3b4252");
+  const chamkilaColor = new THREE.Color("#ef4444");
+  const currentColor = dullColor.clone().lerp(chamkilaColor, progress);
 
-  useFrame((state, delta) => {
-    const elapsedTime = state.clock.getElapsedTime();
-
-    if (wheelGroupRef.current) {
-      // Continuous majestic spin like a luxury jewelry display
-      wheelGroupRef.current.rotation.y = elapsedTime * 0.35;
-      wheelGroupRef.current.rotation.x = Math.sin(elapsedTime * 0.3) * 0.12 + 0.2;
-    }
-
-    if (rotorRef.current) {
-      rotorRef.current.rotation.z -= delta * 0.5;
+  useFrame((state) => {
+    if (carRef.current) {
+      // Majestic continuous spin showcase
+      carRef.current.rotation.y = state.clock.getElapsedTime() * 0.35;
+      carRef.current.rotation.x = Math.sin(state.clock.getElapsedTime() * 0.4) * 0.05 + 0.12;
     }
   });
 
   return (
-    <group ref={wheelGroupRef} position={[0, -0.05, 0]} scale={0.92}>
+    <group ref={carRef} position={[0, -0.1, 0]} scale={0.92}>
       
-      {/* Performance Rubber Tire */}
-      <Torus args={[1.65, 0.35, 32, 100]} rotation={[Math.PI / 2, 0, 0]}>
-        <meshStandardMaterial color="#0f172a" roughness={0.8} metalness={0.15} />
-      </Torus>
-
-      {/* Ceramic Coating Liquid Sheen Outer Lip Ring */}
-      <Torus args={[1.32, 0.09, 32, 100]} rotation={[Math.PI / 2, 0, 0]}>
+      {/* Supercar Main Lower Chassis */}
+      <mesh position={[0, 0.22, 0]} castShadow receiveShadow>
+        <boxGeometry args={[3.3, 0.48, 1.65]} />
         <meshPhysicalMaterial
-          color={currentRimColor}
+          color={currentColor}
           roughness={currentRoughness}
           metalness={currentMetalness}
           clearcoat={currentClearcoat}
-          clearcoatRoughness={0.005}
+          clearcoatRoughness={0.001}
           envMapIntensity={currentEnvIntensity}
           reflectivity={0.98}
         />
-      </Torus>
+      </mesh>
 
-      {/* Drilled Metallic Sports Brake Disc Rotor */}
-      <group ref={rotorRef} position={[0, 0, -0.06]}>
-        <Cylinder args={[1.15, 1.15, 0.04, 48]}>
-          <meshStandardMaterial color="#cbd5e1" roughness={0.2} metalness={0.95} envMapIntensity={2} />
-        </Cylinder>
+      {/* Aerodynamic Sculpted Hood */}
+      <mesh position={[1.15, 0.3, 0]} rotation={[0, 0, -0.14]} castShadow receiveShadow>
+        <boxGeometry args={[1.2, 0.34, 1.58]} />
+        <meshPhysicalMaterial
+          color={currentColor}
+          roughness={currentRoughness}
+          metalness={currentMetalness}
+          clearcoat={currentClearcoat}
+          clearcoatRoughness={0.001}
+          envMapIntensity={currentEnvIntensity}
+        />
+      </mesh>
 
-        {/* Radial Rotor Ventilation Holes */}
-        {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => {
-          const rad = (deg * Math.PI) / 180;
-          return (
-            <mesh key={i} position={[Math.cos(rad) * 0.75, Math.sin(rad) * 0.75, 0.03]}>
-              <cylinderGeometry args={[0.05, 0.05, 0.06, 12]} />
-              <meshStandardMaterial color="#020617" roughness={0.9} />
-            </mesh>
-          );
-        })}
+      {/* Cockpit Cabin Roof */}
+      <mesh position={[-0.15, 0.66, 0]} rotation={[0, 0, -0.06]} castShadow receiveShadow>
+        <boxGeometry args={[1.65, 0.46, 1.25]} />
+        <meshPhysicalMaterial
+          color={currentColor}
+          roughness={currentRoughness}
+          metalness={currentMetalness}
+          clearcoat={currentClearcoat}
+          clearcoatRoughness={0.001}
+          envMapIntensity={currentEnvIntensity}
+        />
+      </mesh>
+
+      {/* Tinted Front & Rear Glass Windows */}
+      <mesh position={[0.42, 0.7, 0]} rotation={[0, 0, -0.48]}>
+        <boxGeometry args={[0.72, 0.04, 1.18]} />
+        <meshStandardMaterial color="#020617" roughness={0.05} metalness={0.95} envMapIntensity={3} />
+      </mesh>
+      <mesh position={[-0.72, 0.72, 0]} rotation={[0, 0, 0.4]}>
+        <boxGeometry args={[0.62, 0.04, 1.16]} />
+        <meshStandardMaterial color="#020617" roughness={0.05} metalness={0.95} envMapIntensity={3} />
+      </mesh>
+
+      {/* Rear High-Downforce GT Wing Spoiler */}
+      <group position={[-1.52, 0.6, 0]}>
+        <mesh position={[0, 0.14, 0]}>
+          <boxGeometry args={[0.35, 0.06, 1.68]} />
+          <meshPhysicalMaterial
+            color={currentColor}
+            roughness={currentRoughness}
+            metalness={currentMetalness}
+            clearcoat={currentClearcoat}
+            clearcoatRoughness={0.001}
+            envMapIntensity={currentEnvIntensity}
+          />
+        </mesh>
+        <mesh position={[0, -0.08, 0.62]}>
+          <boxGeometry args={[0.1, 0.32, 0.08]} />
+          <meshStandardMaterial color="#09090b" roughness={0.4} />
+        </mesh>
+        <mesh position={[0, -0.08, -0.62]}>
+          <boxGeometry args={[0.1, 0.32, 0.08]} />
+          <meshStandardMaterial color="#09090b" roughness={0.4} />
+        </mesh>
       </group>
 
-      {/* Brembo Performance Crimson Brake Caliper */}
-      <mesh position={[0.78, 0.65, 0.08]} rotation={[0, 0, -0.4]}>
-        <boxGeometry args={[0.42, 0.82, 0.22]} />
-        <meshStandardMaterial color="#dc2626" roughness={0.2} metalness={0.7} envMapIntensity={2.5} />
+      {/* Front Xenon LED Headlights */}
+      <mesh position={[1.68, 0.28, 0.55]}>
+        <boxGeometry args={[0.06, 0.14, 0.34]} />
+        <meshStandardMaterial color="#fef08a" emissive="#f59e0b" emissiveIntensity={progress > 0.4 ? 3.0 : 0.5} />
+      </mesh>
+      <mesh position={[1.68, 0.28, -0.55]}>
+        <boxGeometry args={[0.06, 0.14, 0.34]} />
+        <meshStandardMaterial color="#fef08a" emissive="#f59e0b" emissiveIntensity={progress > 0.4 ? 3.0 : 0.5} />
       </mesh>
 
-      {/* 5 Sculpted Spoke Alloy Blades */}
-      {[0, 72, 144, 216, 288].map((deg, i) => {
-        const rad = (deg * Math.PI) / 180;
-        return (
-          <group key={i} rotation={[0, 0, rad]}>
-            <mesh position={[0, 0.62, 0.06]}>
-              <boxGeometry args={[0.16, 1.15, 0.12]} />
-              <meshPhysicalMaterial
-                color={currentRimColor}
-                roughness={currentRoughness}
-                metalness={currentMetalness}
-                clearcoat={currentClearcoat}
-                clearcoatRoughness={0.005}
-                envMapIntensity={currentEnvIntensity}
-              />
-            </mesh>
-          </group>
-        );
-      })}
-
-      {/* Center Wheel Hub Badge */}
-      <mesh position={[0, 0, 0.14]}>
-        <cylinderGeometry args={[0.3, 0.3, 0.08, 32]} />
-        <meshStandardMaterial color="#020617" roughness={0.1} metalness={0.95} envMapIntensity={3} />
+      {/* Rear Crimson LED Taillight Strip */}
+      <mesh position={[-1.68, 0.32, 0]}>
+        <boxGeometry args={[0.06, 0.1, 1.48]} />
+        <meshStandardMaterial color="#f87171" emissive="#dc2626" emissiveIntensity={progress > 0.4 ? 3.5 : 0.6} />
       </mesh>
+
+      {/* 4 Multi-Spoke Chrome Alloy Wheels & Tires */}
+      {[
+        [0.98, -0.06, 0.86],
+        [0.98, -0.06, -0.86],
+        [-0.98, -0.06, 0.86],
+        [-0.98, -0.06, -0.86],
+      ].map((pos, i) => (
+        <group key={i} position={pos}>
+          {/* Rubber Tire */}
+          <Torus args={[0.35, 0.13, 16, 32]} rotation={[Math.PI / 2, 0, 0]}>
+            <meshStandardMaterial color="#0f172a" roughness={0.8} />
+          </Torus>
+          {/* Chrome Alloy Rim */}
+          <Cylinder args={[0.25, 0.25, 0.15, 24]} rotation={[Math.PI / 2, 0, 0]}>
+            <meshStandardMaterial color="#cbd5e1" roughness={0.1} metalness={0.95} envMapIntensity={3} />
+          </Cylinder>
+        </group>
+      ))}
 
     </group>
   );
 }
 
 export default function Car3DScene() {
-  const [coatingProgress, setCoatingProgress] = useState(0.0); // 0.0 (Dull) to 1.0 (9H Hyper-Gloss)
+  const [coatingProgress, setCoatingProgress] = useState(0.0); // 0.0 (Dull) to 1.0 (100% Chamkila Gloss)
   const [isBuffingActive, setIsBuffingActive] = useState(false);
 
   useFrame((_, delta) => {
@@ -194,34 +227,34 @@ export default function Car3DScene() {
     setCoatingProgress(0.0);
   };
 
-  const isFullGloss = coatingProgress >= 0.98;
+  const isChamkila = coatingProgress >= 0.98;
   const glossPercentage = Math.round(coatingProgress * 100);
 
   return (
     <group>
-      {/* High Dynamic Range City Environment Map for Photorealistic Reflections */}
+      {/* High Dynamic Range City Environment Map for Ultra-Chamkila Mirror Reflections */}
       <Environment preset="city" />
 
       {/* Studio Lighting Setup */}
-      <ambientLight intensity={0.7} />
+      <ambientLight intensity={0.75} />
       <directionalLight position={[6, 9, 6]} intensity={1.8} castShadow />
-      <pointLight position={[0, 2, 3]} intensity={1.5} color="#e11d48" />
+      <pointLight position={[0, 2, 3]} intensity={1.6} color="#ef4444" />
 
-      {/* Speed & Metallic Dust Particles */}
-      <HighOctaneDust count={150} isFullGloss={isFullGloss} />
+      {/* Speed & Chamkila Sparkle Dust Particles */}
+      <ChamkilaSparkles count={180} isChamkila={isChamkila} />
       <Sparkles
-        count={Math.round(30 + coatingProgress * 70)}
-        scale={6}
-        size={2.0}
-        speed={0.6}
-        opacity={0.3 + coatingProgress * 0.4}
-        color={isFullGloss ? "#f59e0b" : "#38bdf8"}
+        count={Math.round(30 + coatingProgress * 90)}
+        scale={7}
+        size={2.5}
+        speed={0.8}
+        opacity={0.3 + coatingProgress * 0.5}
+        color={isChamkila ? "#f59e0b" : "#38bdf8"}
       />
 
       {/* TOP HEADLINE OVERLAY */}
       <Html position={[0, 2.1, 0]} center className="pointer-events-auto z-50">
         <div className="text-center select-none whitespace-nowrap flex flex-col items-center max-w-xs sm:max-w-md mx-auto px-2">
-          {isFullGloss ? (
+          {isChamkila ? (
             <motion.div
               initial={{ opacity: 0, scale: 0.88, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -230,11 +263,11 @@ export default function Car3DScene() {
             >
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-100 dark:bg-rose-950/80 border border-rose-300 dark:border-rose-800/80 text-rose-700 dark:text-rose-300 text-xs font-bold uppercase tracking-wider mb-2 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-rose-600 animate-ping" />
-                9H Ceramic Liquid Shield Active
+                100% CHAMKILA CERAMIC SHIELD ACTIVE
               </div>
 
               <h3 className="text-2xl sm:text-4xl font-black tracking-tighter text-slate-900 dark:text-white uppercase mb-1">
-                YUMMY GLOSS! <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-red-500 to-amber-400">100% SHIELD</span>
+                FULL <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-amber-500 to-amber-400">CHAMKILA GLOSS</span> ✨
               </h3>
               
               <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
@@ -244,33 +277,33 @@ export default function Car3DScene() {
           ) : (
             <div className="flex flex-col items-center">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-bold uppercase tracking-wider mb-2">
-                <span>🪄</span> Drag slider to apply 9H Ceramic Shield
+                <span>🪄</span> Drag slider to turn Dull Car into Chamkila!
               </div>
 
               <h3 className="text-lg sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white uppercase">
-                Ceramic Gloss: <span className="text-rose-600 font-mono">{glossPercentage}%</span>
+                Chamkila Shine: <span className="text-rose-600 font-mono">{glossPercentage}%</span>
               </h3>
               
               <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mt-0.5 uppercase tracking-widest">
-                {coatingProgress < 0.1 ? 'Initial State: Dull & Dusty Slate' : 'Applying 9H Liquid Ceramic Shield...'}
+                {coatingProgress < 0.1 ? 'Current State: Dull & Dusty Car 🧼' : 'Making Car Ultra Chamkila... ✨'}
               </div>
             </div>
           )}
         </div>
       </Html>
 
-      {/* 3D FLOATING PHOTOREALISTIC WHEEL SHOWCASE */}
+      {/* 3D FLOATING SPORTS CAR (DYNAMIC DULL TO CHAMKILA SHINE) */}
       <Float speed={1.5} rotationIntensity={0.15} floatIntensity={0.35}>
-        <PhotorealisticWheelShowcase progress={coatingProgress} />
+        <ChamkilaSportsCar progress={coatingProgress} />
       </Float>
 
       {/* BOTTOM SLIDER & CONTROL BUTTONS OVERLAY */}
       <Html position={[0, -1.6, 0]} center className="pointer-events-auto z-50">
         <div className="text-center select-none whitespace-nowrap flex flex-col items-center gap-3">
           
-          {/* Interactive Range Slider (Ceramic Shield Simulator) */}
+          {/* Interactive Range Slider (Dull to Chamkila Simulator) */}
           <div className="flex items-center gap-3 bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-md px-5 py-2.5 rounded-full border border-slate-700 dark:border-slate-800 shadow-2xl">
-            <span className="text-xs font-bold text-slate-400">🧼 DULL</span>
+            <span className="text-xs font-bold text-slate-400">🧼 DULL CAR</span>
             <input
               type="range"
               min="0"
@@ -280,7 +313,7 @@ export default function Car3DScene() {
               onChange={handleSliderChange}
               className="w-44 sm:w-56 accent-rose-500 cursor-pointer"
             />
-            <span className="text-xs font-black text-rose-400">🪞 9H GLOSS</span>
+            <span className="text-xs font-black text-rose-400">✨ CHAMKILA</span>
           </div>
 
           {/* Quick Action Buttons */}
@@ -291,7 +324,7 @@ export default function Car3DScene() {
               onClick={handleAutoBuff}
               className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-black text-xs rounded-full shadow-lg shadow-rose-600/30 transition-all cursor-pointer flex items-center gap-1.5 border border-amber-300"
             >
-              <span>🪄</span> {isFullGloss ? 'Re-Apply Ceramic Shield' : 'Auto-Apply 9H Shield'}
+              <span>🪄</span> {isChamkila ? 'Make Chamkila Again' : 'Make Car Chamkila ✨'}
             </motion.button>
 
             <motion.button
@@ -300,15 +333,15 @@ export default function Car3DScene() {
               onClick={handleResetWash}
               className="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-rose-600 dark:hover:bg-rose-500 dark:hover:text-white font-black text-xs rounded-full shadow-lg transition-all cursor-pointer flex items-center gap-1.5 border border-slate-700 dark:border-slate-300"
             >
-              <span>🧼</span> Wash / Reset to Dull
+              <span>🧼</span> Reset to Dull Car
             </motion.button>
           </div>
 
         </div>
       </Html>
 
-      {/* Realistic Shadow beneath Wheel Assembly */}
-      <ContactShadows position={[0, -1.35, 0]} opacity={0.5} scale={5} blur={2.5} far={4} color="#000000" />
+      {/* Contact Shadow under Supercar */}
+      <ContactShadows position={[0, -1.35, 0]} opacity={0.5} scale={6} blur={2.5} far={4} color="#000000" />
     </group>
   );
 }
