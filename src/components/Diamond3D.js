@@ -78,7 +78,7 @@ export default function Diamond3D() {
       <Float speed={2} rotationIntensity={0.1} floatIntensity={0.5} floatingRange={[-0.1, 0.1]}>
         <group ref={diamondRef}>
           {/* The Massive Diamond (Scaled up to look like a true statement piece) */}
-          <mesh scale={0.95} position={[0, 1.37, 0]}>
+          <mesh scale={0.95} position={[0, 1.42, 0]}>
             {/* Icosahedron with detail=0 looks like a brilliant cut gem/diamond */}
             <icosahedronGeometry args={[1, 0]} />
             
