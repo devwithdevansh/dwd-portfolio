@@ -33,6 +33,7 @@ export const INDUSTRY_DATA = {
     avgTicketSize: 5000,
     metricUnit: "bookings",
     shaderTheme: "luxury",
+    micrositeRoute: "/car-erp",
     image: "/assets/projects/car detailing/car_transparent.png"
   },
   factories: {
@@ -87,6 +88,7 @@ export const INDUSTRY_DATA = {
     avgTicketSize: 800,
     metricUnit: "views",
     shaderTheme: "default",
+    micrositeRoute: "/restaurant-erp",
     image: "/assets/projects/cafe/cafe_transparent.png"
   },
   hotels: {
