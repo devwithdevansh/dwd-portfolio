@@ -360,10 +360,10 @@ export default function SalonERP() {
         </div>
 
         {/* Spacer for Parallax Curtain Reveal */}
-        <div className="h-[80vh] w-full pointer-events-none" />
+        <div className="h-screen w-full pointer-events-none" />
 
         {/* ===== CONTACT / FORM SECTION ===== */}
-        <div className="fixed bottom-0 left-0 w-full h-[80vh] z-0 bg-[#050505] text-white flex flex-col items-center justify-center">
+        <div className="fixed bottom-0 left-0 w-full h-screen z-0 bg-[#050505] text-white flex flex-col items-center justify-center pt-24 pb-12">
           <section id="contact" className="w-full max-w-5xl px-6 relative z-10">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none" />
 
