@@ -120,7 +120,8 @@ const BentoCard = ({ ind, index, baseRoute }) => {
     setClicked(true);
     
     // Pre-calculate route
-    const targetRoute = ind.id === 'schools' || ind.id === 'tuition' ? '/education-erp' 
+    const targetRoute = ind.id === 'schools' ? '/education-erp' 
+      : ind.id === 'tuition' ? '/tuition-erp'
       : ind.id === 'jewelers' ? '/jewelry-erp' 
       : ind.id === 'factories' ? '/factory-erp' 
       : `${baseRoute}/industry/${ind.id}`;
