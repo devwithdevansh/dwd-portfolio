@@ -22,6 +22,7 @@ const Industry = lazy(() => import('./pages/Industry'));
 const CityLanding = lazy(() => import('./pages/CityLanding'));
 const EducationERP = lazy(() => import('./pages/EducationERP'));
 const JewelryERP = lazy(() => import('./pages/JewelryERP'));
+const FactoryERP = lazy(() => import('./pages/FactoryERP'));
 const RestaurantERP = lazy(() => import('./pages/RestaurantERP'));
 const CarERP = lazy(() => import('./pages/CarERP'));
 const HospitalERP = lazy(() => import('./pages/HospitalERP'));
@@ -54,6 +55,7 @@ function AnimatedRoutes() {
         {/* Niche Microsites */}
         <Route path="/education-erp" element={<EducationERP />} />
         <Route path="/jewelry-erp" element={<JewelryERP />} />
+        <Route path="/factory-erp" element={<FactoryERP />} />
         <Route path="/restaurant-erp" element={<RestaurantERP />} />
         <Route path="/restaurant-pos" element={<RestaurantERP />} />
         <Route path="/car-erp" element={<CarERP />} />

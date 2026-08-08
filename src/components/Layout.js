@@ -32,7 +32,8 @@ export default function Layout({ children }) {
   }, [location.pathname]);
 
   // If it's a niche site, bypass the main layout entirely
-  if (location.pathname.startsWith('/education-erp') || location.pathname.startsWith('/jewelry-erp')) {
+  const isNicheMicrosite = location.pathname.startsWith('/education-erp') || location.pathname.startsWith('/jewelry-erp') || location.pathname.startsWith('/factory-erp');
+  if (isNicheMicrosite) {
     return (
       <SmoothScroll>
         <CustomCursor />
