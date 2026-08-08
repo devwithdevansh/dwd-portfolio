@@ -13,9 +13,11 @@ const getBentoClasses = (index) => {
     "md:col-span-1 md:row-span-1", // 3: Jewelers
     "md:col-span-2 md:row-span-1", // 4: Cafes (Wide)
     "md:col-span-2 md:row-span-1", // 5: Hotels (Wide)
-    "md:col-span-1 md:row-span-1", // 6: Schools
-    "md:col-span-1 md:row-span-1", // 7: Tuition
-    "md:col-span-2 md:row-span-1", // 8: Enterprise (Wide)
+    "md:col-span-1 md:row-span-1", // 6: Schools (Auto-fills next to Cafes)
+    "md:col-span-1 md:row-span-1", // 7: Tuition (Auto-fills next to Hotels)
+    "md:col-span-1 md:row-span-1", // 8: Gyms
+    "md:col-span-2 md:row-span-1", // 9: Salons (Wide, fills row with Gyms)
+    "md:col-span-3 md:row-span-1", // 10: Enterprise (Full width at bottom)
   ];
   return classes[index] || "col-span-1";
 };
@@ -125,6 +127,7 @@ const BentoCard = ({ ind, index, baseRoute }) => {
       : ind.id === 'hospitals' ? '/hospital-erp'
       : ind.id === 'jewelers' ? '/jewelry-erp' 
       : ind.id === 'factories' ? '/factory-erp' 
+      : ind.id === 'hotels' ? '/hotel-erp'
       : `${baseRoute}/industry/${ind.id}`;
     
     // Delay navigation to let the click animation (shrink and glow) run
@@ -211,18 +214,20 @@ const BentoCard = ({ ind, index, baseRoute }) => {
             </motion.div>
           ))
         ) : (
-          <motion.img 
-            src={ind.image} 
-            alt={ind.name}
-            className="absolute w-[110%] h-[110%] -right-4 -bottom-4 object-contain object-bottom transition-all duration-700 mix-blend-normal dark:mix-blend-luminosity"
-            initial={{ opacity: 0.8, filter: 'grayscale(100%) contrast(150%) brightness(0.85)' }}
-            animate={{
-              scale: hovered ? 1.05 : 1,
-              opacity: hovered ? 1 : 0.8,
-              filter: hovered ? `grayscale(0%) drop-shadow(0 20px 30px ${ind.color}60) contrast(110%) brightness(1)` : 'grayscale(100%) drop-shadow(0 0px 0px rgba(0,0,0,0)) contrast(150%) brightness(1.2)',
-            }}
-            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          />
+          ind.image && (
+            <motion.img 
+              src={ind.image} 
+              alt={ind.name}
+              className="absolute w-[110%] h-[110%] -right-4 -bottom-4 object-contain object-bottom transition-all duration-700 mix-blend-normal dark:mix-blend-luminosity"
+              initial={{ opacity: 0.8, filter: 'grayscale(100%) contrast(150%) brightness(0.85)' }}
+              animate={{
+                scale: hovered ? 1.05 : 1,
+                opacity: hovered ? 1 : 0.8,
+                filter: hovered ? `grayscale(0%) drop-shadow(0 20px 30px ${ind.color}60) contrast(110%) brightness(1)` : 'grayscale(100%) drop-shadow(0 0px 0px rgba(0,0,0,0)) contrast(150%) brightness(1.2)',
+              }}
+              transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            />
+          )
         )}
       </div>
 
