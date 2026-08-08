@@ -1,7 +1,7 @@
 import React, { useRef, useState, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Float, Sparkles, Html, ContactShadows, Environment, Points, PointMaterial } from '@react-three/drei';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import * as THREE from 'three';
 
 // Ceramic Steam Smoke & Cleaning Fog
@@ -12,7 +12,7 @@ function CleaningSmokeFog({ count = 180, isBuffing }) {
     const positions = new Float32Array(count * 3);
     const speeds = new Float32Array(count);
     for (let i = 0; i < count; i++) {
-      const r = 1.5 + Math.random() * 3.5;
+      const r = 2.0 + Math.random() * 4.0;
       const theta = 2 * Math.PI * Math.random();
       const phi = Math.acos(2 * Math.random() - 1);
       
@@ -20,7 +20,7 @@ function CleaningSmokeFog({ count = 180, isBuffing }) {
       positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) + 0.2;
       positions[i * 3 + 2] = r * Math.cos(phi);
       
-      speeds[i] = Math.random() * 0.03 + 0.015;
+      speeds[i] = Math.random() * 0.04 + 0.02;
     }
     return [positions, speeds];
   }, [count]);
@@ -28,12 +28,10 @@ function CleaningSmokeFog({ count = 180, isBuffing }) {
   useFrame((state) => {
     if (!points.current) return;
     const time = state.clock.getElapsedTime();
-    // Smoke drifts slightly but doesn't spin wildly
-
     const array = points.current.geometry.attributes.position.array;
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
-      array[i3 + 1] += Math.sin(time * speeds[i] + i) * 0.003;
+      array[i3 + 1] += Math.sin(time * speeds[i] + i) * 0.005;
     }
     points.current.geometry.attributes.position.needsUpdate = true;
   });
@@ -43,10 +41,10 @@ function CleaningSmokeFog({ count = 180, isBuffing }) {
       <PointMaterial
         transparent
         color={isBuffing ? "#f59e0b" : "#e2e8f0"}
-        size={isBuffing ? 0.08 : 0.04}
+        size={isBuffing ? 0.1 : 0.04}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={isBuffing ? 0.75 : 0.4}
+        opacity={isBuffing ? 0.8 : 0.0}
         blending={THREE.AdditiveBlending}
       />
     </Points>
@@ -59,7 +57,7 @@ function ProportionedCarWheel({ position, isSpinning }) {
 
   useFrame((state) => {
     if (wheelRef.current && isSpinning) {
-      wheelRef.current.rotation.z = -state.clock.getElapsedTime() * 0.8;
+      wheelRef.current.rotation.z -= 0.15; // Drive rotation
     }
   });
 
@@ -94,87 +92,49 @@ function ProportionedCarWheel({ position, isSpinning }) {
   );
 }
 
-// L-Shaped Detailing Stick / Polisher Tool
-function DetailingPolisher({ position, isActive }) {
-  const toolRef = useRef();
-
-  useFrame((state) => {
-    if (toolRef.current) {
-      // Bob up and down slightly
-      toolRef.current.position.y = position.y + Math.sin(state.clock.elapsedTime * 4) * 0.02;
-      
-      // Scrubbing motion instead of spinning if active
-      if (isActive) {
-        toolRef.current.children[0].rotation.z = Math.sin(state.clock.elapsedTime * 25) * 0.2; // Rapid scrubbing
-      }
-    }
-  });
-
+// Automated Workshop Glowing Archway
+function WorkshopArchway() {
   return (
-    <group position={[position.x, position.y, position.z]} ref={toolRef}>
-      {/* Spinning Buffing Pad */}
-      <mesh position={[0, -0.1, 0]}>
-        <cylinderGeometry args={[0.15, 0.15, 0.05, 32]} />
-        <meshStandardMaterial color="#fcd34d" roughness={0.8} /> {/* Yellow sponge pad */}
+    <group position={[1.5, 0, 0]}>
+      {/* Left Pillar */}
+      <mesh position={[-0.5, 1.2, 2]}>
+        <boxGeometry args={[0.2, 2.4, 0.2]} />
+        <meshStandardMaterial color="#1e293b" metalness={0.8} />
       </mesh>
-      
-      {/* Polisher Base Body */}
-      <mesh position={[0, 0.05, 0]}>
-        <cylinderGeometry args={[0.12, 0.12, 0.2, 16]} />
-        <meshStandardMaterial color="#1e293b" roughness={0.5} metalness={0.8} />
+      {/* Right Pillar */}
+      <mesh position={[-0.5, 1.2, -2]}>
+        <boxGeometry args={[0.2, 2.4, 0.2]} />
+        <meshStandardMaterial color="#1e293b" metalness={0.8} />
       </mesh>
-
-      {/* L-Shaped Handle (Stick) */}
-      <mesh position={[0.2, 0.15, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.04, 0.04, 0.5, 16]} />
-        <meshStandardMaterial color="#0f172a" roughness={0.6} />
+      {/* Top Arch Bridge */}
+      <mesh position={[-0.5, 2.4, 0]}>
+        <boxGeometry args={[0.2, 0.2, 4.2]} />
+        <meshStandardMaterial color="#1e293b" metalness={0.8} />
       </mesh>
-
-      {/* Handle Grip */}
-      <mesh position={[0.4, 0.15, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.05, 0.05, 0.2, 16]} />
-        <meshStandardMaterial color="#ef4444" roughness={0.9} /> {/* Red rubber grip */}
+      {/* Glowing Neon Strip */}
+      <mesh position={[-0.49, 2.4, 0]}>
+        <boxGeometry args={[0.22, 0.1, 4.0]} />
+        <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={4} toneMapped={false} />
       </mesh>
-      
-      {/* Interactive Tooltip on the stick */}
-      {!isActive && (
-        <Html position={[0.5, 0.3, 0]} center>
-          <div className="bg-slate-900/90 text-white text-[10px] font-bold px-2 py-1 rounded-md border border-amber-500/50 whitespace-nowrap animate-bounce shadow-lg shadow-amber-500/20">
-            Grab & Drag to Polish! 🪄
-          </div>
-        </Html>
-      )}
     </group>
   );
 }
 
-
 // Sleek Horizontal Sports Coupe Car Body
-function SleekSportsCoupe({ progress }) {
-  const carRef = useRef();
-
+function SleekSportsCoupe({ progress, targetColor, position, isSpinningWheels }) {
   // Lerp material properties smoothly from Dull (progress = 0) to 100% Chamkila Sheen (progress = 1)
   const currentRoughness = THREE.MathUtils.lerp(0.92, 0.005, progress);
   const currentMetalness = THREE.MathUtils.lerp(0.08, 0.95, progress);
   const currentClearcoat = THREE.MathUtils.lerp(0, 1.0, progress);
   const currentEnvIntensity = THREE.MathUtils.lerp(0.2, 4.5, progress);
 
-  // Color lerps from Dull Slate (#3b4252) to Liquid Crimson Red (#dc2626)
+  // Color lerps from Dull Slate (#3b4252) to target glossy color
   const dullColor = new THREE.Color("#3b4252");
-  const chamkilaColor = new THREE.Color("#dc2626");
-  const currentColor = dullColor.clone().lerp(chamkilaColor, progress);
-
-  useFrame((state) => {
-    if (carRef.current) {
-      // Subtle stationary floating instead of endless spinning
-      carRef.current.rotation.y = Math.sin(state.clock.getElapsedTime() * 0.15) * 0.05;
-      carRef.current.rotation.x = Math.sin(state.clock.getElapsedTime() * 0.3) * 0.02 + 0.05;
-    }
-  });
+  const finalColor = new THREE.Color(targetColor);
+  const currentColor = dullColor.clone().lerp(finalColor, progress);
 
   return (
-    <group ref={carRef} position={[0, -0.15, 0]} scale={0.95}>
-      
+    <group position={position} scale={0.95}>
       {/* Lower Main Car Chassis */}
       <mesh position={[0, 0.2, 0]} castShadow receiveShadow>
         <boxGeometry args={[3.0, 0.38, 1.38]} />
@@ -289,90 +249,84 @@ function SleekSportsCoupe({ progress }) {
       </mesh>
 
       {/* 4 Whitewall Chrome Dish Wheels Positioned Correctly */}
-      <ProportionedCarWheel position={[0.85, 0.05, 0.72]} isSpinning={progress > 0 && progress < 1.0} />
-      <ProportionedCarWheel position={[0.85, 0.05, -0.72]} isSpinning={progress > 0 && progress < 1.0} />
-      <ProportionedCarWheel position={[-0.85, 0.05, 0.72]} isSpinning={progress > 0 && progress < 1.0} />
-      <ProportionedCarWheel position={[-0.85, 0.05, -0.72]} isSpinning={progress > 0 && progress < 1.0} />
+      <ProportionedCarWheel position={[0.85, 0.05, 0.72]} isSpinning={isSpinningWheels} />
+      <ProportionedCarWheel position={[0.85, 0.05, -0.72]} isSpinning={isSpinningWheels} />
+      <ProportionedCarWheel position={[-0.85, 0.05, 0.72]} isSpinning={isSpinningWheels} />
+      <ProportionedCarWheel position={[-0.85, 0.05, -0.72]} isSpinning={isSpinningWheels} />
 
     </group>
   );
 }
 
-// 3D Detailing Billboard (Sign)
-function DetailingBillboard({ progress }) {
-  const glossPercentage = Math.round(progress * 100);
-  
-  return (
-    <group position={[-2.5, 0, -2.5]} rotation={[0, Math.PI / 6, 0]}>
-      {/* Stand Pillars */}
-      <mesh position={[-0.8, 0.6, 0]}>
-        <cylinderGeometry args={[0.05, 0.05, 1.2]} />
-        <meshStandardMaterial color="#475569" metalness={0.8} />
-      </mesh>
-      <mesh position={[0.8, 0.6, 0]}>
-        <cylinderGeometry args={[0.05, 0.05, 1.2]} />
-        <meshStandardMaterial color="#475569" metalness={0.8} />
-      </mesh>
-
-      {/* Board Panel */}
-      <mesh position={[0, 1.4, 0]} castShadow>
-        <boxGeometry args={[2.2, 1.2, 0.1]} />
-        <meshStandardMaterial color="#0f172a" roughness={0.4} />
-      </mesh>
-
-      {/* Sign Frame */}
-      <mesh position={[0, 1.4, 0]}>
-        <boxGeometry args={[2.3, 1.3, 0.05]} />
-        <meshStandardMaterial color="#f59e0b" metalness={0.7} roughness={0.2} />
-      </mesh>
-
-      {/* 3D Text on Billboard using HTML Transform */}
-      <Html transform position={[0, 1.4, 0.06]} scale={0.3} className="pointer-events-none select-none">
-        <div className="w-[800px] h-[380px] flex flex-col items-center justify-center text-center">
-          <h1 className="text-5xl font-black text-sky-400 mb-4 tracking-wider">PREMIUM DETAILING</h1>
-          <h2 className="text-3xl font-medium text-slate-100 mb-8">Ceramic Shield &bull; PPF &bull; Paint Correction</h2>
-          <div className="text-4xl font-black text-amber-400 mb-4 tracking-widest">
-            {progress >= 0.98 ? "100% CHAMKILA PROTECTED" : `GLOSS PROGRESS: ${glossPercentage}%`}
-          </div>
-          
-          {/* Progress Bar Container */}
-          <div className="w-3/4 h-6 bg-slate-700/80 rounded-full overflow-hidden border border-slate-600">
-            <div 
-              className="h-full bg-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.6)] transition-all duration-100 ease-out" 
-              style={{ width: `${glossPercentage}%` }} 
-            />
-          </div>
-        </div>
-      </Html>
-    </group>
-  );
-}
-
+// Customer Queue for Simulation - Localized for Indian Market
+const CUSTOMER_QUEUE = [
+  { id: '1001', color: '#dc2626', name: 'Mahindra Thar (Red)', service: '9H Ceramic Coating', price: '₹25,000' },
+  { id: '1002', color: '#1e3a8a', name: 'Honda City (Blue)', service: 'Rubbing & Polishing', price: '₹4,500' },
+  { id: '1003', color: '#10b981', name: 'Toyota Fortuner', service: 'Deep Spa Wash & Teflon', price: '₹1,500' },
+  { id: '1004', color: '#0f172a', name: 'Kia Seltos X-Line', service: 'Garware TPU PPF Wrap', price: '₹75,000' }
+];
 
 export default function Car3DScene() {
-  const [coatingProgress, setCoatingProgress] = useState(0.0); // 0.0 (Dull) to 1.0 (100% Chamkila Sheen)
-  const [toolPosition, setToolPosition] = useState(new THREE.Vector3(0, 1, 1.5));
-  const [isDragging, setIsDragging] = useState(false);
+  const [queueIndex, setQueueIndex] = useState(0);
+  const [stage, setStage] = useState('WAITING'); // WAITING | DRIVING_IN | DETAILING | DRIVING_OUT
+  const [carPositionX, setCarPositionX] = useState(-15);
+  const [coatingProgress, setCoatingProgress] = useState(0.0);
 
-  // Interactive Drag handler for the invisible hit box
-  const handlePointerMove = (e) => {
-    // Only update tool position if we are moving within the scene 
-    setToolPosition(e.point);
-    if (isDragging && coatingProgress < 1.0) {
-      setCoatingProgress((prev) => Math.min(prev + 0.005, 1.0));
+  const currentCar = CUSTOMER_QUEUE[queueIndex];
+  
+  // Audio ref for cha-ching
+  const [showRevenue, setShowRevenue] = useState(false);
+
+  // Workshop Automation Logic
+  useFrame((_, delta) => {
+    if (stage === 'DRIVING_IN') {
+      setCarPositionX((prev) => {
+        const next = THREE.MathUtils.lerp(prev, 1.5, 0.05); // Move towards center archway
+        if (Math.abs(1.5 - next) < 0.05) {
+          setStage('DETAILING');
+          return 1.5;
+        }
+        return next;
+      });
+    }
+
+    if (stage === 'DETAILING') {
+      setCoatingProgress((prev) => {
+        const next = prev + delta * 0.4;
+        if (next >= 1.0) {
+          setStage('DRIVING_OUT');
+          setShowRevenue(true);
+          setTimeout(() => setShowRevenue(false), 2500);
+          return 1.0;
+        }
+        return next;
+      });
+    }
+
+    if (stage === 'DRIVING_OUT') {
+      setCarPositionX((prev) => {
+        const next = THREE.MathUtils.lerp(prev, 15, 0.05); // Move off screen right
+        if (Math.abs(15 - next) < 0.1) {
+          // Reset cycle for next car
+          setStage('WAITING');
+          setCoatingProgress(0.0);
+          setCarPositionX(-15);
+          setQueueIndex((prevIdx) => (prevIdx + 1) % CUSTOMER_QUEUE.length);
+          return 15;
+        }
+        return next;
+      });
+    }
+  });
+
+  const handleAcceptBooking = () => {
+    if (stage === 'WAITING') {
+      setStage('DRIVING_IN');
     }
   };
 
-  const handlePointerDown = (e) => {
-    setIsDragging(true);
-    e.stopPropagation();
-  };
-
-  const handlePointerUp = () => {
-    setIsDragging(false);
-  };
-
-  const isChamkila = coatingProgress >= 0.98;
+  const isWheelsSpinning = stage === 'DRIVING_IN' || stage === 'DRIVING_OUT';
+  const isBuffing = stage === 'DETAILING';
 
   return (
     <group>
@@ -382,97 +336,178 @@ export default function Car3DScene() {
       {/* Studio Lighting Setup */}
       <ambientLight intensity={0.75} />
       <directionalLight position={[6, 9, 6]} intensity={1.8} castShadow />
-      <pointLight position={[0, 2, 3]} intensity={1.6} color="#dc2626" />
+      <pointLight position={[0, 2, 3]} intensity={1.6} color="#ffffff" />
 
-      {/* Invisible Interactive Hit Box for Dragging Polisher */}
-      <mesh 
-        position={[0, 0, 0]} 
-        visible={false} 
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
-        onPointerOut={handlePointerUp}
-        onPointerMove={handlePointerMove}
-      >
-        {/* Large bounding box to capture pointer movements around the car */}
-        <boxGeometry args={[6, 4, 6]} />
-      </mesh>
+      {/* Workshop Elements - Scaled to fit viewport */}
+      <group scale={0.7} position={[0.6, -0.4, -1]}>
+        <WorkshopArchway />
+        <CleaningSmokeFog count={250} isBuffing={isBuffing} />
 
-      {/* Interactive Polisher Tool (Follows Cursor) */}
-      {!isChamkila && (
-        <DetailingPolisher position={toolPosition} isActive={isDragging} />
-      )}
+        {/* Chamkila Sparkle Stars during detailing */}
+        <Sparkles
+          count={Math.round(coatingProgress * 150)}
+          scale={6}
+          size={3}
+          speed={0.8}
+          position={[1.5, 0, 0]}
+          opacity={coatingProgress}
+          color="#38bdf8"
+        />
 
-      {/* 3D Detailing Billboard */}
-      <DetailingBillboard progress={coatingProgress} />
+        {/* Simulated Driving Car */}
+        <Float speed={0} rotationIntensity={0} floatIntensity={0}>
+          <SleekSportsCoupe 
+            progress={coatingProgress} 
+            targetColor={currentCar.color}
+            position={[carPositionX, -0.15, 0]} 
+            isSpinningWheels={isWheelsSpinning}
+          />
+        </Float>
+        
+        {/* Realistic Ground Shadow under Archway */}
+        <ContactShadows position={[0, -1.35, 0]} opacity={0.6} scale={15} blur={2.5} far={4} color="#000000" />
+      </group>
 
-      {/* Cleaning Steam Smoke Fog Particles */}
-      <CleaningSmokeFog count={180} isBuffing={isDragging && !isChamkila} />
-
-      {/* Chamkila Sparkle Stars */}
-      <Sparkles
-        count={Math.round(30 + coatingProgress * 90)}
-        scale={6}
-        size={2.5}
-        speed={0.8}
-        opacity={0.3 + coatingProgress * 0.5}
-        color={isChamkila ? "#f59e0b" : "#38bdf8"}
-      />
-
-      {/* TOP HEADLINE OVERLAY */}
-      <Html position={[0, 2.5, 0]} center className="pointer-events-none z-50">
-        <div className="text-center select-none whitespace-nowrap flex flex-col items-center max-w-xs sm:max-w-md mx-auto px-2">
-          {isChamkila ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.88, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ type: "spring", stiffness: 350, damping: 22 }}
-              className="flex flex-col items-center"
-            >
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-100 dark:bg-rose-950/80 border border-rose-300 dark:border-rose-800/80 text-rose-700 dark:text-rose-300 text-xs font-bold uppercase tracking-wider mb-2 shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-rose-600 animate-ping" />
-                100% CHAMKILA CERAMIC SHIELD ACTIVE
-              </div>
-
-              <h3 className="text-2xl sm:text-4xl font-black tracking-tighter text-slate-900 dark:text-white uppercase mb-1">
-                FULL <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-amber-500 to-amber-400">CHAMKILA GLOSS</span> ✨
-              </h3>
-              
-              <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                Mirror sheen finish dispatched to workshop terminal.
-              </p>
-            </motion.div>
-          ) : null}
-        </div>
-      </Html>
-
-      {/* 3D FLOATING SCULPTED CLASSIC COUPE */}
-      <Float speed={1.5} rotationIntensity={isDragging ? 0.05 : 0.15} floatIntensity={isDragging ? 0.05 : 0.35}>
-        <SleekSportsCoupe progress={coatingProgress} />
-      </Float>
-
-      {/* BOTTOM CONTROL BUTTONS OVERLAY (Slider Removed) */}
-      <Html position={[0, -1.6, 0]} center className="pointer-events-auto z-50">
-        <div className="text-center select-none whitespace-nowrap flex flex-col items-center gap-3">
+      {/* 3D ERP Tablet Interface (Left Side) - Scaled and Repositioned */}
+      <Html transform position={[-0.9, 0.1, 1.0]} rotation={[0, Math.PI / 10, 0]} scale={0.14} className="pointer-events-auto">
+        {/* Physical Tablet Bezel (Black Hardware) */}
+        <div className="w-[380px] h-[550px] bg-white rounded-[2.5rem] border-[14px] border-[#0a0a0c] shadow-[0_30px_60px_rgba(0,0,0,0.8)] ring-1 ring-slate-800 flex flex-col overflow-hidden select-none relative">
           
-          {/* Quick Action Buttons */}
-          <div className="flex items-center gap-2 mt-4">
-            {isChamkila && (
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setCoatingProgress(0.0)}
-                className="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-rose-600 dark:hover:bg-rose-500 dark:hover:text-white font-black text-xs rounded-full shadow-lg transition-all cursor-pointer flex items-center gap-1.5 border border-slate-700 dark:border-slate-300"
-              >
-                <span>🧼</span> Reset & Drag Again
-              </motion.button>
-            )}
+          {/* Front Facing Camera Notch */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-4 bg-[#0a0a0c] rounded-b-xl z-50 flex items-center justify-center gap-2 shadow-sm">
+             <div className="w-1.5 h-1.5 rounded-full bg-slate-800 shadow-inner" />
+             <div className="w-1 h-1 rounded-full bg-emerald-500/50 blur-[0.5px]" />
           </div>
 
+          {/* Screen Glass Glare Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/40 to-white/0 pointer-events-none z-40 mix-blend-overlay" />
+          
+          {/* iOS Style Status Bar (Light Mode) */}
+          <div className="bg-slate-50 pt-1 pb-0 px-5 flex justify-between items-center text-[9px] text-slate-800 font-bold z-30 relative">
+             <span>Jio 5G</span>
+             <span className="text-slate-800">14:05</span>
+             <div className="flex items-center gap-1">
+                <span>98%</span>
+                <div className="w-4 h-2 rounded-[3px] border border-slate-800 flex justify-end p-[1px]">
+                   <div className="w-full h-full bg-slate-800 rounded-[1px]" />
+                </div>
+             </div>
+          </div>
+
+          {/* Tablet Header (Light Mode) */}
+          <div className="bg-white p-4 pt-3 border-b border-slate-200 flex justify-between items-center relative z-30 shadow-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-gradient-to-br from-rose-500 to-rose-700 rounded-md flex items-center justify-center shadow-md shadow-rose-600/20 border border-rose-400/30">
+                <span className="text-white text-xs font-black">AD</span>
+              </div>
+              <span className="text-slate-900 font-black text-sm tracking-widest uppercase">ApexDrive OS</span>
+            </div>
+          </div>
+
+          {/* Tablet Content (Light Mode) */}
+          <div className="flex-1 p-5 flex flex-col relative bg-slate-50 z-20">
+            {/* Subtle Tech Grid Background */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#cbd5e1_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e1_1px,transparent_1px)] bg-[size:1rem_1rem] opacity-50 pointer-events-none" />
+            
+            <h2 className="text-slate-500 text-[10px] uppercase tracking-widest font-black mb-4 relative z-10 flex items-center gap-2">
+              <div className="w-1 h-3 bg-rose-500 rounded-full" />
+              Live Workshop Queue
+            </h2>
+
+            {/* Current Request Card (Light Mode) */}
+            <AnimatePresence mode="wait">
+              <motion.div 
+                key={currentCar.id + stage}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="bg-white rounded-xl p-4 border border-slate-200 shadow-lg relative overflow-hidden"
+              >
+                {/* Colored Top Banner */}
+                <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: currentCar.color }} />
+
+                <div className="flex justify-between items-start mb-3 mt-1">
+                  <div>
+                    <div className="text-[10px] font-black text-rose-500 uppercase tracking-wider mb-1">ID: #{currentCar.id}</div>
+                    <div className="text-slate-900 font-bold text-lg leading-tight">{currentCar.name}</div>
+                  </div>
+                  <div className="bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-1 rounded-md border border-emerald-200">
+                    {currentCar.price}
+                  </div>
+                </div>
+
+                <div className="text-slate-600 text-sm font-medium mb-5 bg-slate-50 p-2 rounded-lg border border-slate-200">
+                  🔧 {currentCar.service}
+                </div>
+
+                {/* Status / Action Button */}
+                {stage === 'WAITING' && (
+                  <button 
+                    onClick={handleAcceptBooking}
+                    className="w-full bg-rose-600 hover:bg-rose-700 text-white font-black uppercase tracking-widest py-3 rounded-lg shadow-md shadow-rose-600/20 active:scale-95 transition-all text-sm border border-rose-500"
+                  >
+                    Accept Booking
+                  </button>
+                )}
+                
+                {stage === 'DRIVING_IN' && (
+                  <div className="w-full bg-amber-100 text-amber-700 font-black uppercase tracking-widest py-3 rounded-lg text-center text-sm border border-amber-200 flex items-center justify-center gap-2">
+                    <span className="animate-spin text-lg">⏳</span> Valet Parking...
+                  </div>
+                )}
+
+                {stage === 'DETAILING' && (
+                  <div className="w-full bg-sky-100 text-sky-700 font-black uppercase tracking-widest py-3 rounded-lg text-center text-sm border border-sky-200 flex flex-col items-center justify-center">
+                    <span className="text-xs mb-1">Executing Service...</span>
+                    <div className="w-3/4 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                      <div className="h-full bg-sky-500 transition-all" style={{ width: `${coatingProgress * 100}%` }} />
+                    </div>
+                  </div>
+                )}
+
+                {stage === 'DRIVING_OUT' && (
+                  <div className="w-full bg-emerald-100 text-emerald-700 font-black uppercase tracking-widest py-3 rounded-lg text-center text-sm border border-emerald-200 flex items-center justify-center gap-2">
+                    <span className="text-lg">✅</span> Job Completed
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Upcoming Queue (Light Mode) */}
+            <div className="mt-6">
+              <h3 className="text-slate-400 text-[10px] uppercase font-bold tracking-widest mb-3">Up Next in Bay</h3>
+              {[1, 2].map((offset) => {
+                const nextCar = CUSTOMER_QUEUE[(queueIndex + offset) % CUSTOMER_QUEUE.length];
+                return (
+                  <div key={offset} className="flex justify-between items-center py-2 border-b border-slate-200 opacity-60 grayscale">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: nextCar.color }} />
+                      <span className="text-slate-600 text-xs font-medium">{nextCar.name}</span>
+                    </div>
+                    <span className="text-slate-500 text-[10px] font-mono">{nextCar.price}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Floating Revenue Alert */}
+            <AnimatePresence>
+              {showRevenue && (
+                <motion.div
+                  initial={{ opacity: 0, y: 50, scale: 0.8 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -50 }}
+                  className="absolute inset-0 flex items-center justify-center pointer-events-none z-50 bg-white/60 backdrop-blur-sm"
+                >
+                  <div className="bg-emerald-500 text-white font-black text-3xl px-6 py-4 rounded-2xl shadow-[0_20px_40px_rgba(16,185,129,0.4)] border-4 border-emerald-400 rotate-[-5deg]">
+                    + {currentCar.price}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </Html>
-
-      {/* Realistic Ground Shadow under Coupe */}
-      <ContactShadows position={[0, -1.35, 0]} opacity={0.5} scale={5.5} blur={2.2} far={4} color="#000000" />
     </group>
   );
 }
