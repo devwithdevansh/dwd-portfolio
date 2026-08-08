@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useScroll, useVelocity, useSpring, useTransfor
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
-import Pizza3DScene from '../components/Pizza3DScene';
+import Restaurant3DScene from '../components/Restaurant3DScene';
 import Preloader from '../components/Preloader';
 
 function KineticHeading({ text }) {
@@ -271,10 +271,12 @@ export default function RestaurantERP() {
               </motion.div>
             </div>
 
-            <div className="md:w-1/2 h-[550px] md:h-[620px] w-full relative z-0 mt-8 md:mt-0">
+            <div className="md:w-1/2 h-[550px] md:h-[620px] w-full relative z-0 mt-8 md:mt-0" style={{ background: '#0a0f1e' }}>
               <Suspense fallback={<div className="w-full h-full animate-pulse bg-orange-100 dark:bg-orange-950/40 rounded-full" />}>
-                 <Canvas camera={{ position: [0, 0, 5.8], fov: 42 }}>
-                   <Pizza3DScene />
+                 <Canvas camera={{ position: [0.5, 5.5, 12.5], fov: 65 }} shadows gl={{ alpha: false, antialias: true }} style={{ background: '#0a0f1e' }}>
+                   <color attach="background" args={['#0a0f1e']} />
+                   <fog attach="fog" args={['#0a0f1e', 14, 28]} />
+                   <Restaurant3DScene />
                  </Canvas>
               </Suspense>
             </div>
