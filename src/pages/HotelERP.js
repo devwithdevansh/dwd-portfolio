@@ -89,8 +89,8 @@ export default function HotelERP() {
         style={{ pointerEvents: loading ? 'none' : 'auto' }}
       >
         <Helmet>
-          <title>Hotel & Hospitality ERP | Tailored by Antigravity</title>
-          <meta name="description" content="Upgrade your hotel. Build a custom booking engine, bypass OTAs, and automate housekeeping with Antigravity." />
+          <title>Hotel & Hospitality ERP | Tailored by DWD</title>
+          <meta name="description" content="Upgrade your hotel. Build a custom booking engine, bypass OTAs, and automate housekeeping with DWD." />
         </Helmet>
 
         <Link to="/" className="fixed top-8 left-8 z-50 flex items-center justify-center w-12 h-12 bg-white/70 backdrop-blur-md rounded-full shadow-sm border border-white/50 text-slate-500 hover:text-slate-900 hover:scale-105 hover:shadow-md transition-all duration-300">
@@ -181,7 +181,7 @@ export default function HotelERP() {
                   </ul>
                 </motion.div>
 
-                {/* The Antigravity Way (Gold/Black) */}
+                {/* The DWD Way (Gold/Black) */}
                 <motion.div 
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}

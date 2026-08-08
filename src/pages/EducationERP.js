@@ -91,8 +91,8 @@ export default function EducationERP() {
         style={{ pointerEvents: loading ? 'none' : 'auto' }}
       >
         <Helmet>
-          <title>Education ERP & School Management System | Tailored by Antigravity</title>
-          <meta name="description" content="Stop renting generic ERPs. Build a custom institution management engine with Antigravity." />
+          <title>Education ERP & School Management System | Tailored by DWD</title>
+          <meta name="description" content="Stop renting generic ERPs. Build a custom institution management engine with DWD." />
         </Helmet>
 
         {/* Subtle Close Button */}
@@ -180,7 +180,7 @@ export default function EducationERP() {
                   </ul>
                 </motion.div>
 
-                {/* The Antigravity Way (Blue/Pristine) */}
+                {/* The DWD Way (Blue/Pristine) */}
                 <motion.div 
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}

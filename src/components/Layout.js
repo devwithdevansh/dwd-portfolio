@@ -34,7 +34,8 @@ export default function Layout({ children }) {
   // If it's a niche site, bypass the main layout entirely
   const isNicheMicrosite = [
     '/education-erp', '/tuition-erp', '/jewelry-erp', '/factory-erp', 
-    '/restaurant-erp', '/restaurant-pos', '/car-erp', '/hotel-erp', '/cafes', '/cardetailing'
+    '/restaurant-erp', '/restaurant-pos', '/car-erp', '/hotel-erp', '/cafes', '/cardetailing',
+    '/gym-erp', '/hospital-erp', '/business-erp'
   ].some(path => location.pathname.includes(path));
   if (isNicheMicrosite) {
     return (

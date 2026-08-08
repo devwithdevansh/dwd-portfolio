@@ -14,10 +14,6 @@ ReactGA.initialize('G-XXXXXXXXXX');
 
 // Lazy Load Pages for massive performance boost
 const Home = lazy(() => import('./pages/Home'));
-const Work = lazy(() => import('./pages/Work'));
-const About = lazy(() => import('./pages/About'));
-const Services = lazy(() => import('./pages/Services'));
-const Contact = lazy(() => import('./pages/Contact'));
 const Industry = lazy(() => import('./pages/Industry'));
 const CityLanding = lazy(() => import('./pages/CityLanding'));
 const EducationERP = lazy(() => import('./pages/EducationERP'));
@@ -29,6 +25,8 @@ const CarERP = lazy(() => import('./pages/CarERP'));
 const HospitalERP = lazy(() => import('./pages/HospitalERP'));
 const HotelERP = lazy(() => import('./pages/HotelERP'));
 const SalonERP = lazy(() => import('./pages/SalonERP'));
+const BusinessERP = lazy(() => import('./pages/BusinessERP'));
+const GymERP = lazy(() => import('./pages/GymERP'));
 
 // Wrapper for AnimatePresence to work with Router
 function AnimatedRoutes() {
@@ -66,6 +64,8 @@ function AnimatedRoutes() {
         <Route path="/hospital-erp" element={<HospitalERP />} />
         <Route path="/hotel-erp" element={<HotelERP />} />
         <Route path="/salon-erp" element={<SalonERP />} />
+        <Route path="/business-erp" element={<BusinessERP />} />
+        <Route path="/gym-erp" element={<GymERP />} />
       </Routes>
     </Suspense>
     </AnimatePresence>

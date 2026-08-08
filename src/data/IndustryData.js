@@ -160,7 +160,8 @@ export const INDUSTRY_DATA = {
     conversionBoost: 0.18,
     avgTicketSize: 15000,
     metricUnit: "memberships",
-    shaderTheme: "luxury"
+    shaderTheme: "luxury",
+    micrositeRoute: "/gym-erp"
   },
   salons: {
     id: "salons",

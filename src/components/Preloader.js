@@ -48,7 +48,7 @@ export default function Preloader({ onComplete }) {
           >
             <div className="text-[10px] md:text-xs text-blue-500 uppercase tracking-[0.5em] mb-8 font-bold flex items-center gap-4">
               <span className="w-2 h-2 bg-blue-500 animate-pulse" />
-              Initializing Antigravity Engine
+              Initializing DWD Engine
             </div>
             
             {/* Massive Percentage Counter */}

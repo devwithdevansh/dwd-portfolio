@@ -1,9 +1,9 @@
-import React, { useState, useEffect, Suspense, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useVelocity, useSpring, useTransform, useInView } from 'framer-motion';
+import React, { useState, useEffect, Suspense } from 'react';
+import { motion, AnimatePresence, useScroll, useVelocity, useSpring, useTransform } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
-import { Sparkles, Environment } from '@react-three/drei';
+import { Environment } from '@react-three/drei';
 import Preloader from '../components/Preloader';
 import GlowingPulse from '../components/GlowingPulse';
 import DNAHelix from '../components/DNAHelix';
@@ -93,7 +93,7 @@ export default function HospitalHub() {
         style={{ pointerEvents: loading ? 'none' : 'auto' }}
       >
         <Helmet>
-          <title>Unified Hospital Systems | Antigravity</title>
+          <title>Unified Hospital Systems | DWD</title>
           <meta name="description" content="The complete digital solution for modern hospitals. Websites and HMIS." />
         </Helmet>
 

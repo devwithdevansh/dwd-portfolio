@@ -91,8 +91,8 @@ export default function FactoryERP() {
         style={{ pointerEvents: loading ? 'none' : 'auto' }}
       >
         <Helmet>
-          <title>Factory ERP & Digital Architecture | Tailored by Antigravity</title>
-          <meta name="description" content="Stop running your manufacturing on chaotic spreadsheets. Build a tailored enterprise engine with Antigravity." />
+          <title>Factory ERP & Digital Architecture | Tailored by DWD</title>
+          <meta name="description" content="Stop running your manufacturing on chaotic spreadsheets. Build a tailored enterprise engine with DWD." />
         </Helmet>
 
         {/* Subtle Close Button */}
@@ -183,7 +183,7 @@ export default function FactoryERP() {
                   </ul>
                 </motion.div>
 
-                {/* The Antigravity Way (Yellow/Industrial) */}
+                {/* The DWD Way (Yellow/Industrial) */}
                 <motion.div 
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}

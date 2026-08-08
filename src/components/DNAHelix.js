@@ -12,8 +12,8 @@ export default function DNAHelix() {
   const rotationPerStep = 0.35;
   
   // Create color targets for smooth lerping
-  const emeraldColor = new THREE.Color("#10b981");
-  const redColor = new THREE.Color("#ef4444"); 
+  const emeraldColor = useMemo(() => new THREE.Color("#10b981"), []);
+  const redColor = useMemo(() => new THREE.Color("#ef4444"), []); 
 
   const materials = useMemo(() => {
      return [...Array(strandCount)].map(() => ({

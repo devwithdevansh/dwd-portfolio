@@ -91,8 +91,8 @@ export default function JewelryERP() {
         style={{ pointerEvents: loading ? 'none' : 'auto' }}
       >
         <Helmet>
-          <title>Jewelry ERP & Digital Ecosystem | Tailored by Antigravity</title>
-          <meta name="description" content="Stop renting generic POS systems. Build a custom jewelry management engine with Antigravity." />
+          <title>Jewelry ERP & Digital Ecosystem | Tailored by DWD</title>
+          <meta name="description" content="Stop renting generic POS systems. Build a custom jewelry management engine with DWD." />
         </Helmet>
 
         {/* Subtle Close Button */}
@@ -182,7 +182,7 @@ export default function JewelryERP() {
                   </ul>
                 </motion.div>
 
-                {/* The Antigravity Way (Gold/Pristine) */}
+                {/* The DWD Way (Gold/Pristine) */}
                 <motion.div 
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}

@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import React, { useState } from 'react';
 import { Environment, OrbitControls, Html, Float, ContactShadows } from '@react-three/drei';
 import { useSpring, a } from '@react-spring/three';
-import * as THREE from 'three';
 
 // 3D Reception Desk Environment
 function ReceptionDesk() {
