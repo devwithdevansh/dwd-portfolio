@@ -38,8 +38,8 @@ function AnimatedRoutes() {
   }, [location]);
 
   return (
-    <AnimatePresence mode="wait">
-      <Suspense fallback={<div className="min-h-screen bg-slate-900 flex items-center justify-center font-mono text-white text-sm tracking-widest uppercase">Initializing Secure Connection...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-slate-900 flex items-center justify-center font-mono text-white text-sm tracking-widest uppercase">Initializing Secure Connection...</div>}>
+      <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
         {/* Default Route */}
         <Route path="/" element={<Home />} />
@@ -67,8 +67,8 @@ function AnimatedRoutes() {
         <Route path="/business-erp" element={<BusinessERP />} />
         <Route path="/gym-erp" element={<GymERP />} />
       </Routes>
+      </AnimatePresence>
     </Suspense>
-    </AnimatePresence>
   );
 }
 
