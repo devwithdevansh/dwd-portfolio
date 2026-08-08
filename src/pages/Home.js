@@ -46,10 +46,11 @@ export default function Home() {
       {/* The Dynamic Shader Hero Section */}
       <section className="h-[120vh] relative flex flex-col items-center justify-center">
         
-        {/* Interactive 3D Logo */}
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-48 h-48 z-30 pointer-events-none">
           <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
-            <Logo3D />
+            <React.Suspense fallback={null}>
+              <Logo3D />
+            </React.Suspense>
           </Canvas>
         </div>
 
