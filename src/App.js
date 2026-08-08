@@ -14,6 +14,10 @@ ReactGA.initialize('G-XXXXXXXXXX');
 
 // Lazy Load Pages for massive performance boost
 const Home = lazy(() => import('./pages/Home'));
+const Work = lazy(() => import('./pages/Work'));
+const About = lazy(() => import('./pages/About'));
+const Services = lazy(() => import('./pages/Services'));
+const Contact = lazy(() => import('./pages/Contact'));
 const Industry = lazy(() => import('./pages/Industry'));
 const CityLanding = lazy(() => import('./pages/CityLanding'));
 const EducationERP = lazy(() => import('./pages/EducationERP'));
@@ -43,6 +47,10 @@ function AnimatedRoutes() {
         <Routes location={location} key={location.pathname}>
         {/* Default Route */}
         <Route path="/" element={<Home />} />
+        <Route path="/work" element={<Work />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
         
         {/* Programmatic SEO & Industry Routes */}
         <Route path="/location/:location" element={<CityLanding />} />
