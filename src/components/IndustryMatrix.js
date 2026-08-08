@@ -128,6 +128,7 @@ const BentoCard = ({ ind, index, baseRoute }) => {
       : ind.id === 'jewelers' ? '/jewelry-erp' 
       : ind.id === 'factories' ? '/factory-erp' 
       : ind.id === 'hotels' ? '/hotel-erp'
+      : ind.id === 'salons' ? '/salon-erp'
       : `${baseRoute}/industry/${ind.id}`;
     
     // Delay navigation to let the click animation (shrink and glow) run

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { Sparkles, Environment } from '@react-three/drei';
 import Preloader from '../components/Preloader';
-import isometricHospital from '../assets/isometric_hospital.png';
 import GlowingPulse from '../components/GlowingPulse';
 import DNAHelix from '../components/DNAHelix';
 import HospitalModelViewer from '../components/HospitalModelViewer';

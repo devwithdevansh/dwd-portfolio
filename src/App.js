@@ -28,6 +28,7 @@ const RestaurantERP = lazy(() => import('./pages/RestaurantERP'));
 const CarERP = lazy(() => import('./pages/CarERP'));
 const HospitalERP = lazy(() => import('./pages/HospitalERP'));
 const HotelERP = lazy(() => import('./pages/HotelERP'));
+const SalonERP = lazy(() => import('./pages/SalonERP'));
 
 // Wrapper for AnimatePresence to work with Router
 function AnimatedRoutes() {
@@ -64,6 +65,7 @@ function AnimatedRoutes() {
         <Route path="/car-erp" element={<CarERP />} />
         <Route path="/hospital-erp" element={<HospitalERP />} />
         <Route path="/hotel-erp" element={<HotelERP />} />
+        <Route path="/salon-erp" element={<SalonERP />} />
       </Routes>
     </Suspense>
     </AnimatePresence>

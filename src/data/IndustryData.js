@@ -165,7 +165,7 @@ export const INDUSTRY_DATA = {
   salons: {
     id: "salons",
     name: "SALONS & BEAUTY",
-    color: "#F472B6",
+    color: "#6366F1",
     hero: "A premium salon needs a premium digital presence. We craft elegant digital booking experiences that fill up your appointment calendar.",
     painPoint: "You are wasting hours on phone calls and WhatsApp messages for bookings. A clunky online presence diminishes your luxury brand value.",
     solution: "We engineer seamless, ultra-premium booking systems and digital portfolios that scream luxury and automate your entire schedule.",
@@ -177,7 +177,8 @@ export const INDUSTRY_DATA = {
     conversionBoost: 0.22,
     avgTicketSize: 3000,
     metricUnit: "appointments",
-    shaderTheme: "luxury"
+    shaderTheme: "luxury",
+    micrositeRoute: "/salon-erp"
   },
   enterprise: {
     id: "enterprise",

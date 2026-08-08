@@ -3,8 +3,8 @@ import { motion, AnimatePresence, useScroll, useVelocity, useSpring, useTransfor
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
-import GlowingOrb from '../components/GlowingOrb';
 import Preloader from '../components/Preloader';
+import EducationCampusScene from '../components/EducationCampusScene';
 
 function KineticHeading({ text }) {
   const { scrollY } = useScroll();
@@ -138,10 +138,8 @@ export default function EducationERP() {
 
             <div className="md:w-1/2 h-[500px] w-full relative z-0 mt-12 md:mt-0">
               <Suspense fallback={<div className="w-full h-full animate-pulse bg-blue-100 rounded-full" />}>
-                 <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-                   <ambientLight intensity={0.5} />
-                   <directionalLight position={[10, 10, 5]} intensity={1} />
-                   <GlowingOrb />
+                 <Canvas camera={{ position: [0, 10, 22], fov: 40 }} shadows>
+                   <EducationCampusScene />
                  </Canvas>
               </Suspense>
             </div>
