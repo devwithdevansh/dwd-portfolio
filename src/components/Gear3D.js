@@ -1,6 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { MeshStandardMaterial, Float, Environment, Points, PointMaterial, Trail } from '@react-three/drei';
+import { Environment, Float, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Warning Sparks floating around the gear

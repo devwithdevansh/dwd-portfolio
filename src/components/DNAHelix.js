@@ -3,6 +3,9 @@ import { useFrame } from '@react-three/fiber';
 import { Sparkles, Stars, Sphere, Cylinder } from '@react-three/drei';
 import * as THREE from 'three';
 
+const EMERALD_COLOR = new THREE.Color("#10b981");
+const RED_COLOR = new THREE.Color("#ef4444");
+
 export default function DNAHelix() {
   const groupRef = useRef();
   
@@ -10,18 +13,14 @@ export default function DNAHelix() {
   const radius = 1.4;
   const heightSpacing = 0.45;
   const rotationPerStep = 0.35;
-  
-  // Create color targets for smooth lerping
-  const emeraldColor = useMemo(() => new THREE.Color("#10b981"), []);
-  const redColor = useMemo(() => new THREE.Color("#ef4444"), []); 
 
   const materials = useMemo(() => {
      return [...Array(strandCount)].map(() => ({
-         mat1: new THREE.MeshStandardMaterial({ color: emeraldColor, emissive: "#059669", emissiveIntensity: 0.7, metalness: 0.8, roughness: 0.2 }),
+         mat1: new THREE.MeshStandardMaterial({ color: EMERALD_COLOR, emissive: "#059669", emissiveIntensity: 0.7, metalness: 0.8, roughness: 0.2 }),
          mat2: new THREE.MeshStandardMaterial({ color: "#3b82f6", emissive: "#1d4ed8", emissiveIntensity: 0.7, metalness: 0.8, roughness: 0.2 }),
          matLink: new THREE.MeshStandardMaterial({ color: "#94a3b8", transparent: true, opacity: 0.4, metalness: 1, roughness: 0.2 })
      }));
-  }, [emeraldColor]);
+  }, []);
 
   useFrame((state) => {
     // Rotation & float animation
@@ -32,7 +31,7 @@ export default function DNAHelix() {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       const scrollProgress = Math.min(Math.max(scrollY / windowHeight, 0), 1.5);
-      const targetColor = emeraldColor.clone().lerp(redColor, Math.min(scrollProgress, 1));
+      const targetColor = EMERALD_COLOR.clone().lerp(RED_COLOR, Math.min(scrollProgress, 1));
       
       materials.forEach(m => m.mat1.color.lerp(targetColor, 0.05));
     }

@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Float, Sparkles } from '@react-three/drei';
-import * as THREE from 'three';
 
 export default function HospitalShield() {
   const outerRingRef = useRef();

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Environment, OrbitControls, Html, Float, ContactShadows, Text } from '@react-three/drei';
 import { useSpring, a } from '@react-spring/three';
@@ -242,7 +242,7 @@ function WallClock({ timeRotation }) {
 // ===== HIGH-FIDELITY IPHONE UI =====
 function SmartPhone({ sceneState, activeCustomer, onBook }) {
   // Float phone nicely in foreground, using a fixed scale so it stays in frame
-  const { position, opacity } = useSpring({
+  const { position } = useSpring({
     position: (sceneState === 'IDLE' || sceneState === 'BOOKING') ? [-3.0, 0.8, 1.0] : [-3.0, -5, 1.0],
     opacity: (sceneState === 'IDLE' || sceneState === 'BOOKING') ? 1 : 0,
     config: { tension: 100, friction: 20 }

@@ -7,7 +7,7 @@ function EnergyParticles({ count = 200, active }) {
   const points = useRef();
   const phase = useRef(0);
 
-  const [positions, speeds, radii] = useMemo(() => {
+  const [positions] = useMemo(() => {
     const positions = new Float32Array(count * 3);
     const speeds = new Float32Array(count);
     const radii = new Float32Array(count);
