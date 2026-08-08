@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { useTranslation } from '../context/TranslationContext';
 import CypherText from './CypherText';
-import ThemeToggle from './ThemeToggle';
+
 
 const navLinks = [
   { name: 'HOME', path: '/' },
@@ -16,7 +15,6 @@ const navLinks = [
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { language, setLanguage, languages } = useTranslation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -37,27 +35,7 @@ export default function Navigation() {
 
   return (
     <>
-      {/* Top Left Controls: Languages and Theme Toggle */}
-      <div className="fixed top-6 sm:top-8 left-6 sm:left-8 z-[100] flex items-center gap-6 sm:gap-8 pointer-events-auto mix-blend-difference">
-        {/* Global Language Cypher Bar */}
-        <div className="flex gap-4">
-          {languages.map(lang => (
-            <button 
-              key={lang}
-              onClick={() => setLanguage(lang)}
-              className={`text-sm font-bold uppercase tracking-widest transition-all ${language === lang ? 'text-[#EAB308]' : 'text-gray-500 hover:text-white'}`}
-              data-cursor="hover"
-            >
-              {lang}
-            </button>
-          ))}
-        </div>
-        
-        {/* Theme Toggle */}
-        <div className="scale-75 origin-left pointer-events-auto">
-          <ThemeToggle />
-        </div>
-      </div>
+
 
       {/* Brutalist Hamburger Button */}
       <button 
