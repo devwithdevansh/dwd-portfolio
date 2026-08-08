@@ -8,6 +8,7 @@ import Preloader from '../components/Preloader';
 import isometricHospital from '../assets/isometric_hospital.png';
 import GlowingPulse from '../components/GlowingPulse';
 import DNAHelix from '../components/DNAHelix';
+import HospitalModelViewer from '../components/HospitalModelViewer';
 
 function KineticHeading({ text, className }) {
   const { scrollY } = useScroll();
@@ -45,6 +46,14 @@ const blindVariants = {
 
 export default function HospitalHub() {
   const [loading, setLoading] = useState(true);
+  const [contactName, setContactName] = useState("");
+  const [contactHospital, setContactHospital] = useState("");
+
+  const handleWhatsApp = () => {
+    const message = `Hi, my name is ${contactName || "[Your Name]"} and I run ${contactHospital || "[Your Hospital / Clinic]"}. We are done struggling with fragmented systems. Let's test Unified Hospital Systems.`;
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919687629341?text=${encodedMessage}`, "_blank");
+  };
 
   useEffect(() => {
     if (loading) {
@@ -81,7 +90,7 @@ export default function HospitalHub() {
         initial={{ opacity: 0 }}
         animate={{ opacity: loading ? 0 : 1, transition: { duration: 0.1 } }}
         exit={{ opacity: 0, transition: { delay: 0.5, duration: 0.1 } }}
-        className="min-h-screen bg-slate-50 text-slate-900 font-sans relative overflow-hidden"
+        className="min-h-screen bg-transparent text-slate-900 font-sans relative overflow-x-hidden selection:bg-blue-600 selection:text-white transition-colors duration-500"
         style={{ pointerEvents: loading ? 'none' : 'auto' }}
       >
         <Helmet>
@@ -93,6 +102,9 @@ export default function HospitalHub() {
         <Link to="/" className="fixed top-8 left-8 z-50 flex items-center justify-center w-12 h-12 bg-white/70 backdrop-blur-md rounded-full shadow-sm border border-slate-200 text-slate-500 hover:text-slate-900 hover:scale-105 hover:bg-white transition-all duration-300">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
         </Link>
+
+        {/* MAIN SCROLLING CONTENT WRAPPER */}
+        <div className="relative z-10 bg-slate-50 text-slate-900 rounded-b-[4rem] shadow-[0_30px_60px_rgba(0,0,0,0.5)] transition-colors duration-500">
 
         {/* 1. HERO SECTION (The Vision) */}
         <section className="relative w-full min-h-screen flex items-center justify-center pt-32 pb-24 overflow-hidden">
@@ -145,14 +157,13 @@ export default function HospitalHub() {
                 </motion.div>
               </div>
 
-              <div className="lg:w-1/2 w-full h-[400px] lg:h-[600px] relative flex items-center justify-center">
-                 <motion.img 
-                   src={isometricHospital}
-                   alt="3D Isometric Hospital"
-                   className="w-[90%] max-w-[600px] object-contain drop-shadow-2xl"
-                   animate={{ y: [-15, 15, -15] }}
-                   transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                 />
+              <div className="lg:w-1/2 w-full h-[400px] lg:h-[600px] relative flex items-center justify-center cursor-grab active:cursor-grabbing">
+                 <Suspense fallback={<div className="w-full h-full flex items-center justify-center animate-pulse"><div className="w-16 h-16 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div></div>}>
+                   <Canvas camera={{ position: [0, 10, 22], fov: 40 }} shadows>
+                     {/* Pass your future model URL here: <HospitalModelViewer modelUrl="/models/hospital.glb" /> */}
+                     <HospitalModelViewer />
+                   </Canvas>
+                 </Suspense>
               </div>
             </div>
           </div>
@@ -172,17 +183,17 @@ export default function HospitalHub() {
 
 
         {/* 3. PATIENT ACQUISITION (WEBSITE / BLUE THEME) */}
-        <section id="patient-acquisition" className="relative w-full min-h-screen bg-[#050505] text-white py-32 overflow-hidden selection:bg-blue-600">
+        <section id="patient-acquisition" className="relative w-full min-h-screen bg-white text-slate-900 py-32 overflow-hidden selection:bg-blue-600 selection:text-white">
            {/* Ambient Blue Background */}
-           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-[#050505] to-[#050505]" />
-           <div className="absolute top-[20%] left-[-10%] w-[40vw] h-[40vw] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
+           <div className="absolute top-[20%] left-[-10%] w-[40vw] h-[40vw] bg-blue-400/10 rounded-full blur-[120px] pointer-events-none" />
 
            <div className="max-w-7xl mx-auto px-6 relative z-10">
               <div className="flex flex-col lg:flex-row items-center gap-16">
                  
                  {/* 3D Canvas */}
                  <div className="w-full lg:w-1/2 h-[500px] lg:h-[700px] relative order-2 lg:order-1">
-                   <Suspense fallback={<div className="w-full h-full animate-pulse bg-slate-900 rounded-[3rem]" />}>
+                   <Suspense fallback={<div className="w-full h-full animate-pulse bg-blue-50 rounded-[3rem]" />}>
                      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
                        <ambientLight intensity={0.5} />
                        <directionalLight position={[10, 10, 5]} intensity={1} color="#60a5fa" />
@@ -194,32 +205,32 @@ export default function HospitalHub() {
 
                  {/* Content */}
                  <div className="w-full lg:w-1/2 order-1 lg:order-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-bold tracking-widest uppercase mb-6">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-sm font-bold tracking-widest uppercase mb-6">
                        Phase 1: The Front Door
                     </div>
                     <KineticHeading text="Patient Acquisition Engine." className="text-5xl md:text-7xl mb-8" />
                     
-                    <p className="text-xl text-slate-400 font-light leading-relaxed mb-12">
+                    <p className="text-xl text-slate-600 font-light leading-relaxed mb-12">
                       Your website shouldn't just look pretty. It needs to actively funnel patients into your hospital. We build extremely fast, SEO-optimized digital front doors.
                     </p>
 
                     <div className="space-y-8">
                        <div className="group flex gap-6">
-                          <div className="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-blue-500 transition-colors">
-                            <span className="text-blue-500 font-bold text-xl">01</span>
+                          <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0 group-hover:border-blue-400 transition-colors">
+                            <span className="text-blue-600 font-bold text-xl">01</span>
                           </div>
                           <div>
-                            <h3 className="text-2xl font-bold text-white mb-2">Local SEO Dominance</h3>
-                            <p className="text-slate-400 leading-relaxed">Programmatic SEO pages for every specialty, ensuring you rank #1 when a patient searches for "cardiologist near me".</p>
+                            <h3 className="text-2xl font-bold text-slate-900 mb-2">Local SEO Dominance</h3>
+                            <p className="text-slate-600 leading-relaxed">Programmatic SEO pages for every specialty, ensuring you rank #1 when a patient searches for "cardiologist near me".</p>
                           </div>
                        </div>
                        <div className="group flex gap-6">
-                          <div className="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-blue-500 transition-colors">
-                            <span className="text-blue-500 font-bold text-xl">02</span>
+                          <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0 group-hover:border-blue-400 transition-colors">
+                            <span className="text-blue-600 font-bold text-xl">02</span>
                           </div>
                           <div>
-                            <h3 className="text-2xl font-bold text-white mb-2">WhatsApp Appointment Booking</h3>
-                            <p className="text-slate-400 leading-relaxed">Frictionless lead capture. Patients click a button and immediately start booking via automated WhatsApp flows.</p>
+                            <h3 className="text-2xl font-bold text-slate-900 mb-2">WhatsApp Appointment Booking</h3>
+                            <p className="text-slate-600 leading-relaxed">Frictionless lead capture. Patients click a button and immediately start booking via automated WhatsApp flows.</p>
                           </div>
                        </div>
                     </div>
@@ -231,42 +242,42 @@ export default function HospitalHub() {
 
 
         {/* 4. HOSPITAL OPERATIONS (SOFTWARE / EMERALD THEME) */}
-        <section id="hospital-operations" className="relative w-full min-h-screen bg-slate-900 text-white py-32 overflow-hidden selection:bg-emerald-500">
+        <section id="hospital-operations" className="relative w-full min-h-screen bg-slate-50 text-slate-900 py-32 overflow-hidden selection:bg-emerald-500 selection:text-white">
            {/* Ambient Emerald Background */}
-           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-900/20 via-slate-900 to-slate-900" />
-           <div className="absolute bottom-[20%] right-[-10%] w-[40vw] h-[40vw] bg-emerald-600/10 rounded-full blur-[120px] pointer-events-none" />
+           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-50 via-slate-50 to-slate-50" />
+           <div className="absolute bottom-[20%] right-[-10%] w-[40vw] h-[40vw] bg-emerald-400/10 rounded-full blur-[120px] pointer-events-none" />
 
            <div className="max-w-7xl mx-auto px-6 relative z-10">
               <div className="flex flex-col lg:flex-row items-center gap-16">
                  
                  {/* Content */}
                  <div className="w-full lg:w-1/2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-bold tracking-widest uppercase mb-6">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 text-sm font-bold tracking-widest uppercase mb-6">
                        Phase 2: The Core Engine
                     </div>
                     <KineticHeading text="Hospital Management Software." className="text-5xl md:text-7xl mb-8" />
                     
-                    <p className="text-xl text-slate-400 font-light leading-relaxed mb-12">
+                    <p className="text-xl text-slate-600 font-light leading-relaxed mb-12">
                       Once the patient arrives, the real work begins. We replace fragmented spreadsheets and legacy systems with a lightning-fast, custom HMIS.
                     </p>
 
                     <div className="space-y-8">
                        <div className="group flex gap-6">
-                          <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center shrink-0 group-hover:border-emerald-500 transition-colors">
-                            <span className="text-emerald-500 font-bold text-xl">01</span>
+                          <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:border-emerald-400 transition-colors">
+                            <span className="text-emerald-600 font-bold text-xl">01</span>
                           </div>
                           <div>
-                            <h3 className="text-2xl font-bold text-white mb-2">Automated IPD/OPD Billing</h3>
-                            <p className="text-slate-400 leading-relaxed">Stop revenue leakage. Every lab test, ward bed, and doctor consultation is tracked and billed flawlessly.</p>
+                            <h3 className="text-2xl font-bold text-slate-900 mb-2">Automated IPD/OPD Billing</h3>
+                            <p className="text-slate-600 leading-relaxed">Stop revenue leakage. Every lab test, ward bed, and doctor consultation is tracked and billed flawlessly.</p>
                           </div>
                        </div>
                        <div className="group flex gap-6">
-                          <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center shrink-0 group-hover:border-emerald-500 transition-colors">
-                            <span className="text-emerald-500 font-bold text-xl">02</span>
+                          <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:border-emerald-400 transition-colors">
+                            <span className="text-emerald-600 font-bold text-xl">02</span>
                           </div>
                           <div>
-                            <h3 className="text-2xl font-bold text-white mb-2">Integrated EMR & Pharmacy</h3>
-                            <p className="text-slate-400 leading-relaxed">Doctors prescribe on the tablet, and the pharmacy instantly receives the order. No paper, no delays, no mistakes.</p>
+                            <h3 className="text-2xl font-bold text-slate-900 mb-2">Integrated EMR & Pharmacy</h3>
+                            <p className="text-slate-600 leading-relaxed">Doctors prescribe on the tablet, and the pharmacy instantly receives the order. No paper, no delays, no mistakes.</p>
                           </div>
                        </div>
                     </div>
@@ -274,7 +285,7 @@ export default function HospitalHub() {
 
                  {/* 3D Canvas */}
                  <div className="w-full lg:w-1/2 h-[500px] lg:h-[700px] relative">
-                   <Suspense fallback={<div className="w-full h-full animate-pulse bg-slate-800 rounded-[3rem]" />}>
+                   <Suspense fallback={<div className="w-full h-full animate-pulse bg-emerald-50 rounded-[3rem]" />}>
                      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
                        <ambientLight intensity={0.5} />
                        <directionalLight position={[10, 10, 5]} intensity={1} color="#34d399" />
@@ -288,16 +299,70 @@ export default function HospitalHub() {
            </div>
         </section>
 
-        {/* 5. CTA SECTION */}
-        <section className="relative py-32 bg-slate-950 text-center">
-           <div className="max-w-4xl mx-auto px-6 relative z-10">
-              <h2 className="text-4xl md:text-6xl font-black text-white mb-8">Ready to unify your hospital?</h2>
-              <p className="text-xl text-slate-400 mb-12">Book a demo today to see how our combined website and HMIS infrastructure can scale your hospital's operations.</p>
-              <button className="px-10 py-5 rounded-full bg-white text-slate-900 font-bold uppercase tracking-widest hover:scale-105 hover:bg-slate-100 transition-all duration-300">
-                Book a Demo
-              </button>
-           </div>
-        </section>
+        {/* 5. CTA SECTION - REMOVED FOR PARALLAX */}
+        </div> {/* End of main scrolling content container */}
+
+        {/* Spacer for Parallax Reveal */}
+        <div className="h-[80vh] w-full pointer-events-none" />
+
+        {/* CINEMATIC PARALLAX FOOTER WITH WHATSAPP MAD LIBS */}
+        <div className="fixed bottom-0 left-0 w-full h-[80vh] z-0 bg-[#050505] text-white flex flex-col items-center justify-center">
+           <section id="contact" className="w-full max-w-5xl px-6 relative z-10">
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
+             
+             <div className="relative z-20">
+               <h2 className="text-3xl md:text-5xl font-black mb-12 tracking-tighter uppercase text-slate-400">
+                 Let's <span className="text-white">Talk.</span>
+               </h2>
+               
+               <p className="text-2xl md:text-4xl lg:text-5xl font-bold leading-relaxed lg:leading-snug text-slate-100">
+                 Hi, my name is <br className="md:hidden" />
+                 <input 
+                   type="text" 
+                   value={contactName}
+                   onChange={(e) => setContactName(e.target.value)}
+                   placeholder="YOUR NAME" 
+                   className="bg-transparent border-b-4 border-slate-700 focus:border-blue-500 outline-none text-blue-400 placeholder-slate-700 w-full md:w-auto md:min-w-[300px] mx-0 md:mx-4 mt-4 md:mt-0 mb-8 md:mb-0 transition-colors duration-500"
+                   data-cursor="hover"
+                 />
+                 <br className="hidden md:block" />
+                 I run <br className="md:hidden" />
+                 <input 
+                   type="text" 
+                   value={contactHospital}
+                   onChange={(e) => setContactHospital(e.target.value)}
+                   placeholder="YOUR HOSPITAL / CLINIC" 
+                   className="bg-transparent border-b-4 border-slate-700 focus:border-blue-500 outline-none text-blue-400 placeholder-slate-700 w-full md:w-auto md:min-w-[400px] mx-0 md:mx-4 mt-4 md:mt-0 mb-8 md:mb-0 transition-colors duration-500"
+                   data-cursor="hover"
+                 />
+                 <br />
+                 We are done struggling with fragmented systems. <br /> Let's test Unified Hospital Systems.
+               </p>
+
+               <div className="mt-16 flex flex-col md:flex-row items-start md:items-center gap-8">
+                 <button 
+                   onClick={handleWhatsApp}
+                   className="group relative inline-flex items-center justify-center px-10 py-6 bg-white text-black font-black uppercase tracking-widest text-lg md:text-xl shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:scale-[1.02] transition-transform duration-300 w-full md:w-auto"
+                   data-cursor="hover"
+                 >
+                   <span className="relative z-10 flex items-center gap-3">
+                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12C2 13.76 2.46 15.4 3.25 16.84L2 22L7.3 20.72C8.75 21.53 10.33 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17.47 15.68C17.24 16.32 16.3 16.87 15.65 17.02C15.17 17.13 14.47 17.21 12.18 16.27C9.25 15.06 7.37 12.06 7.22 11.87C7.07 11.68 6 10.26 6 8.78C6 7.29 6.77 6.57 7.08 6.25C7.33 5.99 7.76 5.86 8.16 5.86C8.29 5.86 8.41 5.86 8.52 5.87C8.83 5.89 8.99 5.9 9.2 6.4C9.45 6.99 10.05 8.46 10.12 8.61C10.19 8.76 10.26 8.96 10.16 9.16C10.06 9.35 9.98 9.45 9.83 9.63C9.68 9.8 9.51 10 9.39 10.12C9.25 10.27 9.09 10.43 9.27 10.74C9.45 11.05 10.05 12.03 10.93 12.82C11.96 13.75 12.88 14.04 13.22 14.18C13.56 14.32 13.76 14.3 13.96 14.08C14.16 13.86 14.73 13.19 14.93 12.92C15.13 12.65 15.33 12.69 15.63 12.8C15.93 12.91 17.51 13.69 17.81 13.84C18.11 13.99 18.31 14.06 18.38 14.18C18.45 14.94 18.45 14.94 17.47 15.68Z" /></svg>
+                     Send to WhatsApp
+                   </span>
+                   <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                   <span className="absolute z-10 opacity-0 group-hover:opacity-100 text-white transition-opacity duration-300 flex items-center gap-3">
+                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12C2 13.76 2.46 15.4 3.25 16.84L2 22L7.3 20.72C8.75 21.53 10.33 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17.47 15.68C17.24 16.32 16.3 16.87 15.65 17.02C15.17 17.13 14.47 17.21 12.18 16.27C9.25 15.06 7.37 12.06 7.22 11.87C7.07 11.68 6 10.26 6 8.78C6 7.29 6.77 6.57 7.08 6.25C7.33 5.99 7.76 5.86 8.16 5.86C8.29 5.86 8.41 5.86 8.52 5.87C8.83 5.89 8.99 5.9 9.2 6.4C9.45 6.99 10.05 8.46 10.12 8.61C10.19 8.76 10.26 8.96 10.16 9.16C10.06 9.35 9.98 9.45 9.39 10.12C9.25 10.27 9.09 10.43 9.27 10.74C9.45 11.05 10.05 12.03 10.93 12.82C11.96 13.75 12.88 14.04 13.22 14.18C13.56 14.32 13.76 14.3 13.96 14.08C14.16 13.86 14.73 13.19 14.93 12.92C15.13 12.65 15.33 12.69 15.63 12.8C15.93 12.91 17.51 13.69 17.81 13.84C18.11 13.99 18.31 14.06 18.38 14.18C18.45 14.94 18.45 14.94 17.47 15.68Z" /></svg>
+                     Send to WhatsApp
+                   </span>
+                 </button>
+                 <div className="text-slate-500 font-mono text-sm">
+                   Direct Line:<br />
+                   <span className="text-slate-300">+91 9687629341</span>
+                 </div>
+               </div>
+             </div>
+           </section>
+        </div>
 
       </motion.div>
     </>
