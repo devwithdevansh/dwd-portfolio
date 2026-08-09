@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import SalonScene from '../components/SalonScene';
+import ResponsiveCamera from '../components/ResponsiveCamera';
 import Preloader from '../components/Preloader';
 
 function KineticHeading({ text, className }) {
@@ -154,6 +155,7 @@ export default function SalonERP() {
                 </div>
               }>
                 <Canvas camera={{ position: [0, 4, 10], fov: 45 }} shadows>
+                  <ResponsiveCamera defaultFov={45} mobileFov={70} />
                   <SalonScene />
                 </Canvas>
               </Suspense>

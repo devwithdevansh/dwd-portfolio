@@ -1,4 +1,5 @@
 import React, { useRef, useState, useMemo } from 'react';
+import ResponsiveCamera from './ResponsiveCamera';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { 
   PresentationControls, 
@@ -208,6 +209,7 @@ export default function BusinessBlock3D() {
   return (
     <div className="w-full h-full relative cursor-grab active:cursor-grabbing rounded-[2rem] overflow-hidden">
       <Canvas camera={{ position: [0, 1.5, 9], fov: 45 }}>
+      <ResponsiveCamera defaultFov={45} mobileFov={70} />
         {/* Match slate-50 background perfectly */}
         <color attach="background" args={['#f8fafc']} /> 
         

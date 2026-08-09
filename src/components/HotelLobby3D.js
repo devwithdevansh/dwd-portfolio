@@ -1,4 +1,5 @@
 import React, { useRef, useState, useMemo } from 'react';
+import ResponsiveCamera from './ResponsiveCamera';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { 
   PresentationControls, 
@@ -169,6 +170,7 @@ export default function HotelLobby3D() {
   return (
     <div className="w-full h-full bg-[#0a0f1c] cursor-grab active:cursor-grabbing rounded-[2rem] overflow-hidden">
       <Canvas shadows camera={{ position: [5, 4, 8], fov: 45 }}>
+      <ResponsiveCamera defaultFov={45} mobileFov={70} />
         <color attach="background" args={['#0a0f1c']} />
         
         {/* Cinematic Lighting */}

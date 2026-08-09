@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useScroll, useVelocity, useSpring, useTransfor
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
+import ResponsiveCamera from '../components/ResponsiveCamera';
 import TuitionClass3D from '../components/TuitionClass3D';
 import Preloader from '../components/Preloader';
 
@@ -136,6 +137,7 @@ export default function TuitionERP() {
             <div className="md:w-1/2 h-[600px] w-full relative z-0 mt-12 md:mt-0 cursor-grab active:cursor-grabbing">
               <Suspense fallback={<div className="w-full h-full animate-pulse bg-indigo-100 rounded-full" />}>
                  <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+                  <ResponsiveCamera defaultFov={45} mobileFov={70} />
                    <ambientLight intensity={0.5} />
                    <directionalLight position={[10, 10, 5]} intensity={1} />
                    <TuitionClass3D />

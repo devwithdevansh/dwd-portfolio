@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useScroll, useVelocity, useSpring, useTransfor
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
+import ResponsiveCamera from '../components/ResponsiveCamera';
 import { Environment } from '@react-three/drei';
 import Preloader from '../components/Preloader';
 import GlowingPulse from '../components/GlowingPulse';
@@ -159,6 +160,7 @@ export default function HospitalHub() {
               <div className="lg:w-1/2 w-full h-[400px] lg:h-[600px] relative flex items-center justify-center cursor-grab active:cursor-grabbing">
                  <Suspense fallback={<div className="w-full h-full flex items-center justify-center animate-pulse"><div className="w-16 h-16 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div></div>}>
                    <Canvas camera={{ position: [0, 10, 22], fov: 40 }} shadows>
+                  <ResponsiveCamera defaultFov={40} mobileFov={65} />
                      {/* Pass your future model URL here: <HospitalModelViewer modelUrl="/models/hospital.glb" /> */}
                      <HospitalModelViewer />
                    </Canvas>
@@ -194,6 +196,7 @@ export default function HospitalHub() {
                  <div className="w-full lg:w-1/2 h-[500px] lg:h-[700px] relative order-2 lg:order-1">
                    <Suspense fallback={<div className="w-full h-full animate-pulse bg-blue-50 rounded-[3rem]" />}>
                      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+                  <ResponsiveCamera defaultFov={45} mobileFov={70} />
                        <ambientLight intensity={0.5} />
                        <directionalLight position={[10, 10, 5]} intensity={1} color="#60a5fa" />
                        <GlowingPulse />
@@ -286,6 +289,7 @@ export default function HospitalHub() {
                  <div className="w-full lg:w-1/2 h-[500px] lg:h-[700px] relative">
                    <Suspense fallback={<div className="w-full h-full animate-pulse bg-emerald-50 rounded-[3rem]" />}>
                      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+                  <ResponsiveCamera defaultFov={45} mobileFov={70} />
                        <ambientLight intensity={0.5} />
                        <directionalLight position={[10, 10, 5]} intensity={1} color="#34d399" />
                        <DNAHelix />

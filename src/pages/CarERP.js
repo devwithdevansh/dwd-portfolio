@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useScroll, useVelocity, useSpring, useTransfor
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
+import ResponsiveCamera from '../components/ResponsiveCamera';
 import Car3DScene from '../components/Car3DScene';
 import Preloader from '../components/Preloader';
 
@@ -252,6 +253,7 @@ export default function CarERP() {
             <div className="md:w-1/2 h-[550px] md:h-[620px] w-full relative z-0 mt-8 md:mt-0">
               <Suspense fallback={<div className="w-full h-full animate-pulse bg-rose-100 dark:bg-rose-950/40 rounded-full" />}>
                  <Canvas camera={{ position: [0, 0, 5.8], fov: 42 }}>
+                  <ResponsiveCamera defaultFov={42} mobileFov={67} />
                    <Car3DScene />
                  </Canvas>
               </Suspense>

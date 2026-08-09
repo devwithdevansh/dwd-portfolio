@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useScroll, useVelocity, useSpring, useTransfor
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
+import ResponsiveCamera from '../components/ResponsiveCamera';
 import Preloader from '../components/Preloader';
 import EducationCampusScene from '../components/EducationCampusScene';
 
@@ -139,6 +140,7 @@ export default function EducationERP() {
             <div className="md:w-1/2 h-[500px] w-full relative z-0 mt-12 md:mt-0">
               <Suspense fallback={<div className="w-full h-full animate-pulse bg-blue-100 rounded-full" />}>
                  <Canvas camera={{ position: [0, 10, 22], fov: 40 }} shadows>
+                  <ResponsiveCamera defaultFov={40} mobileFov={65} />
                    <EducationCampusScene />
                  </Canvas>
               </Suspense>

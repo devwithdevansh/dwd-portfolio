@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
+import ResponsiveCamera from './ResponsiveCamera';
 import { PresentationControls, Environment, Float, Text, RoundedBox, useCursor, MeshReflectorMaterial, Html } from '@react-three/drei';
 import { a, useSpring } from '@react-spring/three';
 
@@ -242,6 +243,7 @@ export default function GymStudio3D() {
   return (
     <div className="w-full h-full cursor-crosshair">
       <Canvas shadows camera={{ position: [0, 5, 10], fov: 45 }} onPointerMissed={handlePointerMissed}>
+      <ResponsiveCamera defaultFov={45} mobileFov={70} />
         <color attach="background" args={['#0f172a']} />
         
         {/* Improved Lighting for a brighter gym */}
