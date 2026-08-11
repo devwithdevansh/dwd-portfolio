@@ -378,7 +378,7 @@ const BentoCard = ({ ind, index, baseRoute }) => {
         perspective: 1200,
         transformStyle: 'preserve-3d',
       }}
-      className={`group relative w-full cursor-pointer rounded-[2.5rem] ${isLarge ? 'overflow-visible' : 'overflow-hidden'} glass-panel brutalist-card dark:bg-[#0a0a0a] dark:border-2 dark:border-gray-800 dark:shadow-none transition-shadow duration-500 block ${cardHeightClass} transform-gpu`}
+      className={`group relative w-full cursor-pointer rounded-[2.5rem] ${isDiorama ? 'overflow-visible' : 'overflow-hidden'} glass-panel brutalist-card dark:bg-[#0a0a0a] dark:border-2 dark:border-gray-800 dark:shadow-none transition-shadow duration-500 block ${cardHeightClass} transform-gpu`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
