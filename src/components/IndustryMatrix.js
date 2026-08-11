@@ -74,7 +74,7 @@ const DIORAMA_CONFIGS = {
   hotels: [
     // 0. Background Luxury Resort Villas
     {
-      src: require('../assets/projects/objects/hotel/ChatGPT Image Jul 25, 2026, 02_02_06 PM.png'),
+      src: require('../assets/projects/objects/hotel/1_hotel_bg.png'),
       classes: 'w-[90%] h-[82%] right-[-4%] bottom-[0%] z-[5] drop-shadow-xl',
       depth: 0.2,
       inDelay: 0.04,
@@ -83,7 +83,7 @@ const DIORAMA_CONFIGS = {
     },
     // 1. Grand Hotel Tower Architecture
     {
-      src: require('../assets/projects/objects/hotel/ChatGPT Image Jul 25, 2026, 02_01_55 PM.png'),
+      src: require('../assets/projects/objects/hotel/2_hotel_tower.png'),
       classes: 'w-[76%] h-[88%] right-[8%] bottom-[0%] z-[10] drop-shadow-[0_25px_35px_rgba(0,0,0,0.5)]',
       depth: 0.45,
       inDelay: 0.08,
@@ -92,7 +92,7 @@ const DIORAMA_CONFIGS = {
     },
     // 2. Tropical Palms & Pool Deck
     {
-      src: require('../assets/projects/objects/hotel/ChatGPT Image Jul 25, 2026, 02_03_10 PM.png'),
+      src: require('../assets/projects/objects/hotel/3_hotel_pool.png'),
       classes: 'w-[88%] h-[56%] right-[-2%] bottom-[0%] z-[15] drop-shadow-xl',
       depth: 0.6,
       inDelay: 0.12,
@@ -101,7 +101,7 @@ const DIORAMA_CONFIGS = {
     },
     // 3. Illuminated Entrance Pathway & Garden
     {
-      src: require('../assets/projects/objects/hotel/ChatGPT Image Jul 25, 2026, 02_02_00 PM.png'),
+      src: require('../assets/projects/objects/hotel/4_hotel_entrance.png'),
       classes: 'w-[84%] h-[48%] right-[0%] bottom-[0%] z-[18] drop-shadow-xl',
       depth: 0.75,
       inDelay: 0.15,
@@ -110,7 +110,7 @@ const DIORAMA_CONFIGS = {
     },
     // 4. Hotel Concierge / Bellboy with Golden Luggage Trolley
     {
-      src: require('../assets/projects/objects/hotel/ChatGPT Image Jul 25, 2026, 02_01_35 PM.png'),
+      src: require('../assets/projects/objects/hotel/5_hotel_bellboy.png'),
       classes: 'w-[32%] h-[48%] left-[10%] bottom-[0%] z-[22] drop-shadow-2xl',
       depth: 0.9,
       inDelay: 0.18,
@@ -119,7 +119,7 @@ const DIORAMA_CONFIGS = {
     },
     // 5. Luxury Valet Sports Car / Limo Arrival
     {
-      src: require('../assets/projects/objects/hotel/ChatGPT Image Jul 25, 2026, 01_37_41 PM.png'),
+      src: require('../assets/projects/objects/hotel/6_hotel_car.png'),
       classes: 'w-[44%] h-[44%] right-[4%] bottom-[-2%] z-[25] drop-shadow-2xl',
       depth: 1.0,
       inDelay: 0.20,
@@ -130,7 +130,7 @@ const DIORAMA_CONFIGS = {
   factories: [
     // 0. Factory Structure Background
     {
-      src: require('../assets/projects/objects/Factory/ChatGPT Image Jul 25, 2026, 01_44_09 PM.png'),
+      src: require('../assets/projects/objects/Factory/1_factory_bg.png'),
       classes: 'w-[95%] h-[85%] right-[-2%] bottom-[0%] z-[5] drop-shadow-lg',
       depth: 0.25,
       inDelay: 0.05,
@@ -139,7 +139,7 @@ const DIORAMA_CONFIGS = {
     },
     // 1. Heavy Plant Infrastructure
     {
-      src: require('../assets/projects/objects/Factory/ChatGPT Image Jul 25, 2026, 01_47_14 PM.png'),
+      src: require('../assets/projects/objects/Factory/2_factory_heavy.png'),
       classes: 'w-[88%] h-[85%] right-[2%] bottom-[0%] z-[10] drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]',
       depth: 0.45,
       inDelay: 0.08,
@@ -148,7 +148,7 @@ const DIORAMA_CONFIGS = {
     },
     // 2. High-Tech Automated Lines & Robotic Arms
     {
-      src: require('../assets/projects/objects/Factory/ChatGPT Image Jul 25, 2026, 01_57_26 PM.png'),
+      src: require('../assets/projects/objects/Factory/3_factory_lines.png'),
       classes: 'w-[80%] h-[60%] right-[0%] bottom-[0%] z-[15] drop-shadow-xl',
       depth: 0.7,
       inDelay: 0.14,
@@ -157,7 +157,7 @@ const DIORAMA_CONFIGS = {
     },
     // 3. Robotic Unit & Logistics
     {
-      src: require('../assets/projects/objects/Factory/ChatGPT Image Jul 25, 2026, 01_42_30 PM.png'),
+      src: require('../assets/projects/objects/Factory/4_factory_robot.png'),
       classes: 'w-[45%] h-[55%] left-[8%] bottom-[0%] z-[22] drop-shadow-2xl',
       depth: 0.95,
       inDelay: 0.18,
@@ -168,7 +168,7 @@ const DIORAMA_CONFIGS = {
   jewelers: [
     // 0. Luxury Velvet Boutique Background
     {
-      src: require('../assets/projects/objects/Jwellery/ChatGPT Image Jul 25, 2026, 02_04_43 PM.png'),
+      src: require('../assets/projects/objects/Jwellery/1_jewel_bg.png'),
       classes: 'w-[95%] h-[85%] right-[-2%] bottom-[0%] z-[5] drop-shadow-lg',
       depth: 0.25,
       inDelay: 0.05,
@@ -177,7 +177,7 @@ const DIORAMA_CONFIGS = {
     },
     // 1. High-Jewelry Showcase Architecture
     {
-      src: require('../assets/projects/objects/Jwellery/ChatGPT Image Jul 25, 2026, 02_04_20 PM.png'),
+      src: require('../assets/projects/objects/Jwellery/2_jewel_showcase.png'),
       classes: 'w-[88%] h-[85%] right-[0%] bottom-[0%] z-[10] drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]',
       depth: 0.45,
       inDelay: 0.08,
@@ -186,7 +186,7 @@ const DIORAMA_CONFIGS = {
     },
     // 2. Diamond Showcase & Ring Case
     {
-      src: require('../assets/projects/objects/Jwellery/ChatGPT Image Jul 25, 2026, 02_04_30 PM.png'),
+      src: require('../assets/projects/objects/Jwellery/3_jewel_diamond.png'),
       classes: 'w-[75%] h-[60%] right-[0%] bottom-[0%] z-[15] drop-shadow-xl',
       depth: 0.7,
       inDelay: 0.14,
@@ -195,7 +195,7 @@ const DIORAMA_CONFIGS = {
     },
     // 3. Gold Haute-Couture Jewelry Bust
     {
-      src: require('../assets/projects/objects/Jwellery/ChatGPT Image Jul 25, 2026, 02_04_09 PM.png'),
+      src: require('../assets/projects/objects/Jwellery/4_jewel_bust.png'),
       classes: 'w-[42%] h-[55%] left-[8%] bottom-[0%] z-[22] drop-shadow-2xl',
       depth: 0.95,
       inDelay: 0.18,
