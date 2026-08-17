@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import SmoothScroll from './SmoothScroll';
-import CustomCursor from './CustomCursor';
+import ContextCursor from './motion/ContextCursor';
 import WhatsAppChat from './WhatsAppChat';
 import Navigation from './Navigation';
 import ShaderBackground from './ShaderBackground';
@@ -40,7 +40,7 @@ export default function Layout({ children }) {
   if (isNicheMicrosite) {
     return (
       <SmoothScroll>
-        <CustomCursor />
+        <ContextCursor />
         {children}
       </SmoothScroll>
     );
@@ -48,7 +48,7 @@ export default function Layout({ children }) {
 
   return (
     <SmoothScroll>
-      <CustomCursor />
+      <ContextCursor />
       {!location.pathname.startsWith('/location/') && <Navigation />}
       <WhatsAppChat />
       

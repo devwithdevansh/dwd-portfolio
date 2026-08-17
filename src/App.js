@@ -32,6 +32,9 @@ const SalonERP = lazy(() => import('./pages/SalonERP'));
 const BusinessERP = lazy(() => import('./pages/BusinessERP'));
 const GymERP = lazy(() => import('./pages/GymERP'));
 
+// Development Labs
+const HeroLab = lazy(() => import('./pages/HeroLab'));
+
 // Wrapper for AnimatePresence to work with Router
 function AnimatedRoutes() {
   const location = useLocation();
@@ -51,6 +54,11 @@ function AnimatedRoutes() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
+        
+        {/* Development Routes */}
+        {process.env.NODE_ENV === 'development' && (
+          <Route path="/__hero-lab" element={<HeroLab />} />
+        )}
         
         {/* Programmatic SEO & Industry Routes */}
         <Route path="/location/:location" element={<CityLanding />} />

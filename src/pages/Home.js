@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -43,6 +43,7 @@ export default function Home() {
       exit="exit"
       className="relative z-10 min-h-screen bg-transparent transition-colors duration-1000"
     >
+      
       {/* The Dynamic Shader Hero Section */}
       <section className="h-[120vh] relative flex flex-col items-center justify-center">
         
