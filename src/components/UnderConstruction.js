@@ -1,230 +1,219 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ArrowRight, Hammer, Code2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Coffee, Music, Sparkles, Code, Play, Pause } from 'lucide-react';
+
+const Cat = () => (
+  <div className="absolute -top-[35px] md:-top-[45px] left-[15%] cursor-pointer group z-20">
+    <svg viewBox="0 0 100 50" className="w-16 md:w-20 h-auto drop-shadow-lg">
+       {/* Body */}
+       <path d="M 20 50 Q 20 25 50 25 L 70 25 Q 90 25 90 50 Z" fill="#2c2f33" />
+       {/* Ears */}
+       <path d="M 25 30 L 20 10 L 40 22 Z" fill="#2c2f33" />
+       <path d="M 45 22 L 55 10 L 60 27 Z" fill="#2c2f33" />
+       {/* Tail */}
+       <motion.path 
+         d="M 85 45 Q 110 45 105 25" 
+         stroke="#2c2f33" strokeWidth="6" fill="none" strokeLinecap="round"
+         animate={{ d: ["M 85 45 Q 110 45 105 25", "M 85 45 Q 110 45 100 15", "M 85 45 Q 110 45 105 25"] }}
+         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+       />
+    </svg>
+    {/* Zzz Animation */}
+    <motion.div 
+      animate={{ opacity: [0, 1, 0], y: [-5, -20], x: [0, 10] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeOut" }}
+      className="absolute -top-4 right-0 text-[#2c2f33] font-bold text-xs"
+    >
+      z
+    </motion.div>
+    <motion.div 
+      animate={{ opacity: [0, 1, 0], y: [-5, -25], x: [0, 15] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeOut", delay: 1 }}
+      className="absolute -top-6 right-2 text-[#2c2f33] font-bold text-sm"
+    >
+      Z
+    </motion.div>
+  </div>
+);
+
+const Cloud = ({ top, duration, delay, scale, opacity }) => (
+  <motion.div 
+    initial={{ x: '-20vw' }}
+    animate={{ x: '120vw' }}
+    transition={{ duration, repeat: Infinity, ease: "linear", delay }}
+    className="absolute pointer-events-none"
+    style={{ top, scale, opacity }}
+  >
+    <div className="w-48 h-12 bg-white rounded-full blur-[4px]" />
+    <div className="w-32 h-12 bg-white rounded-full blur-[4px] absolute -top-6 left-8" />
+  </motion.div>
+);
 
 const UnderConstruction = () => {
+  const [time, setTime] = useState(new Date());
+  const [isPlaying, setIsPlaying] = useState(true);
   const [mounted, setMounted] = useState(false);
-  
-  // 3D Parallax Setup
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
-  
-  const springConfig = { damping: 25, stiffness: 120, mass: 0.5 };
-  const mouseXSpring = useSpring(mouseX, springConfig);
-  const mouseYSpring = useSpring(mouseY, springConfig);
-  
-  const rotateX = useTransform(mouseYSpring, [0, 1], [6, -6]);
-  const rotateY = useTransform(mouseXSpring, [0, 1], [-6, 6]);
-
-  const bgX = useTransform(mouseXSpring, [0, 1], [15, -15]);
-  const bgY = useTransform(mouseYSpring, [0, 1], [15, -15]);
 
   useEffect(() => {
     setMounted(true);
-    const handleMouseMove = (e) => {
-      mouseX.set(e.clientX / window.innerWidth);
-      mouseY.set(e.clientY / window.innerHeight);
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full bg-[#eef8fc] overflow-hidden flex items-center justify-center font-sans perspective-[2000px]">
+    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#ffb7b2] via-[#e2bfce] to-[#c2cbe5] flex flex-col items-center justify-end font-sans select-none">
       
-      {/* Parallax Background (Sky & Clouds) */}
+      {/* Sun/Moon */}
       <motion.div 
-        style={{ x: bgX, y: bgY }}
-        className="absolute inset-[-50px] pointer-events-none"
-      >
-         <div className="absolute inset-0 bg-gradient-to-b from-[#bfe4f7] to-[#eef8fc]" />
-         
-         {/* Drifting Clouds (Faithful to original SVG but globally animated) */}
-         {mounted && (
-           <div className="absolute inset-0 opacity-95">
-              
-              <motion.div 
-                animate={{ x: [0, 1500] }} 
-                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                className="absolute top-[10%] left-[-200px]"
-              >
-                <svg width="200" height="100" viewBox="0 0 150 100" fill="#ffffff">
-                  <ellipse cx="50" cy="50" rx="34" ry="16"/>
-                  <ellipse cx="76" cy="42" rx="24" ry="14"/>
-                  <ellipse cx="26" cy="46" rx="20" ry="12"/>
-                </svg>
-              </motion.div>
-              
-              <motion.div 
-                animate={{ x: [0, -1500] }} 
-                transition={{ duration: 55, repeat: Infinity, ease: "linear" }}
-                className="absolute top-[25%] right-[-200px] scale-75 opacity-70"
-              >
-                <svg width="250" height="150" viewBox="0 0 150 100" fill="#ffffff">
-                  <ellipse cx="70" cy="50" rx="46" ry="18"/>
-                  <ellipse cx="104" cy="44" rx="26" ry="15"/>
-                  <ellipse cx="40" cy="48" rx="24" ry="13"/>
-                </svg>
-              </motion.div>
-              
-              <motion.div 
-                animate={{ x: [-1000, 1000] }} 
-                transition={{ duration: 45, repeat: Infinity, ease: "linear", delay: 5 }}
-                className="absolute top-[5%] left-[20%] scale-110 opacity-80"
-              >
-                <svg width="180" height="90" viewBox="0 0 150 100" fill="#ffffff">
-                  <ellipse cx="50" cy="50" rx="30" ry="14"/>
-                  <ellipse cx="70" cy="44" rx="18" ry="11"/>
-                </svg>
-              </motion.div>
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[10%] right-[15%] md:right-[20%] w-24 h-24 md:w-32 md:h-32 bg-[#ffecd2] rounded-full blur-[4px] shadow-[0_0_60px_#ffecd2] pointer-events-none"
+      />
 
-           </div>
-         )}
-      </motion.div>
-
-      {/* Main 3D Billboard Container */}
-      <motion.div 
-        style={{ rotateX, rotateY }}
-        className="relative w-full max-w-[900px] p-6 transform-gpu z-10"
-      >
-        <div className="relative w-full aspect-[680/480]">
-          
-          {/* Billboard Frame & Support Structure (SVG) */}
-          <svg width="100%" height="100%" viewBox="0 0 680 480" className="absolute inset-0 z-0 drop-shadow-2xl pointer-events-none overflow-visible">
-            
-            {/* Flying Birds */}
-            <path d="M0 70 q8 -8 16 0 q8 -8 16 0" fill="none" stroke="#5b6670" strokeWidth="2" strokeLinecap="round" className="animate-[fly_16s_linear_infinite]" />
-            <path d="M0 105 q6 -6 12 0 q6 -6 12 0" fill="none" stroke="#5b6670" strokeWidth="1.6" strokeLinecap="round" className="animate-[fly_21s_linear_infinite] delay-[-6s]" />
-
-            {/* Leaves */}
-            <g transform="translate(600, 400)" className="animate-[sway_5s_ease-in-out_infinite_alternate] origin-[30px_30px]">
-              <path fill="#7fb069" d="M10 15 Q30 0 55 10 Q35 25 10 15Z"/>
-              <path fill="#7fb069" d="M5 35 Q28 25 48 38 Q26 48 5 35Z"/>
-            </g>
-
-            {/* Support Pillars & Struts */}
-            <rect x="330" y="345" width="20" height="135" rx="3" fill="#5b6670"/>
-            <line x1="340" y1="345" x2="100" y2="340" stroke="#5b6670" strokeWidth="4" strokeLinecap="round"/>
-            <line x1="340" y1="345" x2="580" y2="340" stroke="#5b6670" strokeWidth="4" strokeLinecap="round"/>
-            <rect x="90" y="336" width="500" height="9" rx="3" fill="#5b6670"/>
-
-            {/* Lights */}
-            <line x1="120" y1="150" x2="120" y2="128" stroke="#5b6670" strokeWidth="3"/>
-            <circle cx="120" cy="124" r="4" fill="#f2a54a" className="animate-[blink_1.6s_ease-in-out_infinite] shadow-[0_0_10px_#f2a54a]"/>
-            <line x1="560" y1="150" x2="560" y2="128" stroke="#5b6670" strokeWidth="3"/>
-            <circle cx="560" cy="124" r="4" fill="#f2a54a" className="animate-[blink_1.6s_ease-in-out_infinite] shadow-[0_0_10px_#f2a54a]" style={{animationDelay: '0.8s'}}/>
-
-            {/* Outer Frame */}
-            <rect x="70" y="150" width="540" height="190" rx="8" fill="#20242b"/>
-          </svg>
-
-          {/* HTML Overlay Panel (The actual billboard screen) */}
-          <div 
-            className="absolute rounded-sm overflow-hidden bg-gradient-to-br from-[#12151b] to-[#1a1e26] flex flex-col items-center justify-center shadow-[inset_0_0_50px_rgba(0,0,0,0.8)] pointer-events-auto"
-            style={{ 
-              left: '12.05%', 
-              top: '33.75%', 
-              width: '75.88%', 
-              height: '34.58%'
-            }}
-          >
-             {/* Screen Glare Overlay */}
-             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none z-10 mix-blend-overlay" />
-             
-             {/* Animated Grid Pattern */}
-             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none animate-[slide_10s_linear_infinite]" />
-             
-             {mounted && (
-               <div className="relative z-20 flex flex-col items-center justify-center w-full h-full p-4 md:p-6 lg:p-8">
-                 
-                 {/* Top Status */}
-                 <motion.div 
-                   initial={{ opacity: 0, y: 10 }}
-                   animate={{ opacity: 1, y: 0 }}
-                   transition={{ delay: 0.2, duration: 0.8 }}
-                   className="flex items-center gap-2 mb-1.5 md:mb-3"
-                 >
-                   <Code2 className="text-[#f2a54a] w-3 h-3 md:w-5 md:h-5 animate-pulse" />
-                   <span className="text-[#f2a54a] font-mono text-[8px] md:text-[10px] tracking-[0.2em] uppercase font-bold">
-                     System Architecture V2
-                   </span>
-                 </motion.div>
-                 
-                 {/* Main Title */}
-                 <motion.h1 
-                   initial={{ opacity: 0, scale: 0.95 }}
-                   animate={{ opacity: 1, scale: 1 }}
-                   transition={{ delay: 0.4, type: "spring" }}
-                   className="text-base md:text-2xl lg:text-3xl font-black text-white tracking-tight mb-1 md:mb-2 text-center"
-                 >
-                   SITE UNDER <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f2a54a] to-yellow-300">CONSTRUCTION</span>
-                 </motion.h1>
-                 
-                 {/* Subtitle */}
-                 <motion.p 
-                   initial={{ opacity: 0 }}
-                   animate={{ opacity: 1 }}
-                   transition={{ delay: 0.6 }}
-                   className="text-[#a7afba] text-[8px] md:text-xs text-center max-w-[85%] mb-3 md:mb-5 font-medium leading-relaxed"
-                 >
-                   We're currently building a next-generation experience. Compiling assets and establishing secure connections...
-                 </motion.p>
-                 
-                 {/* Premium Animated Progress Bar */}
-                 <div className="w-[85%] bg-gray-900 rounded-full h-1 md:h-1.5 border border-gray-700 p-[1px] relative overflow-hidden mb-3 md:mb-5">
-                    <motion.div 
-                       className="h-full bg-gradient-to-r from-[#f2a54a] via-yellow-400 to-[#f2a54a] rounded-full"
-                       initial={{ width: '0%', backgroundPosition: '0% 50%' }}
-                       animate={{ 
-                         width: ['0%', '100%', '0%'],
-                         backgroundPosition: ['100% 50%', '0% 50%'] 
-                       }}
-                       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                       style={{ backgroundSize: '200% 200%' }}
-                    />
-                 </div>
-
-                 {/* Interactive Action Button */}
-                 <motion.button 
-                   whileHover={{ scale: 1.05 }}
-                   whileTap={{ scale: 0.95 }}
-                   className="group flex items-center gap-1.5 md:gap-2 bg-white/5 hover:bg-white/10 border border-white/20 rounded-full px-3 py-1.5 md:px-5 md:py-2 text-[8px] md:text-[11px] font-semibold text-white transition-all backdrop-blur-sm shadow-[0_0_15px_rgba(242,165,74,0.15)] hover:shadow-[0_0_25px_rgba(242,165,74,0.4)] cursor-pointer"
-                   onClick={() => alert('Thanks for your interest! We will notify you when we launch.')}
-                 >
-                   <Hammer className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 text-[#f2a54a] group-hover:-rotate-12 transition-transform" />
-                   NOTIFY ME
-                   <ArrowRight className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 group-hover:translate-x-1 transition-transform" />
-                 </motion.button>
-
-               </div>
-             )}
-          </div>
+      {/* Floating Clouds */}
+      {mounted && (
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <Cloud top="15%" duration={45} delay={0} scale={1} opacity={0.6} />
+          <Cloud top="25%" duration={60} delay={-20} scale={0.7} opacity={0.4} />
+          <Cloud top="35%" duration={50} delay={-10} scale={1.2} opacity={0.5} />
         </div>
-      </motion.div>
-      
-      {/* Global Animations for SVG elements */}
-      <style>{`
-        @keyframes fly {
-          0% { transform: translate(-40px, 0); }
-          25% { transform: translate(160px, -10px); }
-          50% { transform: translate(360px, 4px); }
-          75% { transform: translate(560px, -8px); }
-          100% { transform: translate(760px, 0); }
-        }
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.2; }
-        }
-        @keyframes slide {
-          0% { transform: translateY(0); }
-          100% { transform: translateY(20px); }
-        }
-        @keyframes sway {
-          from { transform: rotate(-3deg); }
-          to { transform: rotate(3deg); }
-        }
-      `}</style>
-      
+      )}
+
+      {/* Main Billboard Scene */}
+      <div className="relative z-20 w-full max-w-[900px] mb-[18vh] md:mb-[22vh] px-4 md:px-8 flex justify-center">
+        
+        {/* Support Pillars */}
+        <div className="absolute -bottom-[25vh] left-[20%] md:left-[25%] w-6 md:w-8 h-[30vh] bg-[#3a3f47] border-l-4 border-[#2c2f33] rounded-t-sm shadow-xl" />
+        <div className="absolute -bottom-[25vh] right-[20%] md:right-[25%] w-6 md:w-8 h-[30vh] bg-[#3a3f47] border-l-4 border-[#2c2f33] rounded-t-sm shadow-xl" />
+        
+        {/* Catwalk Platform */}
+        <div className="absolute -bottom-3 md:-bottom-4 left-[10%] w-[80%] h-3 md:h-4 bg-[#2c2f33] border-t-2 border-[#4f5660] rounded-sm z-10 shadow-lg" />
+
+        {/* Billboard Frame */}
+        <motion.div 
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, type: "spring", bounce: 0.4 }}
+          className="relative w-full bg-[#2c2f33] p-3 md:p-5 rounded-xl md:rounded-2xl shadow-2xl border-b-[6px] md:border-b-8 border-[#1e2124]"
+        >
+          {/* Lo-Fi Cat on the Roof */}
+          <Cat />
+
+          {/* Top Frame Lights */}
+          <div className="absolute -top-3 md:-top-4 left-0 w-full flex justify-evenly px-10 z-0">
+             {[1, 2, 3, 4].map(i => (
+               <div key={i} className="flex flex-col items-center">
+                 <div className="w-4 h-2 md:w-6 md:h-3 bg-[#4f5660] rounded-t-sm"></div>
+                 <div className="w-1 md:w-1.5 h-2 md:h-3 bg-[#2c2f33]"></div>
+                 <div className="w-2 h-1 md:w-3 md:h-1.5 bg-[#f2a54a] rounded-full shadow-[0_2px_10px_#f2a54a] animate-pulse"></div>
+               </div>
+             ))}
+          </div>
+
+          {/* Inner Screen (Infogenic UI) */}
+          <div className="relative w-full aspect-[4/3] sm:aspect-[21/9] bg-[#fdfbf7] rounded-lg overflow-hidden flex flex-col sm:flex-row shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]">
+             
+             {/* Left Info Panel (Stats) */}
+             <div className="w-full sm:w-[35%] bg-[#f4eee1] border-b sm:border-b-0 sm:border-r border-[#e8dcc4] p-4 md:p-6 flex flex-col justify-between shrink-0">
+                
+                <div>
+                  <div className="flex items-center gap-2 text-[#8b7e6a] mb-2 md:mb-4">
+                    <Sparkles className="w-3 h-3 md:w-4 md:h-4" />
+                    <span className="text-[9px] md:text-xs font-bold tracking-[0.2em] uppercase">System Status</span>
+                  </div>
+                  <h2 className="text-xl md:text-2xl lg:text-3xl font-black text-[#5c5446] leading-none mb-1">
+                    BUILDING<br/>THE VIBE.
+                  </h2>
+                </div>
+                
+                <div className="bg-[#e8dcc4] rounded-lg p-3 md:p-4 mt-4 sm:mt-0 shadow-inner">
+                  <div className="text-[#8b7e6a] text-[9px] md:text-[10px] font-bold uppercase mb-1 tracking-wider">Local Time</div>
+                  <div className="text-[#5c5446] font-mono text-lg md:text-2xl font-black tracking-tight flex items-center gap-2">
+                    {mounted ? time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "00:00"}
+                    <motion.div animate={{ opacity: [1, 0, 1] }} transition={{ duration: 1, repeat: Infinity }} className="w-2 h-2 bg-green-500 rounded-full" />
+                  </div>
+                </div>
+
+             </div>
+
+             {/* Right Content Panel */}
+             <div className="w-full sm:w-[65%] p-5 md:p-8 flex flex-col justify-center relative">
+                
+                {/* Interactive Music Player Widget */}
+                <motion.div 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="absolute top-4 right-4 bg-white shadow-md border border-[#e8dcc4] rounded-full px-3 py-1.5 md:px-4 md:py-2 flex items-center gap-2 cursor-pointer z-10 group"
+                  onClick={() => setIsPlaying(!isPlaying)}
+                >
+                  <motion.div animate={isPlaying ? { rotate: 360 } : {}} transition={{ duration: 3, repeat: Infinity, ease: "linear" }}>
+                    <Music className="w-3 h-3 md:w-4 md:h-4 text-[#8b7e6a] group-hover:text-[#f2a54a] transition-colors" />
+                  </motion.div>
+                  <span className="text-[10px] md:text-xs font-bold text-[#8b7e6a] select-none">
+                    {isPlaying ? "Lo-Fi Beats" : "Paused"}
+                  </span>
+                  {isPlaying ? (
+                     <Pause className="w-3 h-3 text-[#8b7e6a] hidden group-hover:block" />
+                  ) : (
+                     <Play className="w-3 h-3 text-[#8b7e6a] hidden group-hover:block" />
+                  )}
+                </motion.div>
+
+                {/* Typography */}
+                <div className="flex items-center gap-2 mb-2">
+                  <Code className="w-4 h-4 text-[#f2a54a]" />
+                  <span className="text-[#f2a54a] font-bold text-[10px] uppercase tracking-widest">Under Construction</span>
+                </div>
+                
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-[#5c5446] mb-3 leading-tight">
+                  Quietly brewing <br/>something new.
+                </h1>
+                
+                <p className="text-[#8b7e6a] text-[10px] md:text-[13px] max-w-[90%] leading-relaxed mb-6 font-medium">
+                  We're taking a moment to rebuild and refresh our digital space. Grab a warm drink, enjoy the view, and check back soon.
+                </p>
+
+                {/* Smooth Progress Bar */}
+                <div className="w-full max-w-[85%] mt-auto">
+                  <div className="flex justify-between text-[9px] md:text-[10px] font-bold text-[#8b7e6a] mb-2 uppercase tracking-widest">
+                    <span>Installation Progress</span>
+                    <span>72%</span>
+                  </div>
+                  <div className="w-full h-2 md:h-3 bg-[#e8dcc4] rounded-full overflow-hidden shadow-inner">
+                    <motion.div 
+                      className="h-full bg-gradient-to-r from-[#ffb7b2] to-[#f2a54a]"
+                      initial={{ width: '0%' }}
+                      animate={{ width: '72%' }}
+                      transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
+                    />
+                  </div>
+                </div>
+
+                {/* Floating Coffee Icon */}
+                <motion.div 
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute bottom-6 right-8 text-[#e8dcc4]"
+                >
+                  <Coffee className="w-16 h-16 md:w-24 md:h-24 opacity-40 drop-shadow-sm" />
+                </motion.div>
+
+             </div>
+
+          </div>
+        </motion.div>
+      </div>
+
+      {/* The Layered Grassy Hills (Lo-Fi Landscape) */}
+      <div className="absolute bottom-0 w-full h-[25vh] md:h-[30vh] z-30 pointer-events-none overflow-hidden flex flex-col justify-end">
+        {/* Back Hill */}
+        <div className="absolute bottom-[-10vh] left-[-10%] w-[120%] h-[35vh] md:h-[40vh] bg-[#95d5b2] rounded-[50%_50%_0_0] shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" />
+        {/* Mid Hill */}
+        <div className="absolute bottom-[-5vh] left-[-20%] w-[80%] h-[25vh] md:h-[30vh] bg-[#74c69d] rounded-[50%_50%_0_0] shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" />
+        {/* Front Hill */}
+        <div className="absolute bottom-[-8vh] right-[-15%] w-[85%] h-[28vh] md:h-[35vh] bg-[#52b788] rounded-[50%_50%_0_0] shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" />
+      </div>
+
     </div>
   );
 };
