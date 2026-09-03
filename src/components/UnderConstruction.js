@@ -1,26 +1,88 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 
 const UnderConstruction = () => {
   return (
     <>
-      <Helmet>
-        <title>Site under construction</title>
-        <style>{`
-          body {
-            background: #eef8fc;
-            margin: 0;
-            padding: 0;
-          }
-          @media (prefers-color-scheme: dark){
-            body { background:#0d1b2a; }
-          }
-        `}</style>
-      </Helmet>
+      <style>{`
+        /* Reset and layout mimicking the original body styles */
+        .uc-container {
+          margin: 0;
+          padding: 0;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #eef8fc;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          width: 100%;
+        }
+        .uc-wrap {
+          width: 100%;
+          max-width: 900px;
+          padding: 24px;
+          box-sizing: border-box;
+        }
+        .uc-wrap svg { 
+          display: block; 
+          width: 100%; 
+          height: auto; 
+        }
+
+        /* Scene specific styles */
+        .scene .sky-top-stop { stop-color: #bfe4f7; }
+        .scene .sky-bottom-stop { stop-color: #eef8fc; }
+        .scene .cloud { fill: #ffffff; opacity: 0.95; }
+        .scene .leaf { fill: #7fb069; }
+        .scene .frame { fill: #20242b; }
+        .scene .panel { fill: #12151b; }
+        .scene .structure { fill: #5b6670; }
+        .scene .strut { stroke: #5b6670; }
+        .scene .text-main { fill: #f5f7fa; }
+        .scene .text-sub { fill: #a7afba; }
+        .scene .accent { fill: #f2a54a; }
+        .scene .track { fill: #232830; }
+        .scene .bird { stroke: #5b6670; }
+
+        @media (prefers-color-scheme: dark){
+          .uc-container { background: #0d1b2a; }
+          .scene .sky-top-stop { stop-color: #0d1b2a; }
+          .scene .sky-bottom-stop { stop-color: #1c2c3e; }
+          .scene .cloud { fill: #3d4c5e; opacity: 0.55; }
+          .scene .leaf { fill: #3f5d3a; }
+        }
+
+        /* Animations */
+        .cloud { animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-direction: alternate; }
+        .c1 { animation-name: drift1; animation-duration: 26s; }
+        .c2 { animation-name: drift2; animation-duration: 34s; }
+        .c3 { animation-name: drift3; animation-duration: 22s; }
+        .c4 { animation-name: drift1; animation-duration: 30s; }
+        
+        @keyframes drift1 { from { transform: translate(0, 0); } to { transform: translate(22px, -4px); } }
+        @keyframes drift2 { from { transform: translate(0, 0); } to { transform: translate(-18px, 3px); } }
+        @keyframes drift3 { from { transform: translate(0, 0); } to { transform: translate(16px, 4px); } }
+        
+        .leafgrp { transform-origin: 30px 30px; animation: sway 5s ease-in-out infinite alternate; }
+        @keyframes sway { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+        
+        .blink { animation: blink 1.6s ease-in-out infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+        
+        .bird { animation-name: fly; animation-timing-function: linear; animation-iteration-count: infinite; }
+        .b1 { animation-duration: 16s; }
+        .b2 { animation-duration: 21s; animation-delay: -6s; }
+        @keyframes fly { 
+          0% { transform: translate(-40px, 0); } 
+          25% { transform: translate(160px, -10px); } 
+          50% { transform: translate(360px, 4px); } 
+          75% { transform: translate(560px, -8px); } 
+          100% { transform: translate(760px, 0); } 
+        }
+      `}</style>
       
-      <div className="w-full min-h-screen flex flex-col items-center justify-center p-6 box-border" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-        <div className="w-full max-w-[900px]">
-          <svg width="100%" viewBox="0 0 680 480" xmlns="http://www.w3.org/2000/svg" role="img" className="scene w-full h-auto block">
+      <div className="uc-container">
+        <div className="uc-wrap">
+          <svg width="100%" viewBox="0 0 680 480" xmlns="http://www.w3.org/2000/svg" role="img" className="scene">
             <title>Website under construction billboard animation</title>
             <desc>An animated illustration of a roadside billboard against a blue sky with drifting clouds, showing a "site under construction" message with a pulsing loading indicator, an animated progress bar, and a small block tower building itself up.</desc>
             <defs>
@@ -29,43 +91,6 @@ const UnderConstruction = () => {
                 <stop className="sky-bottom-stop" offset="100%"/>
               </linearGradient>
               <clipPath id="trackClip"><rect x="228" y="290" width="300" height="10" rx="5"/></clipPath>
-              <style>{`
-                .scene .sky-top-stop{stop-color:#bfe4f7}
-                .scene .sky-bottom-stop{stop-color:#eef8fc}
-                .scene .cloud{fill:#ffffff;opacity:0.95}
-                .scene .leaf{fill:#7fb069}
-                .scene .frame{fill:#20242b}
-                .scene .panel{fill:#12151b}
-                .scene .structure{fill:#5b6670}
-                .scene .strut{stroke:#5b6670}
-                .scene .text-main{fill:#f5f7fa}
-                .scene .text-sub{fill:#a7afba}
-                .scene .accent{fill:#f2a54a}
-                .scene .track{fill:#232830}
-                .scene .bird{stroke:#5b6670}
-                @media (prefers-color-scheme: dark){
-                  .scene .sky-top-stop{stop-color:#0d1b2a}
-                  .scene .sky-bottom-stop{stop-color:#1c2c3e}
-                  .scene .cloud{fill:#3d4c5e;opacity:0.55}
-                  .scene .leaf{fill:#3f5d3a}
-                }
-                .cloud{animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-direction:alternate}
-                .c1{animation-name:drift1;animation-duration:26s}
-                .c2{animation-name:drift2;animation-duration:34s}
-                .c3{animation-name:drift3;animation-duration:22s}
-                .c4{animation-name:drift1;animation-duration:30s}
-                @keyframes drift1{from{transform:translate(0,0)}to{transform:translate(22px,-4px)}}
-                @keyframes drift2{from{transform:translate(0,0)}to{transform:translate(-18px,3px)}}
-                @keyframes drift3{from{transform:translate(0,0)}to{transform:translate(16px,4px)}}
-                .leafgrp{transform-origin:30px 30px;animation:sway 5s ease-in-out infinite alternate}
-                @keyframes sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
-                .blink{animation:blink 1.6s ease-in-out infinite}
-                @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-                .bird{animation-name:fly;animation-timing-function:linear;animation-iteration-count:infinite}
-                .b1{animation-duration:16s}
-                .b2{animation-duration:21s;animation-delay:-6s}
-                @keyframes fly{0%{transform:translate(-40px,0)}25%{transform:translate(160px,-10px)}50%{transform:translate(360px,4px)}75%{transform:translate(560px,-8px)}100%{transform:translate(760px,0)}}
-              `}</style>
             </defs>
 
             <rect x="0" y="0" width="680" height="480" fill="url(#skyGrad)"/>
@@ -116,7 +141,7 @@ const UnderConstruction = () => {
             <line className="strut" x1="120" y1="150" x2="120" y2="128" strokeWidth="3"/>
             <circle className="accent blink" cx="120" cy="124" r="4"/>
             <line className="strut" x1="560" y1="150" x2="560" y2="128" strokeWidth="3"/>
-            <circle className="accent blink" cx="560" cy="124" r="4" style={{animationDelay: '0.8s'}}/>
+            <circle className="accent blink" cx="560" cy="124" r="4" style={{ animationDelay: '0.8s' }}/>
 
             <rect className="frame" x="70" y="150" width="540" height="190" rx="8"/>
             <rect className="panel" x="82" y="162" width="516" height="166" rx="4"/>
@@ -158,7 +183,6 @@ const UnderConstruction = () => {
             <rect className="accent" x="228" y="290" width="90" height="10" rx="5" clipPath="url(#trackClip)">
               <animate attributeName="x" values="128;528" dur="2.6s" repeatCount="indefinite"/>
             </rect>
-
           </svg>
         </div>
       </div>
