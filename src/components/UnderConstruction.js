@@ -431,11 +431,11 @@ const UnderConstruction = () => {
       <AnimatePresence>{showRainbow && <Rainbow key="rainbow" />}</AnimatePresence>
 
       {/* ═══ BILLBOARD ═══ */}
-      <div className="relative z-20 w-full max-w-[900px] mb-[14vh] md:mb-[18vh] px-4 md:px-8 flex justify-center">
+      <div className="relative z-20 w-full max-w-[900px] mb-[18vh] md:mb-[20vh] px-4 md:px-8 flex justify-center">
         {/* Pillars */}
-        <div className="absolute -bottom-[22vh] left-[22%] md:left-[27%] w-5 md:w-6 h-[26vh] rounded-t-sm shadow-xl transition-colors duration-1000"
+        <div className="absolute -bottom-[22vh] md:-bottom-[26vh] left-[22%] md:left-[27%] w-5 md:w-6 h-[26vh] md:h-[30vh] rounded-t-sm shadow-xl transition-colors duration-1000"
           style={{ background: isDark ? 'linear-gradient(180deg,#1f2937,#111827)' : 'linear-gradient(180deg,#3a3f47,#2c2f33)' }} />
-        <div className="absolute -bottom-[22vh] right-[22%] md:right-[27%] w-5 md:w-6 h-[26vh] rounded-t-sm shadow-xl transition-colors duration-1000"
+        <div className="absolute -bottom-[22vh] md:-bottom-[26vh] right-[22%] md:right-[27%] w-5 md:w-6 h-[26vh] md:h-[30vh] rounded-t-sm shadow-xl transition-colors duration-1000"
           style={{ background: isDark ? 'linear-gradient(180deg,#1f2937,#111827)' : 'linear-gradient(180deg,#3a3f47,#2c2f33)' }} />
         {/* Catwalk */}
         <div className="absolute -bottom-3 left-[8%] w-[84%] h-3 rounded-sm z-10 shadow-lg transition-colors duration-1000"
@@ -455,27 +455,27 @@ const UnderConstruction = () => {
           <Cat isDark={isDark} isAwake={catAwake} isPlaying={isPlaying} />
 
           {/* Screen */}
-          <div className="relative w-full aspect-[4/3] sm:aspect-[21/9] rounded-lg overflow-hidden flex flex-col sm:flex-row transition-colors duration-1000"
+          <div className="relative w-full h-auto sm:aspect-[21/9] rounded-lg overflow-hidden flex flex-col sm:flex-row transition-colors duration-1000"
             style={{
               backgroundColor: isDark ? '#1e2433' : '#fdfbf7',
               boxShadow: `inset 0 0 25px ${isDark ? 'rgba(0,0,0,0.25)' : 'rgba(0,0,0,0.04)'}`
             }}>
 
             {/* Left Panel */}
-            <div className="w-full sm:w-[36%] border-b sm:border-b-0 sm:border-r p-4 md:p-6 flex flex-col justify-between shrink-0 transition-colors duration-1000"
+            <div className="w-full sm:w-[36%] border-b sm:border-b-0 sm:border-r p-5 md:p-6 flex flex-col justify-between shrink-0 transition-colors duration-1000"
               style={{ backgroundColor: isDark ? '#252d3d' : '#f4eee1', borderColor: isDark ? '#334155' : '#e8dcc4' }}>
               <div>
                 <div className={`flex items-center gap-2 mb-3 ${isDark ? 'text-gray-400' : 'text-[#8b7e6a]'}`}>
                   <Activity className="w-3 h-3 md:w-4 md:h-4" />
                   <span className="text-[9px] md:text-xs font-bold tracking-[0.2em] uppercase">Status</span>
                 </div>
-                <h2 className={`text-lg md:text-2xl lg:text-[28px] font-black leading-[1.1] ${isDark ? 'text-white' : 'text-[#4a4539]'}`}>
+                <h2 className={`text-xl md:text-2xl lg:text-[28px] font-black leading-[1.1] ${isDark ? 'text-white' : 'text-[#4a4539]'}`}>
                   SITE UNDER<br />CONSTRUCTION.
                 </h2>
               </div>
 
               {/* Clock + Interactions */}
-              <div className="flex flex-col gap-2 mt-4 sm:mt-0">
+              <div className="flex flex-col gap-2 mt-5 sm:mt-0">
                 <div className={`rounded-lg p-3 transition-colors duration-1000 ${isDark ? 'bg-[#1a2030]' : 'bg-[#e8dcc4]'}`}
                   style={{ boxShadow: `inset 0 1px 3px ${isDark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.05)'}` }}>
                   <div className={`text-[8px] md:text-[9px] font-bold uppercase tracking-wider ${isDark ? 'text-gray-500' : 'text-[#8b7e6a]'}`}>Local Time</div>
@@ -496,9 +496,9 @@ const UnderConstruction = () => {
             </div>
 
             {/* Right Panel */}
-            <div className="w-full sm:w-[64%] p-5 md:p-8 flex flex-col justify-center relative">
+            <div className="w-full sm:w-[64%] p-6 md:p-8 flex flex-col justify-center relative min-h-[220px]">
               {/* Music Widget */}
-              <div className="absolute top-3 right-3 z-30"
+              <div className="absolute top-4 right-4 z-30"
                 onMouseEnter={() => setShowControls(true)} onMouseLeave={() => setShowControls(false)}>
                 <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} onClick={toggleMusic}
                   className={`rounded-full px-3 py-1.5 flex items-center gap-2 cursor-pointer border shadow-sm backdrop-blur-sm transition-colors duration-500
@@ -548,7 +548,7 @@ const UnderConstruction = () => {
               </div>
 
               {/* Content */}
-              <div className={`flex items-center gap-2 mb-2 ${isDark ? 'text-amber-400' : 'text-[#f2a54a]'}`}>
+              <div className={`flex items-center gap-2 mt-4 sm:mt-0 mb-3 ${isDark ? 'text-amber-400' : 'text-[#f2a54a]'}`}>
                 <div className="w-4 h-4 rounded-full border-2 border-current flex items-center justify-center">
                   <div className="w-1.5 h-1.5 rounded-full bg-current" />
                 </div>
@@ -558,7 +558,7 @@ const UnderConstruction = () => {
               <h1 className={`text-xl md:text-2xl lg:text-3xl font-extrabold mb-3 leading-[1.15] transition-colors duration-1000 ${isDark ? 'text-white' : 'text-[#4a4539]'}`}>
                 We are currently rebuilding<br className="hidden sm:block" /> our website.
               </h1>
-              <p className={`text-[11px] md:text-[13px] max-w-[92%] leading-relaxed mb-5 font-medium transition-colors duration-1000 ${isDark ? 'text-gray-400' : 'text-[#8b7e6a]'}`}>
+              <p className={`text-[12px] md:text-[13px] max-w-[92%] leading-relaxed mb-6 font-medium transition-colors duration-1000 ${isDark ? 'text-gray-400' : 'text-[#8b7e6a]'}`}>
                 Our team is crafting a better experience. Grab some coffee and explore the world while you wait.
               </p>
 
@@ -581,12 +581,12 @@ const UnderConstruction = () => {
       </div>
 
       {/* ═══ HILLS ═══ */}
-      <div className="absolute bottom-0 w-full h-[28vh] md:h-[32vh] z-30 pointer-events-none overflow-hidden">
-        <div className="absolute bottom-[-12vh] left-[-10%] w-[125%] h-[38vh] md:h-[44vh] rounded-[50%_50%_0_0] transition-colors duration-1000"
+      <div className="absolute bottom-0 w-full h-[24vh] md:h-[32vh] z-30 pointer-events-none overflow-hidden">
+        <div className="absolute bottom-[-10vh] left-[-10%] w-[125%] h-[32vh] md:h-[44vh] rounded-[50%_50%_0_0] transition-colors duration-1000"
           style={{ backgroundColor: isDark ? '#064e3b' : '#95d5b2' }} />
-        <div className="absolute bottom-[-6vh] left-[-20%] w-[85%] h-[28vh] md:h-[34vh] rounded-[50%_50%_0_0] transition-colors duration-1000"
+        <div className="absolute bottom-[-5vh] left-[-20%] w-[85%] h-[24vh] md:h-[34vh] rounded-[50%_50%_0_0] transition-colors duration-1000"
           style={{ backgroundColor: isDark ? '#065f46' : '#74c69d' }} />
-        <div className="absolute bottom-[-9vh] right-[-15%] w-[90%] h-[32vh] md:h-[38vh] rounded-[50%_50%_0_0] transition-colors duration-1000"
+        <div className="absolute bottom-[-7vh] right-[-15%] w-[90%] h-[28vh] md:h-[38vh] rounded-[50%_50%_0_0] transition-colors duration-1000"
           style={{ backgroundColor: isDark ? '#047857' : '#52b788' }} />
       </div>
 
