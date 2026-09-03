@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Coffee, Activity, AlertCircle } from 'lucide-react';
+import { Coffee, Activity, AlertCircle, Music, Play, Pause } from 'lucide-react';
 
 const Cat = ({ isDark }) => (
   <div className="absolute -top-[35px] md:-top-[45px] left-[15%] cursor-pointer group z-20">
@@ -53,6 +53,8 @@ const UnderConstruction = () => {
   const [time, setTime] = useState(new Date());
   const [mounted, setMounted] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     setMounted(true);
@@ -80,6 +82,17 @@ const UnderConstruction = () => {
     };
   }, []);
 
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play().catch(err => console.log("Audio play failed:", err));
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
     <div 
       className="relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-end font-sans select-none transition-colors duration-1000"
@@ -89,6 +102,14 @@ const UnderConstruction = () => {
           : 'linear-gradient(to bottom, #bfe4f7, #eef8fc)' // Bright Morning Sky
       }}
     >
+      
+      {/* Hidden Audio Element */}
+      <audio 
+        ref={audioRef} 
+        src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" 
+        loop 
+        preload="auto"
+      />
       
       {/* Sun / Moon */}
       <motion.div 
@@ -191,6 +212,26 @@ const UnderConstruction = () => {
              {/* Right Content Panel */}
              <div className="w-full sm:w-[65%] p-5 md:p-8 flex flex-col justify-center relative">
                 
+                {/* Interactive Music Player Widget */}
+                <motion.div 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`absolute top-4 right-4 shadow-md border rounded-full px-3 py-1.5 md:px-4 md:py-2 flex items-center gap-2 cursor-pointer z-10 group transition-colors duration-1000 ${isDark ? 'bg-[#374151] border-[#4b5563] hover:bg-[#4b5563]' : 'bg-white border-[#e8dcc4] hover:bg-[#fdfbf7]'}`}
+                  onClick={toggleMusic}
+                >
+                  <motion.div animate={isPlaying ? { rotate: 360 } : {}} transition={{ duration: 3, repeat: Infinity, ease: "linear" }}>
+                    <Music className={`w-3 h-3 md:w-4 md:h-4 transition-colors ${isDark ? 'text-gray-300 group-hover:text-white' : 'text-[#8b7e6a] group-hover:text-[#f2a54a]'}`} />
+                  </motion.div>
+                  <span className={`text-[10px] md:text-xs font-bold select-none transition-colors ${isDark ? 'text-gray-300' : 'text-[#8b7e6a]'}`}>
+                    {isPlaying ? "Playing Music" : "Play Music"}
+                  </span>
+                  {isPlaying ? (
+                     <Pause className={`w-3 h-3 hidden group-hover:block transition-colors ${isDark ? 'text-gray-300' : 'text-[#8b7e6a]'}`} />
+                  ) : (
+                     <Play className={`w-3 h-3 hidden group-hover:block transition-colors ${isDark ? 'text-gray-300' : 'text-[#8b7e6a]'}`} />
+                  )}
+                </motion.div>
+
                 {/* Clean Typography */}
                 <div className="flex items-center gap-2 mb-2">
                   <AlertCircle className="w-4 h-4 text-[#f2a54a]" />
