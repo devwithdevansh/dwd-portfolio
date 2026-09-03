@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { Coffee, Activity, AlertCircle, Music, Play, Pause } from 'lucide-react';
 
 const Cat = ({ isDark }) => (
-  <div className="absolute -top-[35px] md:-top-[45px] left-[15%] cursor-pointer group z-20">
-    <svg viewBox="0 0 100 50" className="w-16 md:w-20 h-auto drop-shadow-lg">
+  <div className="absolute bottom-[calc(100%-2px)] left-[15%] cursor-pointer group z-20">
+    <svg viewBox="0 0 120 50" className="w-20 md:w-24 h-auto drop-shadow-lg overflow-visible">
        {/* Body */}
        <path d="M 20 50 Q 20 25 50 25 L 70 25 Q 90 25 90 50 Z" fill={isDark ? "#121417" : "#2c2f33"} />
        {/* Ears */}
@@ -22,14 +22,14 @@ const Cat = ({ isDark }) => (
     <motion.div 
       animate={{ opacity: [0, 1, 0], y: [-5, -20], x: [0, 10] }}
       transition={{ duration: 3, repeat: Infinity, ease: "easeOut" }}
-      className={`absolute -top-4 right-0 font-bold text-xs ${isDark ? 'text-gray-400' : 'text-[#2c2f33]'}`}
+      className={`absolute top-0 right-4 font-bold text-xs ${isDark ? 'text-gray-400' : 'text-[#2c2f33]'}`}
     >
       z
     </motion.div>
     <motion.div 
       animate={{ opacity: [0, 1, 0], y: [-5, -25], x: [0, 15] }}
       transition={{ duration: 3, repeat: Infinity, ease: "easeOut", delay: 1 }}
-      className={`absolute -top-6 right-2 font-bold text-sm ${isDark ? 'text-gray-400' : 'text-[#2c2f33]'}`}
+      className={`absolute -top-2 right-6 font-bold text-sm ${isDark ? 'text-gray-400' : 'text-[#2c2f33]'}`}
     >
       Z
     </motion.div>
