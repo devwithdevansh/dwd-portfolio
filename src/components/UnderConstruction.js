@@ -4,8 +4,8 @@ import { Coffee, Activity, AlertCircle, Music, Play, Pause, Volume2 } from 'luci
 
 const TRACKS = [
   { name: "Lofi Study", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" },
-  { name: "Chill Vibes", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b817cfbd.mp3?filename=chill-abstract-intention-116199.mp3" },
-  { name: "Empty Mind", url: "https://cdn.pixabay.com/download/audio/2022/11/22/audio_febc508520.mp3?filename=empty-mind-118973.mp3" }
+  { name: "Chill Vibes", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+  { name: "Empty Mind", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" }
 ];
 
 const Cat = ({ isDark }) => (
